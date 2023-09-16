@@ -14,4 +14,9 @@ class Pasien extends Model
         return \Database\Factories\PasienFactory::new();
     }
 
+    public function rekamMedis()
+    {
+        return $this->hasMany(RekamMedis::class, 'pasien_id');
+    }
+
 }

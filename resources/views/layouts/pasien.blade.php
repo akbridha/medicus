@@ -25,8 +25,8 @@
 
                     <td style="width: 150px;">
 
-                        <a href="{{ $pasien->id }}" class="btn btn-primary">Detail</a>
-                        <a href="{{  $pasien->id }}" class="btn btn-danger">Edit</a>
+                        <a href="{{ route('rm.show', ['id' =>$pasien->id ]) }}" class="btn btn-primary">Detail</a>
+                        {{-- <a href="{{  $pasien->id }}" class="btn btn-danger">Edit</a> --}}
                     </td>
                 </tr>
                 @endforeach

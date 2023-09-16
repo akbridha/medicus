@@ -17,17 +17,10 @@ class PasienFactory extends Factory
     public function definition()
     {
         $faker = \Faker\Factory::create('id_ID'); // Gunakan locale 'id_ID' untuk data dalam bahasa Indonesia
-
-
         self::$lastNomorUrut++;
-
-
         $formattedNomor = str_pad(self::$lastNomorUrut, 4, '0', STR_PAD_LEFT);
         $formattedNomor = substr_replace($formattedNomor, "-", 2, 0);
         // $formattedNomor = substr($formattedNomor, 0, 2) . '-' . substr($formattedNomor, 2);
-
-
-
       return [
           'NIK' => $faker->numerify('################'), // 16 digit angka
             'NBL' => $formattedNomor,
