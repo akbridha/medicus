@@ -22,7 +22,7 @@ class PasienController extends Controller
      */
     public function create()
     {
-        //
+        return view("layouts.insertPasien");
     }
 
     /**

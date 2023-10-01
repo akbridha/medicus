@@ -4,6 +4,8 @@
 <div class="container">
     <h1>Daftar Pasien</h1>
 
+
+    <a href="{{route('pasien.create')}}" class="btn btn-success mb 4 float-right">Tambah</a>
     <div class="table-responsive">
 
         <table class="table table-bordered">
