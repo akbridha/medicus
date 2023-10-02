@@ -31,7 +31,7 @@ class PasienController extends Controller
     {
 
         // return $request;
-        // try {
+        try {
             Pasien::create([
                 'NIK' => $request->input('NIK'),
                 'NBL' => $request->input('NBL'),
@@ -41,13 +41,12 @@ class PasienController extends Controller
                 'Alamat' => $request->input('Alamat'),
                 'Nomor_BPJS' => $request->input('Nomor_BPJS'),
                 'Jenis_Kelamin' => $request->input('Jenis_Kelamin'),
-                'Pekerjaan' => $request->input('Pekerjaan'),
+                'Pekerjaan' => $request->input('Pekerjaan')?? 'Swasta',
             ]);
-
-            return "berhasil"; // Data berhasil disimpan
-        // } catch (\Exception $e) {
-        //     return "gagal memasukkan data"; // Terjadi kesalahan saat memasukkan data
-        // }
+            return redirect()->route('pasien.index')->with('key', 'Berhasil');
+        } catch (\Exception $e) {
+            return redirect()->route('pasien.index')->with('key', $e->getMessage());
+        }
 
     }
 

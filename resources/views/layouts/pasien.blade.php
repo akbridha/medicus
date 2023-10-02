@@ -5,7 +5,23 @@
     <h1>Daftar Pasien</h1>
 
 
-    <a href="{{route('pasien.create')}}" class="btn btn-success mb 4 float-right">Tambah</a>
+    @if (session('key')== 'Berhasil')
+
+        <div class="alert alert-success">
+            Berhasil Menambahkan Data
+        </div>
+    @else
+        <div class="alert alert-danger">
+           Gagal
+        </div>
+        <div class="alert alert-danger">
+           {{ session('key') }}
+        </div>
+
+    @endif
+
+
+    <a href="{{route('pasien.create')}}" class="btn btn-success mb-4 float-right">Tambah</a>
     <div class="table-responsive">
 
         <table class="table table-bordered">
