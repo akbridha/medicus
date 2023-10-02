@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pasien;
-use App\Http\Requests\StorePasienRequest;
-use App\Http\Requests\UpdatePasienRequest;
+use Illuminate\Http\Request ;
 
 class PasienController extends Controller
 {
@@ -28,9 +27,28 @@ class PasienController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StorePasienRequest $request)
+    public function store(Request $request)
     {
-        //
+
+        // return $request;
+        // try {
+            Pasien::create([
+                'NIK' => $request->input('NIK'),
+                'NBL' => $request->input('NBL'),
+                'Nama' => $request->input('Nama'),
+                'Tanggal_lahir' => $request->input('Tanggal_lahir'),
+                'Umur' => $request->input('Umur'),
+                'Alamat' => $request->input('Alamat'),
+                'Nomor_BPJS' => $request->input('Nomor_BPJS'),
+                'Jenis_Kelamin' => $request->input('Jenis_Kelamin'),
+                'Pekerjaan' => $request->input('Pekerjaan'),
+            ]);
+
+            return "berhasil"; // Data berhasil disimpan
+        // } catch (\Exception $e) {
+        //     return "gagal memasukkan data"; // Terjadi kesalahan saat memasukkan data
+        // }
+
     }
 
     /**
@@ -52,7 +70,7 @@ class PasienController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatePasienRequest $request, Pasien $pasien)
+    public function update(Request $request, Pasien $pasien)
     {
         //
     }

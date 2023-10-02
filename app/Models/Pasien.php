@@ -9,6 +9,19 @@ class Pasien extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'NIK',
+        'NBL',
+        'Nama',
+        'Tanggal_lahir',
+        'Umur',
+        'Alamat',
+        'Nomor_BPJS',
+        'Jenis_Kelamin',
+        'Pekerjaan',
+    ];
+
+
     protected static function newFactory()
     {
         return \Database\Factories\PasienFactory::new();
