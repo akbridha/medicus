@@ -29,4 +29,5 @@ Route::post('pasien/store', [PasienController::class, 'store'])->name('pasien.st
 
 Route::get('/rm', [RekamMedisController::class, 'index'])->name('rm.index');
 Route::post('/rm/create', [RekamMedisController::class, 'create'])->name('rm.create');
+Route::post('/rm/store', [RekamMedisController::class, 'store'])->name('rm.store');
 Route::get('/rm/show/{id}', [RekamMedisController::class, 'show'])->name('rm.show');

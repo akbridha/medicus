@@ -9,6 +9,16 @@ class RekamMedis extends Model
 {
     use HasFactory;
 
+
+
+    protected $fillable = [
+
+        'pasien_id' ,
+        'tanggal' ,
+        'pemeriksaan' ,
+        'diagnosa'
+    ];
+
     public function pasien()
     {
         return $this->belongsTo(Pasien::class, 'pasien_id');

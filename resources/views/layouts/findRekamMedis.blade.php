@@ -3,6 +3,32 @@
 @section('content')
 <div class="container">
     <h1>Rekam Medis Pasien</h1>
+
+
+    @if (session()->has('key'))
+
+
+        @if (session('key')== 'Berhasil')
+
+        <div class="alert alert-success">
+            Berhasil Menambahkan Data
+        </div>
+        @else
+        <div class="alert alert-danger">
+            Gagal
+        </div>
+        <div class="alert alert-danger">
+            {{ session('key') }}
+        </div>
+
+        @endif
+
+        @php
+                session()->forget('key');
+        @endphp
+@endif
+
+
     <div class="container">
         <div class="row">
             <!-- Kolom Kiri dengan Garis Tebal -->

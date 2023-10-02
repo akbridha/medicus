@@ -33,9 +33,22 @@ class RekamMedisController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreRekamMedisRequest $request)
+    public function store(Request $request)
     {
-        //
+        try {
+            RekamMedis::create([
+                'pasien_id' => $request->input('pasien_id'),
+                'tanggal' => $request->input('tanggal'),
+                'pemeriksaan' => $request->input('pemeriksaan'),
+                'diagnosa' => $request->input('diagnosa'),
+            ]);
+            return redirect()->route('rm.show', [$request->input('pasien_id') ])->with('key', 'Berhasil');
+        } catch (\Exception $e) {
+            return redirect()->route('rm.show', [$request->input('pasien_id') ])->with('key', $e->getMessage());
+        }
+
+
+
     }
 
     /**

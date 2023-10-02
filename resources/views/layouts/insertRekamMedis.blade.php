@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <h2>Tambah Data Rekam Medis</h2>
-    <form method="POST" action=" ">
+    <form method="POST" action="{{ route('rm.store') }}">
         @csrf
         <div class="form-group">
             <label for="pasien_id">ID Pasien:</label>

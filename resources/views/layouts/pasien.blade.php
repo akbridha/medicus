@@ -53,9 +53,9 @@
                         <form method="POST" action="{{ route('rm.create') }}">
                             @csrf
                              <input type="hidden" name="id_pasien" value={{ $pasien->id }}>
-                            <button type="submit" class="btn btn-info mb-2">Kunjungan</button>
+                            <button type="submit" class="btn btn-info mb-2">Kunjungan Baru</button>
                         </form>
-                        <a href="{{ route('rm.show', ['id' =>$pasien->id ]) }}" class="btn btn-primary">Detail</a>
+                        <a href="{{ route('rm.show', ['id' =>$pasien->id ]) }}" class="btn btn-primary">Riwayat</a>
                     </td>
                 </tr>
                 @endforeach
