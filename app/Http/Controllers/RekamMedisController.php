@@ -6,6 +6,7 @@ use App\Models\RekamMedis;
 use App\Http\Requests\StoreRekamMedisRequest;
 use App\Http\Requests\UpdateRekamMedisRequest;
 use App\Models\Pasien;
+use Illuminate\Http\Request;
 
 class RekamMedisController extends Controller
 {
@@ -21,9 +22,12 @@ class RekamMedisController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
         //
+
+        // return $request;
+        return view('layouts.insertRekamMedis', compact('request'));
     }
 
     /**

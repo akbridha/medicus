@@ -5,21 +5,29 @@
     <h1>Daftar Pasien</h1>
 
 
-    @if (session('key')== 'Berhasil')
+@if (session()->has('key'))
 
-        <div class="alert alert-success">
-            Berhasil Menambahkan Data
-        </div>
-    @else
-        <div class="alert alert-danger">
-           Gagal
-        </div>
-        <div class="alert alert-danger">
-           {{ session('key') }}
-        </div>
 
-    @endif
+@if (session('key')== 'Berhasil')
 
+<div class="alert alert-success">
+    Berhasil Menambahkan Data
+</div>
+@else
+<div class="alert alert-danger">
+    Gagal
+</div>
+<div class="alert alert-danger">
+    {{ session('key') }}
+</div>
+
+@endif
+
+@php
+        session()->forget('key');
+@endphp
+
+@endif
 
     <a href="{{route('pasien.create')}}" class="btn btn-success mb-4 float-right">Tambah</a>
     <div class="table-responsive">
@@ -42,9 +50,12 @@
                     <td>{{ $pasien->Alamat }}</td>
 
                     <td style="width: 150px;">
-
+                        <form method="POST" action="{{ route('rm.create') }}">
+                            @csrf
+                             <input type="hidden" name="id_pasien" value={{ $pasien->id }}>
+                            <button type="submit" class="btn btn-info mb-2">Kunjungan</button>
+                        </form>
                         <a href="{{ route('rm.show', ['id' =>$pasien->id ]) }}" class="btn btn-primary">Detail</a>
-                        {{-- <a href="{{  $pasien->id }}" class="btn btn-danger">Edit</a> --}}
                     </td>
                 </tr>
                 @endforeach

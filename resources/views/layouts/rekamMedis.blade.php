@@ -14,6 +14,7 @@
                     <th>Tanggal</th>
                     <th>Pemeriksaan</th>
                     <th>Dignosis</th>
+                    <th></th>
 
                 </tr>
             </thead>
@@ -27,7 +28,7 @@
 
 
                     <td>
-                        <a href="{{ $rm->id }}" class="btn btn-primary">Detail</a>
+                        <a href="{{ $rm->id }}" class="btn btn-primary mb-2">Detail</a>
                         <a href="{{  $rm->id }}" class="btn btn-danger">Edit</a>
                     </td>
                 </tr>

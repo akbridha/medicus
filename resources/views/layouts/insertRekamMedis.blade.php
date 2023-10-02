@@ -1,55 +1,28 @@
-
-
-
-@extends('header') <!-- Anda perlu mengganti 'layouts.app' sesuai dengan layout Anda -->
+@extends('header')
 
 @section('content')
 <div class="container">
-    <h1>Rekam Medis Pasien</h1>
-    <div class="container">
-        <div class="row">
-            <!-- Kolom Kiri dengan Garis Tebal -->
-            <div class="col-md-1 border-right">
-                <p><strong>Nama: </strong></p>
+    <h2>Tambah Data Rekam Medis</h2>
+    <form method="POST" action=" ">
+        @csrf
+        <div class="form-group">
+            <label for="pasien_id">ID Pasien:</label>
+            <input type="text" class="form-control" id="pasien_id" name="pasien_id" value={{ $request->id_pasien }} readonly>
 
-            </div>
-            <!-- Kolom Kanan -->
-            <div class="col-md-6">
-               <p>Semua Rekam Medis</p>
-
-            </div>
         </div>
-    </div>
-
-
-    <div class="table-responsive">
-
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Tanggal</th>
-                    <th>Pemeriksaan</th>
-                    <th>Dignosis</th>
-
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($rekamMedises as $rm)
-                <tr>
-
-                    <td style="width: 130px;">{{ $rm->tanggal}}</td>
-                    <td>{{ $rm->pemeriksaan }}</td>
-                    <td>{{ $rm->diagnosa }}</td>
-
-
-
-                        {{-- <a href="{{ $rm->id }}" class="btn btn-primary">Detail</a>
-                        <a href="{{  $rm->id }}" class="btn btn-danger">Edit</a> --}}
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
+        <div class="form-group">
+            <label for="tanggal">Tanggal:</label>
+            <input type="date" class="form-control" id="tanggal" name="tanggal">
+        </div>
+        <div class="form-group">
+            <label for="pemeriksaan">Pemeriksaan:</label>
+            <input type="text" class="form-control" id="pemeriksaan" name="pemeriksaan">
+        </div>
+        <div class="form-group">
+            <label for="diagnosa">Diagnosa:</label>
+            <textarea class="form-control" id="diagnosa" name="diagnosa"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Simpan</button>
+    </form>
 </div>
 @endsection
