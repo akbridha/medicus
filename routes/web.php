@@ -26,6 +26,8 @@ Route::get('/', function () {
 Route::get('pasien', [PasienController::class, 'index'])->name('pasien.index');
 Route::get('pasien/create', [PasienController::class, 'create'])->name('pasien.create');
 Route::post('pasien/store', [PasienController::class, 'store'])->name('pasien.store');
+Route::get('/cari', [PasienController::class,'find' ])->name('cari');
+
 
 Route::get('/rm', [RekamMedisController::class, 'index'])->name('rm.index');
 Route::post('/rm/create', [RekamMedisController::class, 'create'])->name('rm.create');

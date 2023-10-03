@@ -27,8 +27,7 @@ class PasienController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request)    {
 
         // return $request;
         try {
@@ -46,16 +45,18 @@ class PasienController extends Controller
             return redirect()->route('pasien.index')->with('key', 'Berhasil');
         } catch (\Exception $e) {
             return redirect()->route('pasien.index')->with('key', $e->getMessage());
-        }
-
-    }
+        } }
 
     /**
      * Display the specified resource.
      */
-    public function show(Pasien $pasien)
-    {
-        //
+    public function find(Request $request) {
+        $kataKunci = $request->input('kata_kunci');
+
+        // Mencari data dengan kata kunci pencarian
+        $pasiens = Pasien::where('Nama', 'like', '%' . $kataKunci . '%')->get();
+
+        return view('layouts.pasien',compact('pasiens'));
     }
 
     /**

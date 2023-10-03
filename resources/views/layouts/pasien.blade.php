@@ -30,6 +30,10 @@
 @endif
 
     <a href="{{route('pasien.create')}}" class="btn btn-success mb-4 float-right">Tambah</a>
+    <form method="GET" action="{{ route('cari') }}">
+        <input type="text" name="kata_kunci" placeholder="Cari...">
+        <button type="submit">Cari</button>
+    </form>
     <div class="table-responsive">
 
         <table class="table table-bordered">
