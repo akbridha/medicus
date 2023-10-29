@@ -56,7 +56,7 @@
                     <td style="width: 150px;">
                         <form method="POST" action="{{ route('rm.create') }}">
                             @csrf
-                             <input type="hidden" name="id_pasien" value={{ $pasien->id }}>
+                            <input type="hidden" name="id_pasien" value={{ $pasien->id }}>
                             <button type="submit" class="btn btn-info mb-2">Kunjungan Baru</button>
                         </form>
                         <a href="{{ route('rm.show', ['id' =>$pasien->id ]) }}" class="btn btn-primary">Riwayat</a>

@@ -28,8 +28,8 @@
 
 
                     <td>
-                        <a href="{{ $rm->id }}" class="btn btn-primary mb-2">Detail</a>
-                        <a href="{{  $rm->id }}" class="btn btn-danger">Edit</a>
+                        <a href="#" class="btn btn-outline-secondary mb-2">Detail</a>
+                        <a href="#" class="btn btn-outline-secondary">Edit</a>
                     </td>
                 </tr>
                 @endforeach
