@@ -54,12 +54,21 @@
                     <td>{{ $pasien->Alamat }}</td>
 
                     <td style="width: 150px;">
+                        {{-- tombol kunjugna baru         --}}
                         <form method="POST" action="{{ route('rm.create') }}">
                             @csrf
                             <input type="hidden" name="id_pasien" value={{ $pasien->id }}>
                             <button type="submit" class="btn btn-info mb-2">Kunjungan Baru</button>
                         </form>
-                        <a href="{{ route('rm.show', ['id' =>$pasien->id ]) }}" class="btn btn-primary">Riwayat</a>
+                        {{-- tombol untuk ke halaman riwayat --}}
+                        <a href="{{ route('rm.show', ['id' =>$pasien->id ]) }}" class="btn btn-primary mb-3">Riwayat</a>
+                        {{-- tombol untuk ke halaman edit pasien --}}
+                        <form method="POST" action="#">
+                            @csrf
+                            <input type="hidden" name="id_pasien" value={{ $pasien->id }}>
+                            <button type="submit" class="btn btn-info mb-2">Edit Pasien</button>
+                        </form>
+
                     </td>
                 </tr>
                 @endforeach

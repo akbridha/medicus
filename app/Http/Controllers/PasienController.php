@@ -14,7 +14,7 @@ class PasienController extends Controller
     {
         // $pasiens = Pasien::all();
         $pasiens = Pasien::orderBy('created_at', 'desc')->get();
-        return view('layouts.pasien',compact('pasiens'));
+        return view('layouts.pasien.index',compact('pasiens'));
     }
 
     /**
@@ -65,7 +65,7 @@ class PasienController extends Controller
      */
     public function edit(Pasien $pasien)
     {
-        //
+        return view('layouts.pasien.pasien');
     }
 
     /**
