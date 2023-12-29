@@ -1,4 +1,8 @@
-@extends('header') <!-- Anda perlu mengganti 'layouts.app' sesuai dengan layout Anda -->
+{{-- @include("layouts.header") --}}
+@extends("layouts.header")
+{{-- @include("layouts.navbar") --}}
+@include("layouts.sidebar")
+{{-- @extends('header') <!-- Anda perlu mengganti 'layouts.app' sesuai dengan layout Anda --> --}}
 
 @section('content')
 <div class="container">
@@ -63,7 +67,7 @@
                         {{-- tombol untuk ke halaman riwayat --}}
                         <a href="{{ route('rm.show', ['id' =>$pasien->id ]) }}" class="btn btn-primary mb-3">Riwayat</a>
                         {{-- tombol untuk ke halaman edit pasien --}}
-                        <form method="POST" action="#">
+                        <form method="POST" action="{{route('pasien.edit')}}">
                             @csrf
                             <input type="hidden" name="id_pasien" value={{ $pasien->id }}>
                             <button type="submit" class="btn btn-info mb-2">Edit Pasien</button>
@@ -74,6 +78,10 @@
                 @endforeach
             </tbody>
         </table>
+
+        {{$pasiens ->links()}}
     </div>
 </div>
 @endsection
+
+

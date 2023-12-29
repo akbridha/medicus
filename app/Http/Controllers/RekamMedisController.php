@@ -16,13 +16,13 @@ class RekamMedisController extends Controller
     public function index()
     {
         $rekamMedises = RekamMedis::all();
-        return view('layouts.rekamMedis', compact('rekamMedises'));
+        return view('layouts.rm.rekamMedis', compact('rekamMedises'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request)
+     public function create(Request $request)
     {
         //
 

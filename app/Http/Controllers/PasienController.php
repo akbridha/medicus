@@ -13,7 +13,8 @@ class PasienController extends Controller
     public function index()
     {
         // $pasiens = Pasien::all();
-        $pasiens = Pasien::orderBy('created_at', 'desc')->get();
+        // $pasiens = Pasien::orderBy('created_at', 'desc')->get();
+        $pasiens = Pasien::orderBy('created_at', 'desc')->paginate(3);
         return view('layouts.pasien.index',compact('pasiens'));
     }
 
@@ -22,7 +23,7 @@ class PasienController extends Controller
      */
     public function create()
     {
-        return view("layouts.insertPasien");
+        return view('layouts.pasien.insertPasien');
     }
 
     /**
@@ -63,9 +64,11 @@ class PasienController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Pasien $pasien)
+    public function edit(Request $pasien)
     {
-        return view('layouts.pasien.pasien');
+
+        return $pasien;
+        // return view('layouts.pasien.pasien',compact('pasien'));
     }
 
     /**
