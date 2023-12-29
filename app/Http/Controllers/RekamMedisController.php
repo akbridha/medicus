@@ -60,7 +60,7 @@ class RekamMedisController extends Controller
             $rekamMedises = Pasien::find($id)->rekamMedis;
 
             if ($rekamMedises) {
-                return view('layouts.findRekamMedis', compact('rekamMedises'));
+                return view('layouts.rm.findRekamMedis', compact('rekamMedises'));
             } else {
                 // Handle ketika pasien tidak ditemukan
                 // Misalnya, dapat mengembalikan pesan error atau mengarahkan ke halaman lain.

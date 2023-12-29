@@ -27,7 +27,7 @@ Route::get('pasien', [PasienController::class, 'index'])->name('pasien.index');
 Route::get('pasien/create', [PasienController::class, 'create'])->name('pasien.create');
 Route::post('pasien/store', [PasienController::class, 'store'])->name('pasien.store');
 Route::post('pasien/edit', [PasienController::class, 'edit'])->name('pasien.edit');
-Route::get('/cari', [PasienController::class,'find' ])->name('cari');
+Route::get('cari', [PasienController::class,'find' ])->name('cari');
 
 
 Route::get('/rm', [RekamMedisController::class, 'index'])->name('rm.index');
@@ -37,4 +37,4 @@ Route::get('/rm/show/{id}', [RekamMedisController::class, 'show'])->name('rm.sho
 
 Route::get('/master', function(){
     return view('layouts.main');
-})->name('cari');
+});

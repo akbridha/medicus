@@ -67,7 +67,8 @@
                         {{-- tombol untuk ke halaman riwayat --}}
                         <a href="{{ route('rm.show', ['id' =>$pasien->id ]) }}" class="btn btn-primary mb-3">Riwayat</a>
                         {{-- tombol untuk ke halaman edit pasien --}}
-                        <form method="POST" action="{{route('pasien.edit')}}">
+                        <form method="POST" action="#">
+                        {{-- <form method="POST" action="{{route('pasien.edit')}}"> --}}
                             @csrf
                             <input type="hidden" name="id_pasien" value={{ $pasien->id }}>
                             <button type="submit" class="btn btn-info mb-2">Edit Pasien</button>
@@ -79,6 +80,8 @@
             </tbody>
         </table>
 
+
+        {{-- //untuk pagination halamannya --}}
         {{$pasiens ->links()}}
     </div>
 </div>
