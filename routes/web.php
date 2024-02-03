@@ -18,7 +18,8 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return view('layouts.main');
+    // return view('layouts.main');
+    return view('layouts.dashboard');
 });
 // Route::get('/pasien', [PasienController::class, 'index']);
 
