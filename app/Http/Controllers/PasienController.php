@@ -13,7 +13,7 @@ class PasienController extends Controller
     public function index()
     {
         // $pasiens = Pasien::all();
-        $pasiens = Pasien::orderBy('created_at', 'desc')->get();
+        $pasiens = Pasien::orderBy('created_at', 'desc')->paginate(3);
         return view('layouts.pasien.index',compact('pasiens'));
     }
 
@@ -55,9 +55,9 @@ class PasienController extends Controller
         $kataKunci = $request->input('kata_kunci');
 
         // Mencari data dengan kata kunci pencarian
-        $pasiens = Pasien::where('Nama', 'like', '%' . $kataKunci . '%')->get();
+        $pasiens = Pasien::where('Nama', 'like', '%' . $kataKunci . '%')->paginate(3);
 
-        return view('layouts.pasien',compact('pasiens'));
+        return view('layouts.pasien.index',compact('pasiens'));
     }
 
     /**
