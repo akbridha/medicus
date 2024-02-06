@@ -29,7 +29,7 @@
 
 @endif
 
-    <a href="{{route('pasien.create')}}" class="btn btn-success mb-4 float-right">Tambah</a>
+    <a href="{{route('pasien.create')}}" class="btn btn-info mb-4 float-right">Tambah</a>
     <form method="GET" action="{{ route('cari') }}">
         <input type="text" name="kata_kunci" placeholder="Cari...">
         <button type="submit">Cari</button>
@@ -68,12 +68,13 @@
                                 {{-- tombol untuk ke halaman riwayat --}}
                                 <a href="{{ route('rm.show', ['id' =>$pasien->id ]) }}" class="btn btn-primary mb-3">Riwayat</a>
                                 {{-- tombol untuk ke halaman edit pasien --}}
-                                <form method="POST" action="#">
-                                {{-- <form method="POST" action="{{route('pasien.edit')}}"> --}}
+
+                                <a href="{{ route('pasien.edit', ['id' =>$pasien->id ]) }}" class="btn btn-warning mb-3">Ubah Data</a>
+                                {{-- <form method="POST" action="{{route('pasien.edit')}}">
                                     @csrf
                                     <input type="hidden" name="id_pasien" value={{ $pasien->id }}>
                                     <button type="submit" class="btn btn-warning mb-2">Edit Pasien</button>
-                                </form>
+                                </form> --}}
                             </td>
                         </tr>
                     @endforeach

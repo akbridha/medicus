@@ -22,7 +22,7 @@ class PasienController extends Controller
      */
     public function create()
     {
-        return view("layouts.insertPasien");
+        return view("layouts.pasien.insertPasien");
     }
 
     /**
@@ -63,9 +63,10 @@ class PasienController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Pasien $pasien)
+    // public function edit(Pasien $pasien)
+    public function edit()
     {
-        return view('layouts.pasien.pasien');
+        return view('layouts.pasien.editPasien');
     }
 
     /**
