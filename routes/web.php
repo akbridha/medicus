@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\PasienController;
 use App\Http\Controllers\RekamMedisController;
+use App\Http\Controllers\UserController;
+
 use App\Models\RekamMedis;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +22,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('layouts.welcome');
 });
+
+
+
+Route::get('/user', [UserController::class, 'index'])->name('user.index');
+
+
 // Route::get('/pasien', [PasienController::class, 'index']);
 
 

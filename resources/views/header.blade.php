@@ -31,7 +31,7 @@
                 </li>
                 <li class="nav-item">
                     <div class="card">
-                        <a class="nav-link" href="#"> {{ date('d-m-Y') }}</a>
+                        <a class="nav-link" href="#"> <i class="bi bi-calendar-week"></i> {{ date('d-m-Y') }}</a>
                     </div>
                 </li>
 

@@ -16,4 +16,12 @@ class ExampleTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function testReturnViewPasienIndex(){
+
+        $response = $this->get(route('pasien.index'));
+
+        $response->assertViewIs('layouts.pasien.index');
+
+    }
 }
