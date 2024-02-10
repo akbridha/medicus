@@ -14,46 +14,58 @@
         <div class="container-fluid">
 
             <div class="row">
-                <div class="col-md-4 mt-4"> <!-- Tambahkan kelas mt-4 di sini -->
-                    <div class="card bg-success text-white">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <i class="bi bi-folder-plus"></i>
+                <div class="col-md-4 mt-4">
+                    <a href="{{route('pasien.index')}}" class="text-decoration-none ">
+                        <div class="card bg-success text-white">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    {{-- <i class="bi bi-folder-plus"></i> --}}
+                                    <img src="{{asset('Icons/folder-plus.svg')}}" alt="folder-plus" widht="28" height="24">
                                     Rekam Medis
-                            </h5>
-                            <p class="card-text">This is a success card in Bootstrap 4.</p>
+                                </h5>
+                                <p class="card-text">Kunjungan Berobat</p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
-                <div class="col-md-4 mt-4"> <!-- Tambahkan kelas mt-4 di sini -->
+                <div class="col-md-4 mt-4">
+                    <a href="{{route('pasien.create')}}" >
                     <div class="card bg-info text-white">
-                        <div class="card-body">
-                            <h5 class="card-title">
-
-                                <i class="bi bi-person-fill-add"></i>
-                                Peserta Baru
-                            </h5>
-                            <p class="card-text">This is a warning card in Bootstrap 4.</p>
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <img src="{{asset("Icons/person-fill-add.svg")}}" alt="person-fill-add" width="28" height="24" >
+                                    Peserta Baru
+                                </h5>
+                                <p class="card-text">Pendaftaran Pasien</p>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
-                <div class="col-md-4 mt-4"> <!-- Tambahkan kelas mt-4 di sini -->
-                    <div class="card bg-warning text-white">
-                        <div class="card-body">
+                <div class="col-md-4 mt-4">
+                    <a href="{{route('pasien.edit')}}" class="text-decoration-none text-dark" >
+                        <div class="card bg-warning text-white">
+                            <div class="card-body">
 
-                            <h5 class="card-title">
-                                <i class="bi bi-pencil-square"></i>
-                                Ubah Data
-                            </h5>
-                            <p class="card-text">This is an info card in Bootstrap 4.</p>
-                        </div>
+                                <h5 class="card-title">
+                                    <img src="{{asset('Icons/round-arrow.svg')}}" alt="round-arrow" width="28" height="24">
+                                    Farmasi
+                                </h5>
+                                <p class="card-text">Manajemen Stok</p>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>
             {{-- row --}}
-            <div class="card">
+            <div class="card mt-4">
                 <div class="card-header">
-                    <h5 class="card-title">Tanggal Hari Ini</h5>
+                    <h5 class="card-title">
+
+                            <div class="card">
+                                <a class="nav-link" href="#">  <img src="{{asset('Icons/calendar-week.svg')}}" alt="calendar-week" width="28" height="24"> {{ strftime('%d %B %Y', strtotime(date('d-m-Y'))) }}</a>
+                            </div>
+
+                    </h5>
                 </div>
                 <div class="card-body">
                     <p class="card-text">Tanggal hari ini adalah: {{ date('Y-m-d') }}</p>
