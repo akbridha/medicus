@@ -42,13 +42,14 @@
                     </a>
                 </div>
                 <div class="col-md-4 mt-4">
-                    <a href="{{route('pasien.edit')}}" class="text-decoration-none text-dark" >
+                    <a href="{{route('logistik.index')}}" class="text-decoration-none text-dark" >
                         <div class="card bg-warning text-white">
                             <div class="card-body">
 
                                 <h5 class="card-title">
                                     <img src="{{asset('Icons/round-arrow.svg')}}" alt="round-arrow" width="28" height="24">
-                                    Farmasi
+                                    Logistik
+
                                 </h5>
                                 <p class="card-text">Manajemen Stok</p>
                             </div>

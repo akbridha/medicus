@@ -3,6 +3,8 @@
 use App\Http\Controllers\PasienController;
 use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\LogistikController;
+use App\Http\Controllers\SessionController;
 
 use App\Models\RekamMedis;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +29,10 @@ Route::get('/', function () {
 
 Route::get('/user', [UserController::class, 'index'])->name('user.index');
 
+Route::get('/sesi', [SessionController::class, 'index'])->name('session.index');
+Route::post('/sesi/login', [SessionController::class, 'login'])->name('session.login');
+
+
 
 // Route::get('/pasien', [PasienController::class, 'index']);
 
@@ -42,3 +48,6 @@ Route::get('/rm', [RekamMedisController::class, 'index'])->name('rm.index');
 Route::post('/rm/create', [RekamMedisController::class, 'create'])->name('rm.create');
 Route::post('/rm/store', [RekamMedisController::class, 'store'])->name('rm.store');
 Route::get('/rm/show/{id}', [RekamMedisController::class, 'show'])->name('rm.show');
+
+
+Route::get('/logistik', [LogistikController::class,'index'])->name('logistik.index');

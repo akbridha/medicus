@@ -39,7 +39,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/sesi">
                             <div class="container bg-light style="border-radius: 50px;">
 
                                 <img src="{{ asset('Icons/person-bulat.svg') }}" alt="person"/>
@@ -55,6 +55,19 @@
 
 
 <div class="container-fluid">
+    @if ($errors->any())
+    <div class="alert alert-danger mt-3">
+        <ul>
+            @foreach ($errors->all() as $item )
+                <li>
+                    {{ $item }}
+                </li>
+
+            @endforeach
+        </ul>
+    </div>
+
+    @endif
     @yield('content') <!-- Ini adalah tempat konten dari view akan ditempatkan -->
 </div>
 
