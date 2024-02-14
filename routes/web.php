@@ -31,6 +31,7 @@ Route::get('/user', [UserController::class, 'index'])->name('user.index');
 
 Route::get('/sesi', [SessionController::class, 'index'])->name('session.index');
 Route::post('/sesi/login', [SessionController::class, 'login'])->name('session.login');
+Route::get('/sesi/logout', [SessionController::class, 'logout'])->name('session.logout');
 
 
 

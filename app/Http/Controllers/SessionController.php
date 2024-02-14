@@ -46,7 +46,7 @@ class SessionController extends Controller
 
         if ($user && $request->password == $user->password) {
             Auth::login($user);
-            return redirect('/')->with('success', 'Berhasil login');
+            return redirect('/sesi')->with('key', 'Berhasil');
         } else {
             // Password tidak cocok atau pengguna tidak ditemukan
             return redirect('/sesi')->withErrors('Username/Password tidak valid');
@@ -55,5 +55,11 @@ class SessionController extends Controller
 
 
 
+    }
+    public function logout()
+    {
+        $user = Auth::user();
+        // Auth::logout(); // Melakukan logout pengguna
+        return redirect('/sesi')->with('key', 'Berhasil Logout sebagai : '.$user->name); // Mengarahkan kembali ke halaman login
     }
 }

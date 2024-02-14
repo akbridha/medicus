@@ -66,8 +66,19 @@
             @endforeach
         </ul>
     </div>
-
     @endif
+
+    @if (session()->has('key'))
+        <div class="alert alert-info mt-3">
+            {{ session('key') }}
+
+        </div>
+        @php
+            session()->forget('key');
+        @endphp
+    @endif
+
+
     @yield('content') <!-- Ini adalah tempat konten dari view akan ditempatkan -->
 </div>
 

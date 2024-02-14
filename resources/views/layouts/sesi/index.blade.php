@@ -13,7 +13,8 @@
             @csrf
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" value="{{ Session::get('email') }}" name="email" class="form-control">
+                {{-- <input type="email" value="{{ Session::get() }}" name="email" class="form-control"> --}}
+                <input type="email"  name="email" class="form-control">
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
@@ -25,6 +26,16 @@
                 </button>
             </div>
         </form>
+        <div class="mb-3 d-grid">
+            {{-- <form action="{{ route('session.logout') }}" method="POST">
+                <button type="submit" class="btn btn-primary">
+                    Logout
+                </button>
+            </form> --}}
+            <a href="/sesi/logout">
+                <button> yughu</button>
+            </a>
+        </div>
 
     </div>
 @endsection

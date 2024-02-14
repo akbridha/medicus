@@ -58,6 +58,34 @@
                 </div>
             </div>
             {{-- row --}}
+
+            <div class="row mt-4">
+                <div class="col-md-5">
+                    <div class="card" style="height: 250px;">
+                        <div class="card-body mt-5">
+                            <h5 class="card-title">Jumlah Pasien Terdaftar</h5>
+                            <p class="card-text">
+                                <img src="{{ asset('Icons/person-bulat.svg') }}" alt="person bulat">
+                                742 Orang.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <div class="card" style="height: 250px;">
+                        <div class="card-body mt-5">
+                            <h5 class="card-title">Pasien Baru Bulan Ini</h5>
+                            <p class="card-text">
+                                <img src="{{ asset('Icons/person-bulat.svg') }}" alt="person bulat">
+                                23 Orang.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+
+
             <div class="card mt-4">
                 <div class="card-header">
                     <h5 class="card-title">
