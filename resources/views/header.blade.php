@@ -43,7 +43,7 @@
                             <div class="container bg-light style="border-radius: 50px;">
 
                                 <img src="{{ asset('Icons/person-bulat.svg') }}" alt="person"/>
-                                Admin
+                                {{ $currentUser->name ?? 'Login' }}
                             </div>
                         </a> <!-- Tambahkan ikon login -->
 

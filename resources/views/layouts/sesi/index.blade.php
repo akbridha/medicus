@@ -3,8 +3,21 @@
 
 @section('content')
 
+
     <div class="w-50 center border rounded px-3 py-3 mx-auto mt-5">
         <h2>Login</h2>
+
+
+
+        {{-- @if($currentUser->isEmpty())
+            <div class="alert alert-warning" role="alert">
+                User not found (belum login)
+            </div>
+        @else
+            <div class="alert alert-succes" role="alert">
+                {{ $currentUser }}
+            </div>
+        @endif --}}
 
         <form action="/sesi/login" method="POST">
         {{-- <form action="#" method="POST"> --}}

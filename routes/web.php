@@ -7,6 +7,7 @@ use App\Http\Controllers\LogistikController;
 use App\Http\Controllers\SessionController;
 
 use App\Models\RekamMedis;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,7 +23,8 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-    return view('layouts.welcome');
+    $currentUser  = Auth::user();
+    return view('layouts.welcome', compact('currentUser'));
 });
 
 
@@ -44,11 +46,13 @@ Route::post('pasien/store', [PasienController::class, 'store'])->name('pasien.st
 Route::get('pasien/edit', [PasienController::class, 'edit'])->name('pasien.edit');
 Route::get('/cari', [PasienController::class,'find' ])->name('cari');
 
-
-Route::get('/rm', [RekamMedisController::class, 'index'])->name('rm.index');
-Route::post('/rm/create', [RekamMedisController::class, 'create'])->name('rm.create');
-Route::post('/rm/store', [RekamMedisController::class, 'store'])->name('rm.store');
-Route::get('/rm/show/{id}', [RekamMedisController::class, 'show'])->name('rm.show');
-
+Route::group(
+    ['middleware' =>['isDocter']], function(){
+        Route::get('/rm', [RekamMedisController::class, 'index'])->name('rm.index');
+        Route::post('/rm/create', [RekamMedisController::class, 'create'])->name('rm.create');
+        Route::post('/rm/store', [RekamMedisController::class, 'store'])->name('rm.store');
+        Route::get('/rm/show/{id}', [RekamMedisController::class, 'show'])->name('rm.show');
+    }
+);
 
 Route::get('/logistik', [LogistikController::class,'index'])->name('logistik.index');

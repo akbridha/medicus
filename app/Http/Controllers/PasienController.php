@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pasien;
 use Illuminate\Http\Request ;
+use Illuminate\Support\Facades\Auth;
 
 class PasienController extends Controller
 {
@@ -12,8 +13,9 @@ class PasienController extends Controller
      */
     public function index()
     {
+        $currentUser = Auth::user();
         $pasiens = Pasien::orderBy('created_at', 'desc')->paginate(3);
-        return view('layouts.pasien.index',compact('pasiens'));
+        return view('layouts.pasien.index',compact('pasiens' , 'currentUser' ));
     }
 
     /**
@@ -42,7 +44,7 @@ class PasienController extends Controller
                 'Jenis_Kelamin' => $request->input('Jenis_Kelamin'),
                 'Pekerjaan' => $request->input('Pekerjaan')?? 'Swasta',
             ]);
-            return redirect()->route('pasien.index')->with('key', 'Berhasil');
+            return redirect()->route('pasien.index')->with('key', 'Berhasil Menambah Pasien');
         } catch (\Exception $e) {
             return redirect()->route('pasien.index')->with('key', $e->getMessage());
         } }

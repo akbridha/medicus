@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid">
         <h1>Daftar Pasien</h1>
-        @if (session()->has('key'))
+        {{-- @if (session()->has('key'))
             @if (session('key')== 'Berhasil')
                 <div class="alert alert-success">
                     Berhasil Menambahkan Data
@@ -19,7 +19,7 @@
             @php
                 session()->forget('key');
             @endphp
-        @endif
+        @endif --}}
 
         <a href="{{route('pasien.create')}}" class="btn btn-info mb-4 float-right">Tambah</a>
         <form method="GET" action="{{ route('cari') }}">

@@ -7,6 +7,7 @@ use App\Http\Requests\StoreRekamMedisRequest;
 use App\Http\Requests\UpdateRekamMedisRequest;
 use App\Models\Pasien;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RekamMedisController extends Controller
 {
@@ -16,7 +17,8 @@ class RekamMedisController extends Controller
     public function index()
     {
         $rekamMedises = RekamMedis::all();
-        return view('layouts.rm.rekamMedis', compact('rekamMedises'));
+        $currentUser = Auth::user();
+        return view('layouts.rm.rekamMedis', compact('rekamMedises', 'currentUser'));
     }
 
     /**
