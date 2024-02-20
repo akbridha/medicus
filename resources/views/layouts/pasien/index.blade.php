@@ -49,31 +49,39 @@
                         <tbody>
                             @foreach($pasiens as $pasien)
                             <tr>
-                                <td style="width: 100px;">{{ $pasien->NBL }}</td>
-                                <td>{{ $pasien->Nama }}</td>
-                                <td>{{ $pasien->Alamat }}</td>
-                                <td style="width: 150px;">
-                                    {{-- tombol kunjungan baru         --}}
-                                        <form method="POST" action="{{ route('rm.create') }}">
-                                            @csrf
-                                            <input type="hidden" name="id_pasien" value={{ $pasien->id }}>
-                                            <button type="submit" class="btn btn-success mb-2">Kunjungan Baru</button>
-                                        </form>
-                                        {{-- tombol untuk ke halaman riwayat --}}
-                                        <a href="{{ route('rm.show', ['id' =>$pasien->id ]) }}" class="btn btn-primary mb-3">Riwayat</a>
-                                        {{-- tombol untuk ke halaman edit pasien --}}
+                                <td style="width: 50px;">{{ $pasien->NBL }}</td>
+                                <td >{{ $pasien->Nama }}</td>
+                                <td >{{ $pasien->Alamat }}</td>
+                                <td style="width: 500px;">
 
-                                        <a href="{{ route('pasien.edit', ['id' =>$pasien->id ]) }}" class="btn btn-warning mb-3">Ubah Data</a>
-                                        {{-- <form method="POST" action="{{route('pasien.edit')}}">
-                                            @csrf
-                                            <input type="hidden" name="id_pasien" value={{ $pasien->id }}>
-                                            <button type="submit" class="btn btn-warning mb-2">Edit Pasien</button>
-                                        </form> --}}
-                                    </td>
-                                </tr>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col text-center">
+                                                <div class="d-inline-block">
+                                                    <!-- tombol untuk ke halaman riwayat -->
+                                                    <a href="{{ route('rm.show', ['id' =>$pasien->id ]) }}" class="btn btn-primary">Riwayat</a>
+                                                </div>
+                                                <div class="d-inline-block">
+                                                    <!-- tombol untuk ke halaman edit pasien -->
+                                                    <a href="{{ route('pasien.edit', ['id' =>$pasien->id ]) }}" class="btn btn-warning">Ubah Data</a>
+                                                </div>
+                                                <div class="d-inline-block">
+                                                    <!-- tombol kunjungan baru -->
+                                                    <form method="POST" action="{{ route('rm.create') }}" class="d-inline-block">
+                                                        @csrf
+                                                        <input type="hidden" name="id_pasien" value={{ $pasien->id }}>
+                                                        <button type="submit" class="btn btn-success">Kunjungan Baru</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
                             @endforeach
                         </tbody>
                     </table>
+
                     {{-- //untuk pagination halamannya --}}
                     {{$pasiens ->links()}}
                 </div>
