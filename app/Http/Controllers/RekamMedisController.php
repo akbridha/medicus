@@ -28,8 +28,9 @@ class RekamMedisController extends Controller
     {
         //
 
+        $currentUser = Auth::user();
         // return $request;
-        return view('layouts.rm.insertRekamMedis', compact('request'));
+        return view('layouts.rm.insertRekamMedis', compact('request', 'currentUser'));
     }
 
     /**
@@ -75,7 +76,7 @@ class RekamMedisController extends Controller
      */
     public function edit(RekamMedis $rekamMedis)
     {
-        //
+        return "halaman untuk melengkapi rekam medis by dokter";
     }
 
     /**

@@ -45,7 +45,7 @@
             <label for="Pekerjaan">Pekerjaan:</label>
             <input type="text" class="form-control" id="Pekerjaan" name="Pekerjaan">
         </div>
-        <button type="submit" class="btn btn-primary">Simpan</button>
+        <button type="submit" class="btn btn-primary mb-5">Simpan</button>
     </form>
 </div>
 @endsection

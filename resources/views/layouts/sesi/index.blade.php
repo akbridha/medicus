@@ -46,7 +46,7 @@
                 </button>
             </form> --}}
             <a href="/sesi/logout">
-                <button> yughu</button>
+                <button> Force LG</button>
             </a>
         </div>
 

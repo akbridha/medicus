@@ -57,10 +57,27 @@
                     </div>
                 </div>
             </div>
+
             {{-- row --}}
 
             <div class="row mt-4">
-                <div class="col-md-5">
+                <div class="col-md-3">
+                    <a href="{{route('rm.edit')}} " class="text-dark" >
+                        <div class="card bg-primary" style="height: 250px;">
+                            <div class="card-body  mt-5">
+                                <h5 class="card-title bg-primary">
+                                    <img src="{{ asset('Icons/person-lines-fill.svg') }}" alt="person list" widht="28" height="24">
+                                    Pasien on Queue
+                                </h5>
+                                <p class="card-text">
+                                    <img src="{{ asset('Icons/person-bulat.svg') }}" alt="person bulat">
+                                    2 Orang.
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-2">
                     <div class="card" style="height: 250px;">
                         <div class="card-body mt-5">
                             <h5 class="card-title">Jumlah Pasien Terdaftar</h5>
@@ -71,7 +88,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-2">
                     <div class="card" style="height: 250px;">
                         <div class="card-body mt-5">
                             <h5 class="card-title">Pasien Baru Bulan Ini</h5>
