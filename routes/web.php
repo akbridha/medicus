@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     $currentUser  = Auth::user();
     return view('layouts.welcome', compact('currentUser'));
-});
+})->name('home');
 
 
 

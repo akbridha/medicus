@@ -45,9 +45,9 @@ class RekamMedisController extends Controller
                 'pemeriksaan' => $request->input('pemeriksaan'),
                 'diagnosa' => $request->input('diagnosa'),
             ]);
-            return redirect()->route('rm.show', [$request->input('pasien_id') ])->with('key', 'Berhasil');
+            return redirect()->route('home')->with('key', 'Berhasil Registrasi Pasien');
         } catch (\Exception $e) {
-            return redirect()->route('rm.show', [$request->input('pasien_id') ])->with('key', $e->getMessage());
+            return redirect()->route('home')->with('key', $e->getMessage());
         }
 
 
