@@ -35,25 +35,15 @@ class SessionController extends Controller
                 'email'=>$request->email,
                 'password'=>$request->password
             ];
-
-
-
-
             $user = User::where('email', $request->email)->first();
-
             if ($user && $request->password == $user->password) {
                 Auth::login($user);
                 return redirect('/sesi')->with('key', 'Berhasil');
             } else {
                 // Password tidak cocok atau pengguna tidak ditemukan
                 return redirect('/sesi')->withErrors('Username/Password tidak valid');
-
-
             }
-
-
         }
-
     }
 
         public function logout()

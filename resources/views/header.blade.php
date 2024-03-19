@@ -40,7 +40,7 @@
 
                     <li class="nav-item">
                         <a class="nav-link" href="/sesi">
-                            <div class="container bg-light style="border-radius: 50px;">
+                            <div class="container bg-light" style="border-radius: 10px;">
 
                                 <img src="{{ asset('Icons/person-bulat.svg') }}" alt="person"/>
                                 {{ $currentUser->name ?? 'Login' }}
