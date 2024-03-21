@@ -14,7 +14,7 @@ class PasienController extends Controller
     public function index()
     {
         $currentUser = Auth::user();
-        $pasiens = Pasien::orderBy('created_at', 'desc')->paginate(3);
+        $pasiens = Pasien::orderBy('created_at', 'desc')->paginate(10);
         return view('layouts.pasien.index',compact('pasiens' , 'currentUser' ));
     }
 

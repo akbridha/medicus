@@ -17,8 +17,18 @@ class RekamMedisController extends Controller
     public function index()
     {
         $rekamMedises = RekamMedis::all();
+    // $rekamMedises = RekamMedis::whereNull('pemeriksaan')->with('pasien')->get();
         $currentUser = Auth::user();
         return view('layouts.rm.rekamMedis', compact('rekamMedises', 'currentUser'));
+
+    }
+    public function antrian()
+    {
+        // $rekamMedises = RekamMedis::all();
+    $rekamMedises = RekamMedis::whereNull('pemeriksaan')->with('pasien')->get();
+        $currentUser = Auth::user();
+        return view('layouts.rm.rekamMedisAntrian', compact('rekamMedises', 'currentUser'));
+
     }
 
     /**
@@ -53,6 +63,23 @@ class RekamMedisController extends Controller
 
 
     }
+    public function regis(Request $request)
+    {
+        try {
+            RekamMedis::create([
+                'pasien_id' => $request->input('pasien_id'),
+                // 'tanggal' => $request->input('tanggal'), biarkan null
+                // 'pemeriksaan' => $request->input('pemeriksaan'), biarkan null
+                // 'diagnosa' => $request->input('diagnosa'),  biarkan null agar dia tampil di antrian
+            ]);
+            return redirect()->route('home')->with('key', 'Berhasil Registrasi Pasien');
+        } catch (\Exception $e) {
+            return redirect()->route('home')->with('key', $e->getMessage());
+        }
+
+
+
+    }
 
     /**
      * Display the specified resource.
@@ -76,7 +103,10 @@ class RekamMedisController extends Controller
      */
     public function edit(RekamMedis $rekamMedis)
     {
-        return "halaman untuk melengkapi rekam medis by dokter";
+        $currentUser = Auth::user();
+        // return $rekamMedis;
+
+        return view('layouts.rm.insertRekamMedis', compact('request', 'currentUser'));
     }
 
     /**

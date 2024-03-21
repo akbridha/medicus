@@ -51,11 +51,13 @@ Route::group(
         Route::get('/rm', [RekamMedisController::class, 'index'])->name('rm.index');
         Route::get('/rm/show/{id}', [RekamMedisController::class, 'show'])->name('rm.show');
         // Route::get('/rm/edit/{id}', [RekamMedisController::class, 'edit'])->name('rm.edit');
-        Route::get('/rm/edit', [RekamMedisController::class, 'edit'])->name('rm.edit');
+        Route::get('/rm/antrian', [RekamMedisController::class, 'antrian'])->name('rm.antrian');
+        Route::get('/rm/{rekamMedis}/edit', [RekamMedisController::class, 'edit'])->name('rm.edit');
     }
 );
 
 Route::post('/rm/create', [RekamMedisController::class, 'create'])->name('rm.create');
 Route::post('/rm/store', [RekamMedisController::class, 'store'])->name('rm.store');
+Route::post('/rm/regis', [RekamMedisController::class, 'regis'])->name('rm.regis');
 
 Route::get('/logistik', [LogistikController::class,'index'])->name('logistik.index');

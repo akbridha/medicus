@@ -19,17 +19,17 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($rekamMedises as $rm)
+                @foreach($rekamMedises as $rekamMedis)
                 <tr>
 
-                    <td style="width: 130px;">{{ $rm->tanggal}}</td>
-                    <td>{{ $rm->pemeriksaan }}</td>
-                    <td>{{ $rm->diagnosa }}</td>
+                    <td style="width: 130px;">{{ $rekamMedis->tanggal}}</td>
+                    <td>{{ $rekamMedis->pemeriksaan }}</td>
+                    <td>{{ $rekamMedis->diagnosa }}</td>
 
 
                     <td>
-                        <a href="#" class="btn btn-outline-secondary mb-2">Detail</a>
-                        <a href="#" class="btn btn-outline-secondary">Edit</a>
+                        <a href="{{ route("rm.edit", $rekamMedis) }}" class="btn btn-outline-secondary ">oprek</a>
+                        {{-- <a href="#" class="btn btn-outline-secondary">Edit</a> --}}
                     </td>
                 </tr>
                 @endforeach

@@ -7,7 +7,7 @@
         @csrf
         <div class="form-group">
             <label for="pasien_id">ID Pasien:</label>
-            <input type="text" class="form-control" id="pasien_id" name="pasien_id" value={{ $request->id_pasien }} readonly>
+            <input type="text" class="form-control" id="pasien_id" name="pasien_id" value={{ $request->pasien_id }} readonly>
 
         </div>
         <div class="form-group">
