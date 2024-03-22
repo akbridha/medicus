@@ -23,7 +23,48 @@ class PasienController extends Controller
      */
     public function create()
     {
-        return view("layouts.pasien.insertPasien");
+        // return view("layouts.pasien.insertPasien");
+
+
+
+        $maxNBL = Pasien::max('NBL');
+        // $maxNBL = '09-99';
+
+        // Pisahkan bagian angka sebelum dan setelah strip
+        $parts = explode('-', $maxNBL);
+        $prefix = intval($parts[0]);
+        $suffix = intval($parts[1]);
+
+        // echo gettype($prefix);
+        // echo gettype($suffix);
+
+        // echo " \n";
+        // echo ($prefix);
+        // echo "-";
+        // echo ($suffix);
+
+
+        // Tambahkan 1 ke angka setelah strip
+        // $suffix++;
+
+        // Jika angka setelah strip melebihi 9, reset ke 1 dan tambahkan 1 ke angka sebelum strip
+        if ($suffix == 99) {
+            $finalSuffix = 0;
+            $finalPrefix = $prefix + 1;
+        }else{
+            $finalSuffix = $suffix+1;
+            $finalPrefix = $prefix;
+        }
+
+        // return " ini preffix : ". $prefix. ", dan ini suffix: ". $suffix. ", ini prefix + 1 = [". $finalPrefix . "], dan ini suffix + 1 = [". $finalSuffix."]";
+
+
+        // Format ulang NBL
+        $newNBL = sprintf("%02d-%02d", $finalPrefix, $finalSuffix);
+
+        // return $newNBL;
+
+         return view("layouts.pasien.insertPasien", ['newNBL' => $newNBL]);
     }
 
     /**
@@ -31,7 +72,7 @@ class PasienController extends Controller
      */
     public function store(Request $request)    {
 
-        // return $request;
+
         try {
             Pasien::create([
                 'NIK' => $request->input('NIK'),
@@ -47,7 +88,8 @@ class PasienController extends Controller
             return redirect()->route('pasien.index')->with('key', 'Berhasil Menambah Pasien');
         } catch (\Exception $e) {
             return redirect()->route('pasien.index')->with('key', $e->getMessage());
-        } }
+        }
+    }
 
     /**
      * Display the specified resource.
