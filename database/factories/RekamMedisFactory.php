@@ -16,7 +16,7 @@ class RekamMedisFactory extends Factory
 
         return [
 
-            'pasien_id' => $faker->numberBetween(1, 100),
+            'pasien_id' => $faker->numberBetween(1, 33),
             'tanggal' => $faker->date,
             'pemeriksaan' => $faker->sentence,
             'diagnosa' => $faker->paragraph(3), // Membuat 3 paragraf tentang diagnosis

@@ -11,9 +11,9 @@ return new class extends Migration
         Schema::create('rekam_medis', function (Blueprint $table) {
             $table->id();
             $table->integer('pasien_id');
-            $table->date('tanggal');
-            $table->string('pemeriksaan');
-            $table->text('diagnosa');
+            $table->date('tanggal')->nullable();
+            $table->string('pemeriksaan')->nullable();
+            $table->text('diagnosa')->nullable();
             $table->timestamps();
         });
     }

@@ -16,16 +16,22 @@ class RekamMedisController extends Controller
      */
     public function index()
     {
-        $rekamMedises = RekamMedis::all();
-    // $rekamMedises = RekamMedis::whereNull('pemeriksaan')->with('pasien')->get();
+        // $rekamMedises = RekamMedis::all();
+    $rekamMedises = RekamMedis::with('pasien')->get();
+
+
         $currentUser = Auth::user();
+        // return $rekamMedises;
+
         return view('layouts.rm.rekamMedis', compact('rekamMedises', 'currentUser'));
 
     }
     public function antrian()
     {
-        // $rekamMedises = RekamMedis::all();
-    $rekamMedises = RekamMedis::whereNull('pemeriksaan')->with('pasien')->get();
+
+    $rekamMedises = RekamMedis::where('pemeriksaan', 'belum diperiksa')->with('pasien')->get();
+    // $rekamMedises = RekamMedis::whereNull('pemeriksaan')->with('pasien')->get();
+    // return $rekamMedises;
         $currentUser = Auth::user();
         return view('layouts.rm.rekamMedisAntrian', compact('rekamMedises', 'currentUser'));
 
@@ -68,7 +74,12 @@ class RekamMedisController extends Controller
         try {
             RekamMedis::create([
                 'pasien_id' => $request->input('pasien_id'),
-                // 'tanggal' => $request->input('tanggal'), biarkan null
+                'pemeriksaan' => $request->input('pemeriksaan'),//dari view dikirimkan value 'belum diperiksa'
+
+
+
+                    //rabu 22 maret
+                // 'tanggal' => $request->input('tanggal'),
                 // 'pemeriksaan' => $request->input('pemeriksaan'), biarkan null
                 // 'diagnosa' => $request->input('diagnosa'),  biarkan null agar dia tampil di antrian
             ]);
@@ -101,20 +112,29 @@ class RekamMedisController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(RekamMedis $rekamMedis)
+    // public function edit(RekamMedis $rekamMedis , Pasien $pasien)
+    public function edit(RekamMedis $rekamMedis )
     {
         $currentUser = Auth::user();
+        $rekamMedis->load('pasien');
         // return $rekamMedis;
-
-        return view('layouts.rm.insertRekamMedis', compact('request', 'currentUser'));
+        return view('layouts.rm.editRekamMedis', compact('rekamMedis', 'currentUser'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRekamMedisRequest $request, RekamMedis $rekamMedis)
+    public function update(Request $request, RekamMedis $rekamMedis)
     {
-        //
+    $rekamMedis->tanggal = $request->tanggal;
+    $rekamMedis->pemeriksaan = $request->pemeriksaan;
+    $rekamMedis->diagnosa = $request->diagnosa;
+
+    // Lanjutkan dengan mengupdate data lainnya sesuai kebutuhan
+
+    $rekamMedis->save();
+
+    return redirect()->route('rm.index')->with('key', 'Data rekam medis berhasil diupdate');
     }
 
     /**

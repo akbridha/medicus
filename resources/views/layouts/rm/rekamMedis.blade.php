@@ -12,6 +12,7 @@
             <thead>
                 <tr>
                     <th>Tanggal</th>
+                    <th>Nama Pasien</th>
                     <th>Pemeriksaan</th>
                     <th>Dignosis</th>
                     <th></th>
@@ -21,17 +22,19 @@
             <tbody>
                 @foreach($rekamMedises as $rekamMedis)
                 <tr>
-
+{{-- @dd($rekamMedis->pasien->Nama) --}}
                     <td style="width: 130px;">{{ $rekamMedis->tanggal}}</td>
+                    <td>{{$rekamMedis->pasien->Nama}}</td>
                     <td>{{ $rekamMedis->pemeriksaan }}</td>
                     <td>{{ $rekamMedis->diagnosa }}</td>
 
 
                     <td>
-                        <a href="{{ route("rm.edit", $rekamMedis) }}" class="btn btn-outline-secondary ">oprek</a>
-                        {{-- <a href="#" class="btn btn-outline-secondary">Edit</a> --}}
+                        <a href="{{ route("rm.edit", $rekamMedis) }}" class="btn btn-outline-secondary ">edit</a>
+
                     </td>
                 </tr>
+
                 @endforeach
             </tbody>
         </table>
