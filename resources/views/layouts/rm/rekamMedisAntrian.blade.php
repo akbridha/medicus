@@ -14,7 +14,7 @@
                     <th>ID RM</th>
                     <th>Nama</th>
                     <th>Pemeriksaan</th>
-                    <th>Dignosis</th>
+                    <th>Keluhan</th>
                     <th></th>
 
                 </tr>
@@ -28,11 +28,18 @@
                     <td style="width: 130px;">{{ $rekamMedis->id}}</td>
                     <td style="width: 130px;">{{ $rekamMedis->pasien->Nama}}</td>
                     <td>Belum diperiksa</td>
-                    <td>---</td>
+                    <td>{{ $rekamMedis->keluhan }}</td>
 
 
-                    <td style="width: 150px;">
-                        <a href="{{ route("rm.edit", $rekamMedis) }}" class="btn btn-success ">Periksa</a>
+                    <td style="width: 250px;">
+                        <div class="d-inline-block">
+                            <!-- tombol untuk ke halaman riwayat -->
+                            <a href="{{ route('rm.show', ['id' =>$rekamMedis->pasien->id ]) }}" class="btn btn-primary">Riwayat</a>
+                            <a href="{{ route("rm.edit", $rekamMedis) }}" class="btn btn-success ">Periksa</a>
+
+                        </div>
+
+
                         {{-- <form method="POST" action="{{ route('rm.create') }}" class="d-inline-block">
                             @csrf
                             <input type="hidden" name="pasien_id" value={{ $rm->pasien->id }}>

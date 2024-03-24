@@ -12,6 +12,10 @@ return new class extends Migration
             $table->id();
             $table->integer('pasien_id');
             $table->date('tanggal')->nullable();
+            $table->string('keluhan')->nullable();
+            $table->string('tekanan_darah')->nullable();
+            $table->string('berat_badan')->nullable();
+            $table->string('tinggi_badan')->nullable();
             $table->string('pemeriksaan')->nullable();
             $table->text('diagnosa')->nullable();
             $table->timestamps();

@@ -38,8 +38,11 @@
             </div>
             <!-- Kolom Kanan -->
             <div class="col-md-6">
-               <p>Semua Rekam Medis</p>
-
+                @if($rekamMedises->isNotEmpty())
+                    <p>Nama: {{ $rekamMedises->first()->pasien->Nama }}</p>
+                @else
+                    <p>Tidak ada data pasien yang tersedia(Pasien belum pernah berobat)</p>
+                @endif
             </div>
         </div>
     </div>
@@ -65,9 +68,6 @@
                     <td>{{ $rm->diagnosa }}</td>
 
 
-
-                        {{-- <a href="{{ $rm->id }}" class="btn btn-primary">Detail</a>
-                        <a href="{{  $rm->id }}" class="btn btn-danger">Edit</a> --}}
                     </td>
                 </tr>
                 @endforeach

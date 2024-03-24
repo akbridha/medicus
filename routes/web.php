@@ -62,5 +62,6 @@ Route::group(
 );
 
 Route::post('/rm/regis', [RekamMedisController::class, 'regis'])->name('rm.regis');
+Route::post('/rm/daftar', [RekamMedisController::class, 'daftar'])->name('rm.daftar');
 
 Route::get('/logistik', [LogistikController::class,'index'])->name('logistik.index');

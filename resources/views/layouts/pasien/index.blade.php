@@ -68,13 +68,13 @@
                                                 <div class="d-inline-block">
                                                     <!-- tombol kunjungan baru -->
 
-                                                    <form method="POST" action="{{ route('rm.regis') }}" class="d-inline-block">
-                                                    {{-- <form method="POST" action="{{ route('rm.create') }}" class="d-inline-block"> --}}
+                                                    <form method="POST" action="{{ route('rm.daftar') }}" class="d-inline-block">
                                                         @csrf
-                                                        <input type="hidden" name="pasien_id" value={{ $pasien->id }}>
+                                                        <input type="hidden" name="pasien_id" value="{{ $pasien->id }}">
+                                                        <input type="hidden" name="nama" value="{{ $pasien->Nama }}">
                                                         <input type="hidden" name="tanggal" value="{{ now()->format('Y-m-d') }}">
                                                         <input type="hidden" name="pemeriksaan" value="belum diperiksa">
-                                                        <button type="submit" class="btn btn-success">Registrasi</button>
+                                                        <button type="submit" class="btn btn-success">Daftar</button>
                                                     </form>
 
                                                     {{-- <form method="POST" action="{{ route('rm.store') }}">

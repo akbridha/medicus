@@ -33,6 +33,7 @@ class RekamMedisController extends Controller
     // $rekamMedises = RekamMedis::whereNull('pemeriksaan')->with('pasien')->get();
     // return $rekamMedises;
         $currentUser = Auth::user();
+
         return view('layouts.rm.rekamMedisAntrian', compact('rekamMedises', 'currentUser'));
 
     }
@@ -54,10 +55,14 @@ class RekamMedisController extends Controller
      */
     public function store(Request $request)
     {
+
         try {
             RekamMedis::create([
                 'pasien_id' => $request->input('pasien_id'),
-                'tanggal' => $request->input('tanggal'),
+                'tekanan_darah' => $request->input('tekanan_darah'),
+                'berat_badan' => $request->input('berat_badan'),
+                'tinggi_badang' => $request->input('tinggi_badan'),
+                'keluhan' => $request->input('keluhan'),
                 'pemeriksaan' => $request->input('pemeriksaan'),
                 'diagnosa' => $request->input('diagnosa'),
             ]);
@@ -71,24 +76,30 @@ class RekamMedisController extends Controller
     }
     public function regis(Request $request)
     {
+//   return $request;
         try {
             RekamMedis::create([
                 'pasien_id' => $request->input('pasien_id'),
                 'pemeriksaan' => $request->input('pemeriksaan'),//dari view dikirimkan value 'belum diperiksa'
-
-
-
-                    //rabu 22 maret
-                // 'tanggal' => $request->input('tanggal'),
-                // 'pemeriksaan' => $request->input('pemeriksaan'), biarkan null
-                // 'diagnosa' => $request->input('diagnosa'),  biarkan null agar dia tampil di antrian
+                'berat_badan' => $request->input('berat_badan'),
+                'tinggi_badan' => $request->input('tinggi_badan'),
+                'tekanan_darah' => $request->input('tekanan_darah'),
+                // 'keluhan' => 'suka makan dan obsesi berlebih',
+                'keluhan' => $request->input('keluhan'),
             ]);
             return redirect()->route('home')->with('key', 'Berhasil Registrasi Pasien');
         } catch (\Exception $e) {
             return redirect()->route('home')->with('key', $e->getMessage());
         }
+    }
+
+    public function daftar(Request $request)
+    {
 
 
+        $currentUser = Auth::user();
+        // return $request;
+        return view('layouts.rm.daftarBerobat', compact('request', 'currentUser'));
 
     }
 
