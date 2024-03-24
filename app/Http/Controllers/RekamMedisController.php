@@ -109,10 +109,11 @@ class RekamMedisController extends Controller
     public function show( $id)
     {
 
-            $rekamMedises = Pasien::find($id)->rekamMedis;
+        $rekamMedises = Pasien::find($id)->rekamMedis;
+        $currentUser = Auth::user();
 
             if ($rekamMedises) {
-                return view('layouts.rm.findRekamMedis', compact('rekamMedises'));
+                return view('layouts.rm.findRekamMedis', compact('rekamMedises', 'currentUser'));
             } else {
                 // Handle ketika pasien tidak ditemukan
                 // Misalnya, dapat mengembalikan pesan error atau mengarahkan ke halaman lain.
@@ -128,7 +129,7 @@ class RekamMedisController extends Controller
     {
         $currentUser = Auth::user();
         $rekamMedis->load('pasien');
-        // return $rekamMedis;
+        return $rekamMedis;
         return view('layouts.rm.editRekamMedis', compact('rekamMedis', 'currentUser'));
     }
 

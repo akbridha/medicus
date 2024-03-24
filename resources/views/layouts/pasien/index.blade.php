@@ -63,7 +63,20 @@
                                                 </div>
                                                 <div class="d-inline-block">
                                                     <!-- tombol untuk ke halaman edit pasien -->
-                                                    <a href="{{ route('pasien.edit', ['id' =>$pasien->id ]) }}" class="btn btn-warning">Ubah Data</a>
+                                                <form method="POST" action="{{ route('pasien.edit') }}">
+                                                    @csrf
+                                                    <input type="hidden" name="pasien_id" value="{{ $pasien->id }}">
+                                                    <input type="hidden" name="Nama" value="{{ $pasien->Nama }}">
+                                                    <input type="hidden" name="NIK" value="{{ $pasien->NIK }}">
+                                                    <input type="hidden" name="NBL" value="{{ $pasien->NBL }}">
+                                                    <input type="hidden" name="Tanggal_lahir" value="{{ $pasien->Tanggal_lahir }}">
+                                                    <input type="hidden" name="Umur" value="{{ $pasien->Umur }}">
+                                                    <input type="hidden" name="Alamat" value="{{ $pasien->Alamat }}">
+                                                    <input type="hidden" name="Nomor_BPJS" value="{{ $pasien->Nomor_BPJS }}">
+                                                    <input type="hidden" name="Jenis_Kelamin" value="{{ $pasien->Jenis_Kelamin}}">
+                                                    <input type="hidden" name="Pekerjaan" value="{{ $pasien->Pekerjaan }}">
+                                                    <button type="submit" class="btn btn-warning">Ubah Data</button>
+                                                </form>
                                                 </div>
                                                 <div class="d-inline-block">
                                                     <!-- tombol kunjungan baru -->

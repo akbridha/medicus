@@ -26,6 +26,7 @@ class PasienController extends Controller
         // return view("layouts.pasien.insertPasien");
 
 
+        $currentUser = Auth::user();
 
         $maxNBL = Pasien::max('NBL');
         // $maxNBL = '09-99';
@@ -64,7 +65,7 @@ class PasienController extends Controller
 
         // return $newNBL;
 
-         return view("layouts.pasien.insertPasien", ['newNBL' => $newNBL]);
+        return view("layouts.pasien.insertPasien", compact('newNBL', 'currentUser'));
     }
 
     /**
@@ -95,6 +96,7 @@ class PasienController extends Controller
      * Display the specified resource.
      */
     public function find(Request $request) {
+        $currentUser = Auth::user();
         $kataKunci = $request->input('kata_kunci');
 
         // Mencari data dengan kata kunci pencarian
@@ -107,18 +109,34 @@ class PasienController extends Controller
      * Show the form for editing the specified resource.
      */
     // public function edit(Pasien $pasien)
-    public function edit()
+    public function edit(Request $request)
     {
-        return view('layouts.pasien.editPasien');
+        $currentUser = Auth::user();
+
+        // return $request;
+        return view('layouts.pasien.editPasien', compact('request', 'currentUser'));
     }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Pasien $pasien)
-    {
-        //
-    }
+        {
+        $pasien->Nama = $request->Nama;
+        $pasien->NIK = $request->NIK;
+        $pasien->NBL = $request->NBL;
+        $pasien->Tanggal_lahir = $request->Tanggal_lahir;
+        $pasien->Umur = $request->Umur;
+        $pasien->Alamat = $request->Alamat;
+        $pasien->Nomor_BPJS = $request->Nomor_BPJS;
+        $pasien->Jenis_Kelamin = $request->Jenis_Kelamin;
+        $pasien->Pekerjaan = $request->Pekerjaan;
+
+
+        $pasien->save();
+
+        return redirect()->route('pasien.index')->with('key', 'Data Pasien berhasil diupdate');
+        }
 
     /**
      * Remove the specified resource from storage.

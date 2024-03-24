@@ -5,7 +5,7 @@ use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LogistikController;
 use App\Http\Controllers\SessionController;
-
+use App\Models\Pasien;
 use App\Models\RekamMedis;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -43,8 +43,9 @@ Route::get('/sesi/logout', [SessionController::class, 'logout'])->name('session.
 Route::get('pasien', [PasienController::class, 'index'])->name('pasien.index');
 Route::get('pasien/create', [PasienController::class, 'create'])->name('pasien.create');
 Route::post('pasien/store', [PasienController::class, 'store'])->name('pasien.store');
-Route::get('pasien/edit', [PasienController::class, 'edit'])->name('pasien.edit');
+Route::post('pasien/edit', [PasienController::class, 'edit'])->name('pasien.edit');
 Route::get('/cari', [PasienController::class,'find' ])->name('cari');
+Route::put('/pasien/{pasien}', [PasienController::class, 'update'])->name('pasien.update');
 
 Route::group(
     ['middleware' =>['isDocter']], function(){
