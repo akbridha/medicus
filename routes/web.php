@@ -7,6 +7,7 @@ use App\Http\Controllers\LogistikController;
 use App\Http\Controllers\SessionController;
 use App\Models\Pasien;
 use App\Models\RekamMedis;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -24,7 +25,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $currentUser  = Auth::user();
-    return view('layouts.welcome', compact('currentUser'));
+    $jumlahPasien = Pasien::count();
+    $bulanIni = Carbon::now()->month;
+    $tahunIni = Carbon::now()->year;
+
+    $jumlahPasienBulanIni = Pasien::whereMonth('created_at', $bulanIni)
+                        ->whereYear('created_at', $tahunIni)
+                        ->count();
+    return view('layouts.welcome', compact('currentUser','jumlahPasien', 'jumlahPasienBulanIni'));
 })->name('home');
 
 
@@ -57,6 +65,7 @@ Route::group(
         Route::put('/rm/{rekamMedis}', [RekamMedisController::class, 'update'])->name('rm.update');
 
         // Route::get('/rm/{rekamMedis}/{pasien}/edit', [RekamMedisController::class, 'edit'])->name('rm.edit');
+        Route::get('/rm/{rekamMedis}/periksa', [RekamMedisController::class, 'periksa'])->name('rm.periksa');
         Route::get('/rm/{rekamMedis}/edit', [RekamMedisController::class, 'edit'])->name('rm.edit');
         Route::post('/rm/create', [RekamMedisController::class, 'create'])->name('rm.create');
     }

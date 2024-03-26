@@ -35,7 +35,7 @@
                         <div class="d-inline-block">
                             <!-- tombol untuk ke halaman riwayat -->
                             <a href="{{ route('rm.show', ['id' =>$rekamMedis->pasien->id ]) }}" class="btn btn-primary">Riwayat</a>
-                            <a href="{{ route("rm.edit", $rekamMedis) }}" class="btn btn-success ">Periksa</a>
+                            <a href="{{ route("rm.periksa", $rekamMedis) }}" class="btn btn-success ">Periksa</a>
 
                         </div>
 

@@ -38,9 +38,6 @@ class RekamMedisController extends Controller
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create(Request $request)
     {
         //
@@ -50,9 +47,7 @@ class RekamMedisController extends Controller
         return view('layouts.rm.insertRekamMedis', compact('request', 'currentUser'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
 
@@ -103,9 +98,7 @@ class RekamMedisController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show( $id)
     {
 
@@ -113,6 +106,7 @@ class RekamMedisController extends Controller
         $currentUser = Auth::user();
 
             if ($rekamMedises) {
+// return $rekamMedises;
                 return view('layouts.rm.findRekamMedis', compact('rekamMedises', 'currentUser'));
             } else {
                 // Handle ketika pasien tidak ditemukan
@@ -121,21 +115,26 @@ class RekamMedisController extends Controller
             }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+    public function periksa(RekamMedis $rekamMedis )
+    {
+        $currentUser = Auth::user();
+        $rekamMedis->load('pasien');
+        // return $rekamMedis;
+        return view('layouts.rm.periksaRekamMedis', compact('rekamMedis', 'currentUser'));
+    }
+
+
+
     // public function edit(RekamMedis $rekamMedis , Pasien $pasien)
     public function edit(RekamMedis $rekamMedis )
     {
         $currentUser = Auth::user();
         $rekamMedis->load('pasien');
-        return $rekamMedis;
+        // return $rekamMedis;
         return view('layouts.rm.editRekamMedis', compact('rekamMedis', 'currentUser'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+
     public function update(Request $request, RekamMedis $rekamMedis)
     {
     $rekamMedis->tanggal = $request->tanggal;
@@ -149,9 +148,7 @@ class RekamMedisController extends Controller
     return redirect()->route('rm.index')->with('key', 'Data rekam medis berhasil diupdate');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+
     public function destroy(RekamMedis $rekamMedis)
     {
         //
