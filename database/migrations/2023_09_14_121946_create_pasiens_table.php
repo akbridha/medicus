@@ -13,7 +13,7 @@ return new class extends Migration
             $table->string('NIK', 16)->unique(); // Varchar dengan panjang 16 karakter, unik.
             $table->string('NBL');
             $table->string('Nama');
-            $table->date('Tanggal_lahir');
+            $table->date('Tanggal_lahir')->nullable();
             $table->string('Umur');
             $table->string('Alamat');
             $table->string('Nomor_BPJS');

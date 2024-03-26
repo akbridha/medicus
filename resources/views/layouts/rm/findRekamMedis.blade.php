@@ -33,13 +33,20 @@
         <div class="row">
             <!-- Kolom Kiri dengan Garis Tebal -->
             <div class="col-md-1 border-right">
-                <p><strong>Nama: </strong></p>
+                <p><strong>Data Pasien  </strong></p>
 
             </div>
             <!-- Kolom Kanan -->
             <div class="col-md-6">
-               <p>Semua Rekam Medis</p>
-
+                @if($rekamMedises->isNotEmpty())
+                    <p>Nama: {{ $rekamMedises->first()->pasien->Nama }}</p>
+                    <p>Gender: {{ $rekamMedises->first()->pasien->Jenis_Kelamin }}</p>
+                    <p>Umur: {{ $rekamMedises->first()->pasien->Umur }}</p>
+                    <p>Alamat: {{ $rekamMedises->first()->pasien->Alamat }}</p>
+                    <p>Pekerjaan: {{ $rekamMedises->first()->pasien->Pekerjaan }}</p>
+                @else
+                    <p>Tidak ada data pasien yang tersedia(Pasien belum pernah berobat)</p>
+                @endif
             </div>
         </div>
     </div>
@@ -65,9 +72,6 @@
                     <td>{{ $rm->diagnosa }}</td>
 
 
-
-                        {{-- <a href="{{ $rm->id }}" class="btn btn-primary">Detail</a>
-                        <a href="{{  $rm->id }}" class="btn btn-danger">Edit</a> --}}
                     </td>
                 </tr>
                 @endforeach

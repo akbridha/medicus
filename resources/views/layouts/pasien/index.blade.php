@@ -49,31 +49,79 @@
                         <tbody>
                             @foreach($pasiens as $pasien)
                             <tr>
-                                <td style="width: 100px;">{{ $pasien->NBL }}</td>
-                                <td>{{ $pasien->Nama }}</td>
-                                <td>{{ $pasien->Alamat }}</td>
-                                <td style="width: 150px;">
-                                    {{-- tombol kunjungan baru         --}}
-                                        <form method="POST" action="{{ route('rm.create') }}">
-                                            @csrf
-                                            <input type="hidden" name="id_pasien" value={{ $pasien->id }}>
-                                            <button type="submit" class="btn btn-success mb-2">Kunjungan Baru</button>
-                                        </form>
-                                        {{-- tombol untuk ke halaman riwayat --}}
-                                        <a href="{{ route('rm.show', ['id' =>$pasien->id ]) }}" class="btn btn-primary mb-3">Riwayat</a>
-                                        {{-- tombol untuk ke halaman edit pasien --}}
+                                <td style="width: 50px;">{{ $pasien->NBL }}</td>
+                                <td >{{ $pasien->Nama }}</td>
+                                <td >{{ $pasien->Alamat }}</td>
+                                <td style="width: 500px;">
 
-                                        <a href="{{ route('pasien.edit', ['id' =>$pasien->id ]) }}" class="btn btn-warning mb-3">Ubah Data</a>
-                                        {{-- <form method="POST" action="{{route('pasien.edit')}}">
-                                            @csrf
-                                            <input type="hidden" name="id_pasien" value={{ $pasien->id }}>
-                                            <button type="submit" class="btn btn-warning mb-2">Edit Pasien</button>
-                                        </form> --}}
-                                    </td>
-                                </tr>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col text-center">
+                                                <div class="d-inline-block">
+                                                    <!-- tombol untuk ke halaman riwayat -->
+                                                    <a href="{{ route('rm.show', ['id' =>$pasien->id ]) }}" class="btn btn-primary">Riwayat</a>
+                                                </div>
+                                                <div class="d-inline-block">
+                                                    <!-- tombol untuk ke halaman edit pasien -->
+                                                <form method="POST" action="{{ route('pasien.edit') }}">
+                                                    @csrf
+                                                    <input type="hidden" name="pasien_id" value="{{ $pasien->id }}">
+                                                    <input type="hidden" name="Nama" value="{{ $pasien->Nama }}">
+                                                    <input type="hidden" name="NIK" value="{{ $pasien->NIK }}">
+                                                    <input type="hidden" name="NBL" value="{{ $pasien->NBL }}">
+                                                    <input type="hidden" name="Tanggal_lahir" value="{{ $pasien->Tanggal_lahir }}">
+                                                    <input type="hidden" name="Umur" value="{{ $pasien->Umur }}">
+                                                    <input type="hidden" name="Alamat" value="{{ $pasien->Alamat }}">
+                                                    <input type="hidden" name="Nomor_BPJS" value="{{ $pasien->Nomor_BPJS }}">
+                                                    <input type="hidden" name="Jenis_Kelamin" value="{{ $pasien->Jenis_Kelamin}}">
+                                                    <input type="hidden" name="Pekerjaan" value="{{ $pasien->Pekerjaan }}">
+                                                    <button type="submit" class="btn btn-warning">Ubah Data</button>
+                                                </form>
+                                                </div>
+                                                <div class="d-inline-block">
+                                                    <!-- tombol kunjungan baru -->
+
+                                                    <form method="POST" action="{{ route('rm.daftar') }}" class="d-inline-block">
+                                                        @csrf
+                                                        <input type="hidden" name="pasien_id" value="{{ $pasien->id }}">
+                                                        <input type="hidden" name="nama" value="{{ $pasien->Nama }}">
+                                                        <input type="hidden" name="tanggal" value="{{ now()->format('Y-m-d') }}">
+                                                        <input type="hidden" name="pemeriksaan" value="belum diperiksa">
+                                                        <button type="submit" class="btn btn-success">Daftar</button>
+                                                    </form>
+
+                                                    {{-- <form method="POST" action="{{ route('rm.store') }}">
+                                                        @csrf
+                                                        <div class="form-group">
+                                                            <label for="pasien_id">ID Pasien:</label>
+                                                            <input type="text" class="form-control" id="pasien_id" name="pasien_id" value={{ $request->id_pasien }} readonly>
+
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="tanggal">Tanggal:</label>
+                                                            <input type="date" class="form-control" id="tanggal" name="tanggal">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="pemeriksaan">Pemeriksaan:</label>
+                                                            <input type="text" class="form-control" id="pemeriksaan" name="pemeriksaan">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="diagnosa">Diagnosa:</label>
+                                                            <textarea class="form-control" id="diagnosa" name="diagnosa"></textarea>
+                                                        </div>
+                                                        <button type="submit" class="btn btn-primary">Simpan</button>
+                                                    </form> --}}
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
                             @endforeach
                         </tbody>
                     </table>
+
                     {{-- //untuk pagination halamannya --}}
                     {{$pasiens ->links()}}
                 </div>

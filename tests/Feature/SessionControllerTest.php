@@ -1,16 +1,32 @@
 <?php
+// namespace Tests\Feature;
+// use Illuminate\Foundation\Testing\RefreshDatabase;
+// use Illuminate\Foundation\Testing\WithFaker;
+// use Tests\TestCase;
+// class SessionControllerTest extends TestCase
+// {
+//     /**
+//      * A basic feature test example.
+//      */
+//     public function test_example(): void
+//     {
+//         $response = $this->get('/');
 
-namespace Tests\Unit;
+//         $response->assertStatus(200);
+//     }
+// }
 
 
-use Illuminate\Support\Facades\Auth;
+
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
-class UserTest extends TestCase
+class SessionControllerTest extends TestCase
 {
-
-
-public function setUp(): void
+    public function setUp(): void
     {
         parent::setUp();
         // Pastikan user tidak login sebelum setiap test

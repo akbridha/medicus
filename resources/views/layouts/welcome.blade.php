@@ -62,7 +62,7 @@
 
             <div class="row mt-4">
                 <div class="col-md-3">
-                    <a href="{{route('rm.edit')}} " class="text-dark" >
+                    <a href="{{route('rm.antrian')}} " class="text-dark" >
                         <div class="card bg-primary" style="height: 250px;">
                             <div class="card-body  mt-5">
                                 <h5 class="card-title bg-primary">
@@ -83,7 +83,7 @@
                             <h5 class="card-title">Jumlah Pasien Terdaftar</h5>
                             <p class="card-text">
                                 <img src="{{ asset('Icons/person-bulat.svg') }}" alt="person bulat">
-                                742 Orang.
+                                {{ $jumlahPasien }} Orang.
                             </p>
                         </div>
                     </div>
@@ -94,7 +94,7 @@
                             <h5 class="card-title">Pasien Baru Bulan Ini</h5>
                             <p class="card-text">
                                 <img src="{{ asset('Icons/person-bulat.svg') }}" alt="person bulat">
-                                23 Orang.
+                                {{ $jumlahPasienBulanIni }} Orang.
                             </p>
                         </div>
                     </div>

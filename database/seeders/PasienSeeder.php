@@ -12,7 +12,7 @@ class PasienSeeder extends Seeder
      */
     public function run(): void
     {
-        \App\Models\Pasien::factory(5220)->create();
+        \App\Models\Pasien::factory(80)->create();
     }
 }
 

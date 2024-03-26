@@ -15,7 +15,7 @@
         </div>
         <div class="form-group">
             <label for="NBL">NBL:</label>
-            <input type="text" class="form-control" id="NBL" name="NBL">
+            <input type="text" class="form-control" id="NBL" name="NBL" value="{{ $newNBL }}" readonly>
         </div>
         <div class="form-group">
             <label for="Nama">Nama:</label>

@@ -5,8 +5,9 @@ use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LogistikController;
 use App\Http\Controllers\SessionController;
-
+use App\Models\Pasien;
 use App\Models\RekamMedis;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -24,8 +25,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     $currentUser  = Auth::user();
-    return view('layouts.welcome', compact('currentUser'));
-});
+    $jumlahPasien = Pasien::count();
+    $bulanIni = Carbon::now()->month;
+    $tahunIni = Carbon::now()->year;
+
+    $jumlahPasienBulanIni = Pasien::whereMonth('created_at', $bulanIni)
+                        ->whereYear('created_at', $tahunIni)
+                        ->count();
+    return view('layouts.welcome', compact('currentUser','jumlahPasien', 'jumlahPasienBulanIni'));
+})->name('home');
 
 
 
@@ -43,19 +51,27 @@ Route::get('/sesi/logout', [SessionController::class, 'logout'])->name('session.
 Route::get('pasien', [PasienController::class, 'index'])->name('pasien.index');
 Route::get('pasien/create', [PasienController::class, 'create'])->name('pasien.create');
 Route::post('pasien/store', [PasienController::class, 'store'])->name('pasien.store');
-Route::get('pasien/edit', [PasienController::class, 'edit'])->name('pasien.edit');
+Route::post('pasien/edit', [PasienController::class, 'edit'])->name('pasien.edit');
 Route::get('/cari', [PasienController::class,'find' ])->name('cari');
+Route::put('/pasien/{pasien}', [PasienController::class, 'update'])->name('pasien.update');
 
 Route::group(
     ['middleware' =>['isDocter']], function(){
         Route::get('/rm', [RekamMedisController::class, 'index'])->name('rm.index');
         Route::get('/rm/show/{id}', [RekamMedisController::class, 'show'])->name('rm.show');
         // Route::get('/rm/edit/{id}', [RekamMedisController::class, 'edit'])->name('rm.edit');
-        Route::get('/rm/edit', [RekamMedisController::class, 'edit'])->name('rm.edit');
+        Route::get('/rm/antrian', [RekamMedisController::class, 'antrian'])->name('rm.antrian');
+        Route::post('/rm/store', [RekamMedisController::class, 'store'])->name('rm.store');
+        Route::put('/rm/{rekamMedis}', [RekamMedisController::class, 'update'])->name('rm.update');
+
+        // Route::get('/rm/{rekamMedis}/{pasien}/edit', [RekamMedisController::class, 'edit'])->name('rm.edit');
+        Route::get('/rm/{rekamMedis}/periksa', [RekamMedisController::class, 'periksa'])->name('rm.periksa');
+        Route::get('/rm/{rekamMedis}/edit', [RekamMedisController::class, 'edit'])->name('rm.edit');
+        Route::post('/rm/create', [RekamMedisController::class, 'create'])->name('rm.create');
     }
 );
 
-Route::post('/rm/create', [RekamMedisController::class, 'create'])->name('rm.create');
-Route::post('/rm/store', [RekamMedisController::class, 'store'])->name('rm.store');
+Route::post('/rm/regis', [RekamMedisController::class, 'regis'])->name('rm.regis');
+Route::post('/rm/daftar', [RekamMedisController::class, 'daftar'])->name('rm.daftar');
 
 Route::get('/logistik', [LogistikController::class,'index'])->name('logistik.index');
