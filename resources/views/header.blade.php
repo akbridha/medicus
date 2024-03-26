@@ -13,7 +13,7 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-info">
+    <nav class="navbar navbar-expand-sm navbar-light bg-info">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">
                 <img src="{{asset('Icons/person-rolodex.svg')}}" alt="folder-person">
@@ -82,8 +82,8 @@
     @yield('content') <!-- Ini adalah tempat konten dari view akan ditempatkan -->
 </div>
 
-<!-- Tautan ke Bootstrap JS (Jika Anda memerlukannya) -->
+
 {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script> --}}
-<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+<script src="{{asset('js/bootstrap.min.js') }}"></script>
 </body>
 </html>
