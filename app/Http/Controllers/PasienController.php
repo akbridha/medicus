@@ -28,7 +28,11 @@ class PasienController extends Controller
 
         $currentUser = Auth::user();
 
-        $maxNBL = Pasien::max('NBL');
+        if(Pasien::count() < 1){
+            $newNBL = "00-01";
+        }
+        else
+        {$maxNBL = Pasien::max('NBL');
         // $maxNBL = '09-99';
 
         // Pisahkan bagian angka sebelum dan setelah strip
@@ -62,8 +66,8 @@ class PasienController extends Controller
 
         // Format ulang NBL
         $newNBL = sprintf("%02d-%02d", $finalPrefix, $finalSuffix);
-
         // return $newNBL;
+        }
 
         return view("layouts.pasien.insertPasien", compact('newNBL', 'currentUser'));
     }
