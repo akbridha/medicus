@@ -28,6 +28,7 @@
                         </div>
                     </a>
                 </div>
+                @if($currentUser->role === 'admin')
                 <div class="col-md-4 mt-4">
                     <a href="{{route('pasien.create')}}" >
                     <div class="card bg-info text-white">
@@ -41,6 +42,7 @@
                         </div>
                     </a>
                 </div>
+                @endif
                 <div class="col-md-4 mt-4">
                     <a href="{{route('logistik.index')}}" class="text-decoration-none text-dark" >
                         <div class="card bg-warning text-white">
@@ -114,7 +116,8 @@
                     </h5>
                 </div>
                 <div class="card-body">
-                    <p class="card-text">Tanggal hari ini adalah: {{ date('Y-m-d') }}</p>
+                    <p class="card-text">Tanggal : {{ date('Y-m-d') }}</p>
+                    <a href="/export_db" class="btn btn-secondary">Export</a>
                 </div>
             </div>
 

@@ -11,7 +11,7 @@ class CreatePasienTest extends TestCase
 
     public $response;
     protected $data = [
-        'NIK' => '12324325342',
+        'NIK' => '12354355342',
         'NBL' => '02-02',
         'Nama' => 'ivory jeremy',
         'Tanggal_lahir' => '1990-01-01',

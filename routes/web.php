@@ -5,6 +5,7 @@ use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LogistikController;
 use App\Http\Controllers\SessionController;
+use App\Http\Controllers\DatabaseController;
 use App\Models\Pasien;
 use App\Models\RekamMedis;
 use Carbon\Carbon;
@@ -32,6 +33,7 @@ Route::get('/', function () {
     $jumlahPasienBulanIni = Pasien::whereMonth('created_at', $bulanIni)
                         ->whereYear('created_at', $tahunIni)
                         ->count();
+// return $currentUser;
     return view('layouts.welcome', compact('currentUser','jumlahPasien', 'jumlahPasienBulanIni'));
 })->name('home');
 
@@ -75,3 +77,7 @@ Route::post('/rm/regis', [RekamMedisController::class, 'regis'])->name('rm.regis
 Route::post('/rm/daftar', [RekamMedisController::class, 'daftar'])->name('rm.daftar');
 
 Route::get('/logistik', [LogistikController::class,'index'])->name('logistik.index');
+
+Route::get('/export_db', [DatabaseController::class,'eksport']);
+Route::get('/cek_path', function(){echo getenv('PATH');});
+// Route::get('/add_sql_to_path', function(){echo getenv('PATH');});
