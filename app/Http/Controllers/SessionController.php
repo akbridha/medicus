@@ -19,7 +19,7 @@ class SessionController extends Controller
 
         //pengecekan apakah sudah login atau belum
         if(Auth::check()){
-            return redirect('/sesi')->withErrors('Anda sudah login');
+            return redirect('/')->withErrors('Anda sudah login');
         //apabila memang belum login baru diproses agar tidak tertimpa.
         }else{
             Session::flash('email', $request->email);
@@ -35,7 +35,7 @@ class SessionController extends Controller
             $user = User::where('email', $request->email)->first();
             if ($user && $request->password == $user->password) {
                 Auth::login($user);
-                return redirect('/sesi')->with('key', 'Berhasil');
+                return redirect('/')->with('key', 'Berhasil');
             } else {
                 return redirect('/sesi')->withErrors('Username/Password tidak valid');
             }
@@ -47,7 +47,7 @@ class SessionController extends Controller
             $user = Auth::user();
             if($user != null){
                 Auth::logout(); // Melakukan logout pengguna
-        return redirect('/sesi')->with('key', 'Berhasil Logout dari akun : '.$user->name); // Mengarahkan kembali ke halaman login
+        return redirect('/')->with('key', 'Berhasil Logout dari akun : '.$user->name); // Mengarahkan kembali ke halaman login
     }else{
         return redirect('/sesi')->with('key', 'Belum Login');
         }

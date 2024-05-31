@@ -48,6 +48,18 @@
                         </a> <!-- Tambahkan ikon login -->
 
                     </li>
+                    @if (Auth::check())
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/sesi/logout">
+                            <div class="container " style="border-radius: 10px;">
+
+                                <img src="{{ asset('Icons/box-arrow.svg') }}" alt="person"/>
+                            </div>
+                        </a> <!-- Tambahkan ikon login -->
+
+                    </li>
+                    @endif
                 </ul>
             </div>
         </div>

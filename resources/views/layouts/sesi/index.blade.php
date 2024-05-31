@@ -45,9 +45,9 @@
                     Logout
                 </button>
             </form> --}}
-            <a href="/sesi/logout">
+            {{-- <a href="/sesi/logout">
                 <button> Force LG</button>
-            </a>
+            </a> --}}
         </div>
 
     </div>
