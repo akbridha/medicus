@@ -32,4 +32,9 @@ class Pasien extends Model
         return $this->hasMany(RekamMedis::class, 'pasien_id');
     }
 
+    public function keluargas()
+    {
+        return $this->hasMany(Keluarga::class);
+    }
+
 }

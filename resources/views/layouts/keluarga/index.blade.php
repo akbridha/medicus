@@ -2,7 +2,8 @@
 
 @section('content')
     <div class="container-fluid">
-        <h1>Daftar Pasien</h1>
+        <h1>Keluarga</h1>
+        <h3>Masukkan data Pasien</h3>
         {{-- @if (session()->has('key'))
             @if (session('key')== 'Berhasil')
                 <div class="alert alert-success">
@@ -21,16 +22,18 @@
             @endphp
         @endif --}}
 
-        <a href="{{route('pasien.create')}}" class="btn btn-info mb-4 float-right">Tambah</a>
-        <form method="GET" action="{{ route('cari') }}">
+        <form method="GET" action="{{ route('keluarga.pasien.find') }}">
             <input type="text" name="kata_kunci" placeholder="Cari...">
             <button type="submit">Cari</button>
         </form>
 
-
+        @if (is_null($pasiens))
+            <div class="alert alert-info mt-4" role="alert">
+                Silakan masukkan nama pasien untuk mencari.
+            </div>
             {{-- pengecekan apabila data yang dikirim kosong --}}
 
-        @if($pasiens->isEmpty())
+        @elseif($pasiens->isEmpty())
             <div class="alert alert-warning" role="alert">
                 Data Pasien tidak ditemukan
             </div>
@@ -82,7 +85,7 @@
                                                 <div class="d-inline-block">
                                                     <!-- tombol kunjungan baru -->
 
-                                                    <form method="POST" action="{{ route('rm.daftar') }}" class="d-inline-block">
+                                                    <form method="POST" action="{{ ???}}" class="d-inline-block">
                                                         @csrf
                                                         <input type="hidden" name="pasien_id" value="{{ $pasien->id }}">
                                                         <input type="hidden" name="nama" value="{{ $pasien->Nama }}">
@@ -91,27 +94,6 @@
                                                         <button type="submit" class="btn btn-success">Daftar</button>
                                                     </form>
 
-                                                    {{-- <form method="POST" action="{{ route('rm.store') }}">
-                                                        @csrf
-                                                        <div class="form-group">
-                                                            <label for="pasien_id">ID Pasien:</label>
-                                                            <input type="text" class="form-control" id="pasien_id" name="pasien_id" value={{ $request->id_pasien }} readonly>
-
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="tanggal">Tanggal:</label>
-                                                            <input type="date" class="form-control" id="tanggal" name="tanggal">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="pemeriksaan">Pemeriksaan:</label>
-                                                            <input type="text" class="form-control" id="pemeriksaan" name="pemeriksaan">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label for="diagnosa">Diagnosa:</label>
-                                                            <textarea class="form-control" id="diagnosa" name="diagnosa"></textarea>
-                                                        </div>
-                                                        <button type="submit" class="btn btn-primary">Simpan</button>
-                                                    </form> --}}
 
                                                 </div>
                                             </div>
@@ -133,5 +115,11 @@
 
         @endif
             {{-- akhir pengecekan apabila data yang dikirim kosong --}}
+
+
+
+
+
+
     </div>
 @endsection

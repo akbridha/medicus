@@ -9,6 +9,7 @@
         @csrf
         @method('PUT')
     {{-- <form method="POST" action=""> --}}
+        <h6> ID pasien : {{ $request->pasien_id }}</h6>
         <div class="form-group">
             <label for="NIK">NIK:</label>
             <input type="text" class="form-control" id="NIK" name="NIK" value="{{ $request->NIK }}">
@@ -47,5 +48,16 @@
         </div>
         <button type="submit" class="btn btn-primary">Simpan</button>
     </form>
+
+   <div class="container">
+
+        <div class="d-flex justify-content-end">
+            <form method="GET" action="{{ route('pasien.hapus') }}">
+                @csrf
+                <input type="hidden" id="id" name="id" value="{{ $request->pasien_id }}">
+                <button type="submit" class="btn btn-danger">Hapus</button>
+            </form>
+        </div>
+    </div>
 </div>
 @endsection

@@ -14,8 +14,9 @@
         <div class="container-fluid">
 
             <div class="row">
+
                 {{-- Auth::check()  untuk handle ketika nilai null --}}
-                @if (Auth::check() && Auth::user()->role === 'docter')
+                @if (Auth::check() && Auth::user()->role === 'admin')
                 <div class="col-md-4 mt-4">
                     <a href="{{route('pasien.index')}}" class="text-decoration-none ">
                         <div class="card bg-success text-white">
@@ -70,6 +71,8 @@
             {{-- row --}}
 
             <div class="row mt-4">
+                {{-- Auth::check()  untuk handle ketika nilai null --}}
+                @if (Auth::check() && Auth::user()->role === 'docter')
                 <div class="col-md-3">
                     <a href="{{route('rm.antrian')}} " class="text-dark" >
                         <div class="card bg-primary" style="height: 250px;">
@@ -80,12 +83,13 @@
                                 </h5>
                                 <p class="card-text">
                                     <img src="{{ asset('Icons/person-bulat.svg') }}" alt="person bulat">
-                                    2 Orang.
+                                    {{ $antrian }} Orang
                                 </p>
                             </div>
                         </div>
                     </a>
                 </div>
+                @endif
                 <div class="col-md-2">
                     <div class="card" style="height: 250px;">
                         <div class="card-body mt-5">
@@ -109,6 +113,7 @@
                     </div>
                 </div>
                 <div class="col-md-2"></div>
+  {{-- <a href="{{route('keluarga.index')}}" class="btn btn-primary mb-4 float-right">Keluarga</a> --}}
             </div>
 
 

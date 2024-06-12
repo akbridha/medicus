@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\LogistikController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\DatabaseController;
+use App\Http\Controllers\KeluargaController;
 use App\Models\Pasien;
 use App\Models\RekamMedis;
 use Carbon\Carbon;
@@ -33,8 +34,12 @@ Route::get('/', function () {
     $jumlahPasienBulanIni = Pasien::whereMonth('created_at', $bulanIni)
                         ->whereYear('created_at', $tahunIni)
                         ->count();
+
+    // untuk menampilkan jumlah antrian
+    $antrian = RekamMedis::where('pemeriksaan', 'belum diperiksa')->count();
+
 // return $currentUser;
-    return view('layouts.welcome', compact('currentUser','jumlahPasien', 'jumlahPasienBulanIni'));
+    return view('layouts.welcome', compact('currentUser','antrian','jumlahPasien', 'jumlahPasienBulanIni'));
 })->name('home');
 
 
@@ -56,6 +61,10 @@ Route::post('pasien/store', [PasienController::class, 'store'])->name('pasien.st
 Route::post('pasien/edit', [PasienController::class, 'edit'])->name('pasien.edit');
 Route::get('/cari', [PasienController::class,'find' ])->name('cari');
 Route::put('/pasien/{pasien}', [PasienController::class, 'update'])->name('pasien.update');
+Route::get('/hapus', [PasienController::class, 'destroy'])->name('pasien.hapus');
+
+Route::get('/form_keluarga', [KeluargaController::class, 'index'])->name('keluarga.index');
+Route::get('/cari_keluarga', [KeluargaController::class, 'findPasien'])->name('keluarga.pasien.find');
 
 Route::group(
     ['middleware' =>['isDocter']], function(){

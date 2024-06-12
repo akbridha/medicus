@@ -106,7 +106,7 @@ class PasienController extends Controller
         // Mencari data dengan kata kunci pencarian
         $pasiens = Pasien::where('Nama', 'like', '%' . $kataKunci . '%')->paginate(3);
 
-        return view('layouts.pasien.index',compact('pasiens'));
+        return view('layouts.pasien.index',compact('pasiens', 'currentUser'));
     }
 
     /**
@@ -145,8 +145,22 @@ class PasienController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Pasien $pasien)
+    public function destroy(Request $request)
     {
-        //
+
+// return $request;
+
+    // Cari pasien berdasarkan ID
+        $pasien = Pasien::find($request->id);
+        // return $pasien;
+        if ($pasien) {
+            // Hapus pasien
+            $pasien->delete();
+            // Redirect dengan pesan sukses
+            return redirect()->route('pasien.index')->with('key', 'Pasien berhasil dihapus.');
+        } else {
+            // Redirect dengan pesan error jika pasien tidak ditemukan
+            return redirect()->route('pasien.index')->with('key', 'Gagal Menghapus.');
+        }
     }
 }
