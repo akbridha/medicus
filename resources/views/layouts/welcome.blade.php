@@ -113,7 +113,7 @@
                     </div>
                 </div>
                 <div class="col-md-2"></div>
-  {{-- <a href="{{route('keluarga.index')}}" class="btn btn-primary mb-4 float-right">Keluarga</a> --}}
+            <a href="{{route('keluarga.index')}}" class="btn btn-primary mb-4 float-right">Keluarga</a>
             </div>
 
 

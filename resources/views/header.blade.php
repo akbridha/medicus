@@ -34,30 +34,24 @@
                         <a class="nav-link" href="/pasien">
                             <img src="{{ asset('Icons/pasien-list.svg') }}" alt="List">
                             Pasien
-
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a class="nav-link" href="/sesi">
                             <div class="container bg-light" style="border-radius: 10px;">
-
                                 <img src="{{ asset('Icons/person-bulat.svg') }}" alt="person"/>
                                 {{ $currentUser->name ?? 'Login' }}
                             </div>
                         </a> <!-- Tambahkan ikon login -->
-
                     </li>
                     @if (Auth::check())
-
                     <li class="nav-item">
                         <a class="nav-link" href="/sesi/logout">
                             <div class="container " style="border-radius: 10px;">
-
                                 <img src="{{ asset('Icons/box-arrow.svg') }}" alt="person"/>
                             </div>
                         </a> <!-- Tambahkan ikon login -->
-
                     </li>
                     @endif
                 </ul>

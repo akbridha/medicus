@@ -14,9 +14,9 @@ return new class extends Migration
             $table->string('NBL');
             $table->string('Nama');
             $table->date('Tanggal_lahir')->nullable();
-            $table->string('Umur');
+            $table->string('Umur')->nullable();
             $table->string('Alamat');
-            $table->string('Nomor_BPJS');
+            $table->string('Nomor_BPJS')->nullable();
             $table->string('Jenis_Kelamin');
             $table->string('Pekerjaan');
             $table->timestamps();

@@ -7,6 +7,7 @@ use App\Http\Controllers\LogistikController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\DatabaseController;
 use App\Http\Controllers\KeluargaController;
+use App\Models\Keluarga;
 use App\Models\Pasien;
 use App\Models\RekamMedis;
 use Carbon\Carbon;
@@ -65,6 +66,10 @@ Route::get('/hapus', [PasienController::class, 'destroy'])->name('pasien.hapus')
 
 Route::get('/form_keluarga', [KeluargaController::class, 'index'])->name('keluarga.index');
 Route::get('/cari_keluarga', [KeluargaController::class, 'findPasien'])->name('keluarga.pasien.find');
+Route::post('/pilih_pasien_keluarga', [KeluargaController::class, 'pilihPasienKeluarga'])->name('keluarga.pasien.pilih');
+Route::post('/keluarga/store', [KeluargaController::class, 'store'])->name('keluarga.store');
+Route::post('/keluarga/clear-session', [KeluargaController::class, 'clearSession'])->name('keluarga.clear-session');
+
 
 Route::group(
     ['middleware' =>['isDocter']], function(){
