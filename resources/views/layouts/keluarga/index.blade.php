@@ -115,6 +115,7 @@
         @if(isset($pilihans) && count($pilihans) > 0)
         <form method="POST" action="{{ route('keluarga.store') }}">
             @csrf
+            <input type="text" class="form-control" id="nama_keluarga" name="nama_keluarga">
             <input type="hidden" name="all_pasiens" value="{{ json_encode($pilihans) }}">
             <button type="submit" class="btn btn-primary">Kirim Semua Pasien</button>
         </form>

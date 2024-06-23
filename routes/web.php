@@ -56,14 +56,18 @@ Route::get('/sesi/logout', [SessionController::class, 'logout'])->name('session.
 // Route::get('/pasien', [PasienController::class, 'index']);
 
 
-Route::get('pasien', [PasienController::class, 'index'])->name('pasien.index');
-Route::get('pasien/create', [PasienController::class, 'create'])->name('pasien.create');
-Route::post('pasien/store', [PasienController::class, 'store'])->name('pasien.store');
-Route::post('pasien/edit', [PasienController::class, 'edit'])->name('pasien.edit');
-Route::get('/cari', [PasienController::class,'find' ])->name('cari');
-Route::put('/pasien/{pasien}', [PasienController::class, 'update'])->name('pasien.update');
-Route::get('/hapus', [PasienController::class, 'destroy'])->name('pasien.hapus');
 
+Route::group(
+    ['middleware' =>['isAdmin']], function(){
+        Route::get('pasien', [PasienController::class, 'index'])->name('pasien.index');
+        Route::get('pasien/create', [PasienController::class, 'create'])->name('pasien.create');
+        Route::post('pasien/store', [PasienController::class, 'store'])->name('pasien.store');
+        Route::post('pasien/edit', [PasienController::class, 'edit'])->name('pasien.edit');
+        Route::get('/cari', [PasienController::class,'find' ])->name('cari');
+        Route::put('/pasien/{pasien}', [PasienController::class, 'update'])->name('pasien.update');
+        Route::get('/hapus', [PasienController::class, 'destroy'])->name('pasien.hapus');
+    }
+);
 Route::get('/form_keluarga', [KeluargaController::class, 'index'])->name('keluarga.index');
 Route::get('/cari_keluarga', [KeluargaController::class, 'findPasien'])->name('keluarga.pasien.find');
 Route::post('/pilih_pasien_keluarga', [KeluargaController::class, 'pilihPasienKeluarga'])->name('keluarga.pasien.pilih');

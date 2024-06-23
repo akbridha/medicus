@@ -24,7 +24,7 @@
                 <tr>
 {{-- @dd($rekamMedis->pasien->Nama) --}}
                     <td style="width: 130px;">{{ $rekamMedis->tanggal}}</td>
-                    <td>{{$rekamMedis->pasien->Nama}}</td>
+                    <td>{{$rekamMedis->Nama}}</td>
                     <td>{{ $rekamMedis->pemeriksaan }}</td>
                     <td>{{ $rekamMedis->diagnosa }}</td>
 

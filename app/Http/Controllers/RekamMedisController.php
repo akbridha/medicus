@@ -145,7 +145,7 @@ class RekamMedisController extends Controller
 
     $rekamMedis->save();
 
-    return redirect()->route('rm.index')->with('key', 'Data rekam medis berhasil diupdate');
+    return redirect()->route('rm.antrian')->with('key', 'Data rekam medis berhasil diupdate');
     }
 
 

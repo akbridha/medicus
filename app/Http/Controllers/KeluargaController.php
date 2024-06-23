@@ -100,23 +100,31 @@ class KeluargaController extends Controller
     public function store(Request $request)
     {
         $allPasiens = json_decode($request->input('all_pasiens'), true);
-            // buat cek
-        return $request;
-        return $allPasiens;
-        // foreach ($allPasiens as $pasienData) {
-        //     $pasien = Pasien::find($pasienData['id']);
+        try {
+            Keluarga::create([
+                'nama' => $request->input('nama_keluarga')
 
-        //     if (!$pasien) {
-        //         $pasien = new Pasien();
-        //     }
+            ]);
+            $hasil = $this->assign_pasien($allPasiens);
+            return response()->json($hasil);
+        } catch (\Exception $e) {
+            return redirect()->route('keluarga.index')->with('key', $e->getMessage());
+        }
+    // return $hasil;
+    }
 
-        //     $pasien->id = $pasienData['id'];
-        //     $pasien->NBL = $pasienData['NBL'];
-        //     $pasien->Nama = $pasienData['Nama'];
+    public function assign_pasien(array $all_pasien){
 
-        //     $pasien->save();
-        // }
+            $keluarga = Keluarga::latest()->first();
 
+            // $allPasiens = json_decode($request->input('all_pasiens'), true);
+            // $hasil = ' ';
+            // foreach ($allPasiens as $pasienData) {
+            // $hasil .= $pasienData['id'] . '<br>';
+            // }
+            // return redirect()->route('keluarga.index')->with('key', 'Berhasil Menambah Pasien ke Keluarga');
+            return $all_pasien;
+            // return "suka bliyat";
     }
 
     /**

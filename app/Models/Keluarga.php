@@ -11,10 +11,17 @@ class Keluarga extends Model
 
     protected $fillable = [
         'pasien_id',
+        'nama'
     ];
 
-    public function pasien()
-    {
-        return $this->belongsTo(Pasien::class);
+    // public function pasien()
+    // {
+    //     return $this->belongsTo(Pasien::class);
+    // }
+    /**
+     * The pasiens that belong to the Keluarga.
+     */
+    public function pasiens() {
+        return $this->belongsToMany(Pasien::class, 'keluarga_pasien');
     }
 }

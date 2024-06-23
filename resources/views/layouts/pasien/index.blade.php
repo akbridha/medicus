@@ -28,6 +28,7 @@
         </form>
 
 
+
             {{-- pengecekan apabila data yang dikirim kosong --}}
 
         @if($pasiens->isEmpty())
@@ -126,6 +127,9 @@
                     {{-- //untuk pagination halamannya --}}
                     {{$pasiens ->links()}}
                 </div>
+        <div class="col-md-2">
+            <a href="{{route('keluarga.index')}}" class="btn btn-primary mb-4 float-right">Keluarga</a>
+        </div>
             </div>
 
 
