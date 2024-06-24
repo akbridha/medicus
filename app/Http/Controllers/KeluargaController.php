@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateKeluargaRequest;
 use App\Models\Pasien;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class KeluargaController extends Controller
 {
@@ -17,10 +18,10 @@ class KeluargaController extends Controller
     public function index()
     {
         $currentUser = Auth::user();
-        $pasiens =  null;
-        $pilihans = session()->get('sesipilihan', []);
-        // return $pilihans;
-        return view('layouts.keluarga.index', compact('pilihans','pasiens' , 'currentUser'));
+        $keluargas = Keluarga::with('pasiens:id,Nama')->get(['id', 'nama']);
+
+        // return $keluargas;
+        return view('layouts.keluarga.index', compact('currentUser','keluargas'));
     }
 
     public function findPasien(Request $request) {
@@ -48,7 +49,7 @@ class KeluargaController extends Controller
         // $pasiens = $pasiensCollection->merge($pasiens->items());
         // $pasiens->push($data);
         // return $pasiens;
-        return view('layouts.keluarga.index',compact( 'pilihans','pasiens','currentUser'));
+        return view('layouts.keluarga.create',compact( 'pilihans','pasiens','currentUser'));
     }
 
     public function pilihPasienKeluarga( Request $request){
@@ -73,7 +74,7 @@ class KeluargaController extends Controller
         // session()->put('sesipilihan', $pilihans->toArray());
         $try = session()->get('sesipilihan', []);
         // return $try;
-        return redirect()->route('keluarga.index');
+        return redirect()->route('keluarga.create');
         //content refactor
         // return view('layouts.keluarga.index',compact('pasiens', 'currentUser'));
 
@@ -91,6 +92,12 @@ class KeluargaController extends Controller
      */
     public function create()
     {
+
+        $currentUser = Auth::user();
+        $pasiens =  null;
+        $pilihans = session()->get('sesipilihan', []);
+        // return $pilihans;
+        return view('layouts.keluarga.create', compact('pilihans','pasiens' , 'currentUser'));
         //
     }
 
@@ -100,31 +107,47 @@ class KeluargaController extends Controller
     public function store(Request $request)
     {
         $allPasiens = json_decode($request->input('all_pasiens'), true);
+
+        // untuk validasi supaya aman/
+    // Validasi request
+        $validator = Validator::make(['pasien' => $allPasiens], [
+            'pasien' => 'required|array',
+            'pasien.*.id' => 'required|exists:pasiens,id',
+            'pasien.*.NBL' => 'required|string',
+            'pasien.*.Nama' => 'required|string',
+        ]);
+        if ($validator->fails()) {
+            // return response()->json(['errors' => $validator->errors()], 400);
+            return redirect()->route('keluarga.index')->with('key', $validator->errors());;
+        }
+
+        // buat keluarga baru,, ini akan jadi record baru di tabel keluarga
         try {
-            Keluarga::create([
+            $Keluarga = Keluarga::create([
                 'nama' => $request->input('nama_keluarga')
 
             ]);
-            $hasil = $this->assign_pasien($allPasiens);
-            return response()->json($hasil);
+            if($hasil = $this->assign_pasien($Keluarga, $allPasiens)){
+                $this->clearSession();
+                return redirect()->route('keluarga.index')->with('key', 'Berhasil menambahkan pasien ke keluarga');;
+            }else{
+                return redirect()->route('keluarga.index')->with('key', 'Gagal menambahkan pasien keluarga');;
+
+            }
+            // return response()->json(['message' => 'Keluarga dan pasien berhasil ditambahkan']);
         } catch (\Exception $e) {
-            return redirect()->route('keluarga.index')->with('key', $e->getMessage());
+                return redirect()->route('keluarga.index')->with('key', $e->getMessage());;
         }
-    // return $hasil;
     }
 
-    public function assign_pasien(array $all_pasien){
+    public function assign_pasien(Keluarga $keluarga, array $all_pasien){
 
-            $keluarga = Keluarga::latest()->first();
 
-            // $allPasiens = json_decode($request->input('all_pasiens'), true);
-            // $hasil = ' ';
-            // foreach ($allPasiens as $pasienData) {
-            // $hasil .= $pasienData['id'] . '<br>';
-            // }
-            // return redirect()->route('keluarga.index')->with('key', 'Berhasil Menambah Pasien ke Keluarga');
-            return $all_pasien;
-            // return "suka bliyat";
+        foreach ($all_pasien as $pasienData) {
+            $keluarga->pasiens()->attach($pasienData['id']);
+        }
+
+        return true;
     }
 
     /**
@@ -154,8 +177,18 @@ class KeluargaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Keluarga $keluarga)
+    public function destroy($keluargaId)
     {
-        //
+        // Temukan keluarga
+
+        $keluarga = Keluarga::findOrFail($keluargaId);
+
+        // Hapus semua relasi pasien dari keluarga
+        $keluarga->pasiens()->detach();
+
+        // Hapus data keluarga
+        $keluarga->delete();
+
+        return redirect()->route('keluarga.index')->with('key', 'Keluarga dan relasi berhasil dihapus ');
     }
 }

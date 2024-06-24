@@ -2,124 +2,73 @@
 
 @section('content')
     <div class="container-fluid">
-        <h1>Keluarga</h1>
-        <h3>Masukkan data Pasien</h3>
 
-        <form method="GET" action="{{ route('keluarga.pasien.find') }}">
-            <input type="text" name="kata_kunci" placeholder="Cari...">
-            <button type="submit">Cari</button>
-        </form>
 
-        @if (is_null($pasiens))
-            <div class="alert alert-info mt-4" role="alert">
-                Silakan masukkan nama pasien untuk menambahkan ke dalam keluarga.
-            </div>
+
             {{-- pengecekan apabila data yang dikirim kosong --}}
 
-        @elseif($pasiens->isEmpty())
+        @if($keluargas->isEmpty())
             <div class="alert alert-warning" role="alert">
                 Data Pasien tidak ditemukan
             </div>
         @else
-
-            <div class="container-fluid ">
-
-                <div class="table-responsive">
-
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>NBL</th>
-                                <th>Nama</th>
-                                <th>Alamat</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($pasiens as $pasien)
-                            <tr>
-                                <td style="width: 50px;">{{ $pasien['NBL'] }}</td>
-                                <td >{{ $pasien['Nama'] }}</td>
-                                <td >{{ $pasien['Alamat'] }}</td>
-                                <td style="width: 500px;">
-
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col text-center">
-
-                                                <div class="d-inline-block">
-                                                    <!-- tombol pilih anggota keluarga baru -->
-
-                                                    <form method="POST" action="{{ route('keluarga.pasien.pilih')}}" class="d-inline-block">
-                                                        @csrf
-                                                        <input type="hidden" name="Nama" value="{{ $pasien['Nama']}}">
-                                                        <input type="hidden" name="NBL" value="{{ $pasien['NBL']}}">
-                                                        <input type="hidden" name="pasien_id" value="{{ $pasien['id']}}">
-                                                        <button type="submit" class="btn btn-success">Daftar</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    {{-- //untuk pagination halamannya --}}
-                    {{-- {{$pasiens ->links()}} --}}
-                </div>
-            </div>
+        <div class="container">
+            <h1>Daftar Keluarga dan Pasien</h1>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Nama Keluarga</th>
+                        <th>Nama Pasien</th>
+                        <th> </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($keluargas as $keluarga)
+                        <tr>
+                            <td>{{ $keluarga->nama }}</td>
+                            <td>
+                                <ul>
+                                    @foreach($keluarga->pasiens as $pasien)
+                                        <li>{{ $pasien->Nama }}</li>
+                                    @endforeach
+                                </ul>
+                            </td>
+                            <td>
+                                <form action="{{ route('keluarga.pasien.destroy',  $keluarga->id) }}" method="POST" style="display: inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        @endif
+        <a href="{{route('keluarga.create')}}" class="btn btn-info mb-4 float-right">Tambah</a>
+        {{-- akhir pengecekan apabila data yang dikirim kosong --}}
 
 
 
-            {{-- @dd($pasiens) --}}
-            @endif
-            {{-- akhir pengecekan apabila data yang dikirim kosong --}}
-
-        @isset($pilihans)
-
-        <h3>Pasien yang Dipilih</h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Nama</th>
-                    <th>NBL</th>
-                    <th>ID Pasien</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($pilihans as $pilihan)
-                <tr>
-                    <td>{{ $pilihan['Nama']}}</td>
-                    <td>{{ $pilihan['NBL']}}</td>
-                    <td>{{ $pilihan['id']}}</td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-
-
-        @endisset
-
-
+        {{--
         <div class="container">
             <!-- Tombol untuk menghapus session -->
             <form method="POST" action="{{ route('keluarga.clear-session') }}">
                 @csrf
                 <button type="submit" class="btn btn-danger">Hapus pilihan</button>
             </form>
-        </div>
+        </div> --}}
 
         {{-- Form untuk mengirim semua data pasien --}}
-        @if(isset($pilihans) && count($pilihans) > 0)
+        {{-- @if(isset($pilihans) && count($pilihans) > 0)
         <form method="POST" action="{{ route('keluarga.store') }}">
             @csrf
             <input type="text" class="form-control" id="nama_keluarga" name="nama_keluarga">
             <input type="hidden" name="all_pasiens" value="{{ json_encode($pilihans) }}">
             <button type="submit" class="btn btn-primary">Kirim Semua Pasien</button>
         </form>
-        @endif
+        @endif --}}
 
     </div>
     @endsection

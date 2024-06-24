@@ -68,10 +68,14 @@ Route::group(
         Route::get('/hapus', [PasienController::class, 'destroy'])->name('pasien.hapus');
     }
 );
+
+
 Route::get('/form_keluarga', [KeluargaController::class, 'index'])->name('keluarga.index');
+Route::get('/create_keluarga', [KeluargaController::class, 'create'])->name('keluarga.create');
 Route::get('/cari_keluarga', [KeluargaController::class, 'findPasien'])->name('keluarga.pasien.find');
 Route::post('/pilih_pasien_keluarga', [KeluargaController::class, 'pilihPasienKeluarga'])->name('keluarga.pasien.pilih');
 Route::post('/keluarga/store', [KeluargaController::class, 'store'])->name('keluarga.store');
+Route::delete('/keluarga/{keluarga}', [KeluargaController::class, 'destroy'])->name('keluarga.pasien.destroy');
 Route::post('/keluarga/clear-session', [KeluargaController::class, 'clearSession'])->name('keluarga.clear-session');
 
 
