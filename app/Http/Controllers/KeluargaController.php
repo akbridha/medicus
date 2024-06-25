@@ -9,6 +9,7 @@ use App\Models\Pasien;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use PhpParser\Node\Stmt\Return_;
 
 class KeluargaController extends Controller
 {
@@ -50,6 +51,19 @@ class KeluargaController extends Controller
         // $pasiens->push($data);
         // return $pasiens;
         return view('layouts.keluarga.create',compact( 'pilihans','pasiens','currentUser'));
+    }
+
+    public function find(Request $request){
+        $currentUser = Auth::user();
+        // Mencari data dengan kata kunci pencarian
+        $pasien = Pasien::with('keluargas.pasiens')->findOrFail($request->id);
+        // return $pasien;
+        if ($pasien) {
+            return view('layouts.keluarga.findKeluarga', compact('pasien', 'currentUser'));
+        } else {
+            return redirect()->route('layouts.keluarga.index')->with('KEY', 'Pasien tidak ditemukan.');
+        }
+        // return view('layouts.keluarga.index',compact('keluarga'));
     }
 
     public function pilihPasienKeluarga( Request $request){

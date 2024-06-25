@@ -70,9 +70,12 @@ Route::group(
 );
 
 
+
+// ######### Keluarga
 Route::get('/form_keluarga', [KeluargaController::class, 'index'])->name('keluarga.index');
 Route::get('/create_keluarga', [KeluargaController::class, 'create'])->name('keluarga.create');
-Route::get('/cari_keluarga', [KeluargaController::class, 'findPasien'])->name('keluarga.pasien.find');
+Route::get('/tambah_cari_keluarga', [KeluargaController::class, 'findPasien'])->name('keluarga.pasien.find');
+Route::get('/cari_keluarga_pasien', [KeluargaController::class, 'find'])->name('keluarga.find');
 Route::post('/pilih_pasien_keluarga', [KeluargaController::class, 'pilihPasienKeluarga'])->name('keluarga.pasien.pilih');
 Route::post('/keluarga/store', [KeluargaController::class, 'store'])->name('keluarga.store');
 Route::delete('/keluarga/{keluarga}', [KeluargaController::class, 'destroy'])->name('keluarga.pasien.destroy');
