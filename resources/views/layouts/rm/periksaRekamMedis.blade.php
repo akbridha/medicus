@@ -4,6 +4,22 @@
 <div class="container">
     <h2>Tindakan</h2>
 
+    <div class="col-md-4 mt-4">
+        <a href="{{route('logistik.tx', $rekamMedis->id )}}" class="text-decoration-none text-dark" >
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+
+                    <h5 class="card-title">
+                        <img src="{{asset('Icons/round-arrow.svg')}}" alt="round-arrow" width="28" height="24">
+                        TX Logistik
+
+                    </h5>
+                    <p class="card-text">Transaksi</p>
+                </div>
+            </a>
+        </div>
+    </div>
+
     <form method="POST" action="{{ route('rm.update', $rekamMedis->id) }}">
     @csrf
     @method('PUT')

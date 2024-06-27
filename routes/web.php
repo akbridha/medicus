@@ -56,7 +56,7 @@ Route::get('/sesi/logout', [SessionController::class, 'logout'])->name('session.
 // Route::get('/pasien', [PasienController::class, 'index']);
 
 
-
+//   ############## Pasien
 Route::group(
     ['middleware' =>['isAdmin']], function(){
         Route::get('pasien', [PasienController::class, 'index'])->name('pasien.index');
@@ -82,6 +82,7 @@ Route::delete('/keluarga/{keluarga}', [KeluargaController::class, 'destroy'])->n
 Route::post('/keluarga/clear-session', [KeluargaController::class, 'clearSession'])->name('keluarga.clear-session');
 
 
+//  #################### Rekam medis
 Route::group(
     ['middleware' =>['isDocter']], function(){
         Route::get('/rm', [RekamMedisController::class, 'index'])->name('rm.index');
@@ -101,7 +102,30 @@ Route::group(
 Route::post('/rm/regis', [RekamMedisController::class, 'regis'])->name('rm.regis');
 Route::post('/rm/daftar', [RekamMedisController::class, 'daftar'])->name('rm.daftar');
 
+
+
+
+
+// ######## LOGISTIK
+
 Route::get('/logistik', [LogistikController::class,'index'])->name('logistik.index');
+Route::get('/logistik_create', [LogistikController::class,'create'])->name('logistik.create');
+Route::post('/logistik_store', [LogistikController::class,'store'])->name('logistik.store');
+Route::get('/logistik/{logistik}/edit', [LogistikController::class, 'edit'])->name('logistik.edit');
+Route::put('/logistik/{logistik}', [LogistikController::class, 'update'])->name('logistik.update');
+Route::delete('/logistik/{logistik}', [LogistikController::class, 'destroy'])->name('logistik.destroy');
+Route::get('/logistik/{rm_id}/tx', [LogistikController::class,'transaksi'])->name('logistik.tx');
+Route::post('/logistik_pilih', [LogistikController::class,'pilihLogistik'])->name('logistik.pilihtambah');
+// Route::post('/logistik/{id}/store_transaksi', [LogistikController::class, 'storeTransaksi'])->name('logistik.txupdate');
+Route::post('/logistik/store_transaksi', [LogistikController::class, 'storeTransaksi'])->name('logistik.txupdate');
+Route::post('/logistik/{rm_id}/clear-session-logistik', function($rm_id){
+            session()->flush();
+            return redirect()->route('logistik.tx',$rm_id);
+            })->name('logistik.clear-session');
+// ###########
+
+
+
 
 Route::get('/export_db', [DatabaseController::class,'eksport']);
 Route::get('/cek_path', function(){echo getenv('PATH');});

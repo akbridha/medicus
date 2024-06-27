@@ -67,7 +67,6 @@
                     </div>
                 </div>
             </div>
-
             {{-- row --}}
 
             <div class="row mt-4">

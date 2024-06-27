@@ -8,8 +8,7 @@
                         Formulir Logistik
                     </div>
                     <div class="card-body">
-                        {{-- <form action="{{ route('logistik.store') }}" method="POST"> --}}
-                        <form action="#" method="POST">
+                        <form action="{{ route('logistik.store') }}" method="POST">
                             @csrf
 
                             <div class="mb-3">
@@ -18,13 +17,18 @@
                             </div>
 
                             <div class="mb-3">
+                                <label for="jenis" class="form-label">Jenis:</label>
+                                <input type="text" name="jenis" id="jenis" class="form-control">
+                            </div>
+
+                            <div class="mb-3">
                                 <label for="jumlah" class="form-label">Jumlah:</label>
                                 <input type="number" name="jumlah" id="jumlah" class="form-control">
                             </div>
 
                             <div class="mb-3">
-                                <label for="expire_date" class="form-label">Tanggal Kadaluarsa:</label>
-                                <input type="date" name="expire_date" id="expire_date" class="form-control">
+                                <label for="kadaluarsa" class="form-label">Tanggal Kadaluarsa:</label>
+                                <input type="date" name="kadaluarsa" id="kadaluarsa" class="form-control">
                             </div>
 
                             <button type="submit" class="btn btn-primary">Submit</button>
