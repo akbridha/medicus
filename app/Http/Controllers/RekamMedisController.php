@@ -135,8 +135,12 @@ class RekamMedisController extends Controller
     }
 
 
-    public function update(Request $request, RekamMedis $rekamMedis)
+    public function update(Request $request, RekamMedis $rekamMedis, $redirect)
     {
+
+    // test print passed data
+    // return $redirect;
+    // return $request;
     $rekamMedis->tanggal = $request->tanggal;
     $rekamMedis->pemeriksaan = $request->pemeriksaan;
     $rekamMedis->diagnosa = $request->diagnosa;
@@ -145,7 +149,7 @@ class RekamMedisController extends Controller
 
     $rekamMedis->save();
 
-    return redirect()->route('rm.antrian')->with('key', 'Data rekam medis berhasil diupdate');
+    return redirect()->route($redirect)->with('key', 'Data rekam medis berhasil diupdate');
     }
 
 

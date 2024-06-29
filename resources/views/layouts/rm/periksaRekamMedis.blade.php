@@ -20,7 +20,7 @@
         </div>
     </div>
 
-    <form method="POST" action="{{ route('rm.update', $rekamMedis->id) }}">
+    <form method="POST" action="{{ route('rm.update', [$rekamMedis->id, 'rm.antrian']) }}">
     @csrf
     @method('PUT')
     <div class="form-group">

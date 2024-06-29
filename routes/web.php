@@ -63,7 +63,7 @@ Route::group(
         Route::get('pasien/create', [PasienController::class, 'create'])->name('pasien.create');
         Route::post('pasien/store', [PasienController::class, 'store'])->name('pasien.store');
         Route::post('pasien/edit', [PasienController::class, 'edit'])->name('pasien.edit');
-        Route::get('/cari', [PasienController::class,'find' ])->name('cari');
+        Route::get('/pasien/cari', [PasienController::class,'find' ])->name('pasien.cari');
         Route::put('/pasien/{pasien}', [PasienController::class, 'update'])->name('pasien.update');
         Route::get('/hapus', [PasienController::class, 'destroy'])->name('pasien.hapus');
     }
@@ -90,7 +90,7 @@ Route::group(
         // Route::get('/rm/edit/{id}', [RekamMedisController::class, 'edit'])->name('rm.edit');
         Route::get('/rm/antrian', [RekamMedisController::class, 'antrian'])->name('rm.antrian');
         Route::post('/rm/store', [RekamMedisController::class, 'store'])->name('rm.store');
-        Route::put('/rm/{rekamMedis}', [RekamMedisController::class, 'update'])->name('rm.update');
+        Route::put('/rm/{rekamMedis}/{redirect}', [RekamMedisController::class, 'update'])->name('rm.update');
 
         // Route::get('/rm/{rekamMedis}/{pasien}/edit', [RekamMedisController::class, 'edit'])->name('rm.edit');
         Route::get('/rm/{rekamMedis}/periksa', [RekamMedisController::class, 'periksa'])->name('rm.periksa');

@@ -39,7 +39,7 @@
                 @if (Auth::check() && Auth::user()->role === 'admin')
                 <div class="col-md-4 mt-4">
                     <a href="{{route('pasien.create')}}" >
-                    <div class="card bg-info text-white">
+                    <div class="card bg-primary text-white">
                             <div class="card-body">
                                 <h5 class="card-title">
                                     <img src="{{asset("Icons/person-fill-add.svg")}}" alt="person-fill-add" width="28" height="24" >

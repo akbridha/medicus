@@ -29,7 +29,7 @@
         </div>
         <button type="submit" class="btn btn-primary">Simpan</button>
     </form> --}}
-    <form method="POST" action="{{ route('rm.update', $rekamMedis->id) }}">
+    <form method="POST" action="{{ route('rm.update', [$rekamMedis->id, 'rm.index']) }}">
     @csrf
     @method('PUT')
     <div class="form-group">

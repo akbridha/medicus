@@ -11,11 +11,34 @@ class PasienController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
+    public function index(){
         $currentUser = Auth::user();
         $pasiens = Pasien::orderBy('created_at', 'desc')->paginate(10);
         return view('layouts.pasien.index',compact('pasiens' , 'currentUser' ));
+    }
+
+
+    /**
+     * Display the specified resource.
+     */
+    public function find(Request $request) {
+        // $currentUser = Auth::user();
+        // $kataKunci = $request->input('kata_kunci');
+
+        // // Mencari data dengan kata kunci pencarian
+        // $pasiens = Pasien::where('Nama', 'like', '%' . $kataKunci . '%')->paginate(3);
+
+        // return view('layouts.pasien.index',compact('pasiens', 'currentUser'));
+
+
+        $currentUser = Auth::user();
+        $kataKunci = $request->input('kata_kunci');
+
+        // Nyari dari kata kunci pencarian
+        $pasiens = Pasien::where('Nama', 'like', '%' . $kataKunci . '%')->paginate(3);
+        // Menambahkan kata_kunci ke links pagination
+        $pasiens->appends(['kata_kunci' => $kataKunci]);
+        return view('layouts.pasien.index', compact('pasiens', 'currentUser'));
     }
 
     /**
@@ -96,18 +119,6 @@ class PasienController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function find(Request $request) {
-        $currentUser = Auth::user();
-        $kataKunci = $request->input('kata_kunci');
-
-        // Mencari data dengan kata kunci pencarian
-        $pasiens = Pasien::where('Nama', 'like', '%' . $kataKunci . '%')->paginate(3);
-
-        return view('layouts.pasien.index',compact('pasiens', 'currentUser'));
-    }
 
     /**
      * Show the form for editing the specified resource.
