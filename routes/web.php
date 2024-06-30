@@ -59,7 +59,6 @@ Route::get('/sesi/logout', [SessionController::class, 'logout'])->name('session.
 //   ############## Pasien
 Route::group(
     ['middleware' =>['isAdmin']], function(){
-        Route::get('pasien', [PasienController::class, 'index'])->name('pasien.index');
         Route::get('pasien/create', [PasienController::class, 'create'])->name('pasien.create');
         Route::post('pasien/store', [PasienController::class, 'store'])->name('pasien.store');
         Route::post('pasien/edit', [PasienController::class, 'edit'])->name('pasien.edit');
@@ -68,7 +67,8 @@ Route::group(
         Route::get('/hapus', [PasienController::class, 'destroy'])->name('pasien.hapus');
     }
 );
-
+        // route menggunakan 2 role. cukup dengan menggunakan auth: di blade
+        Route::get('pasien', [PasienController::class, 'index'])->name('pasien.index');
 
 
 // ######### Keluarga

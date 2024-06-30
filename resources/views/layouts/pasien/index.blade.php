@@ -37,7 +37,9 @@
                                         <div class="row">
                                             <div class="col text-center">
                                                 <div class="d-inline-block">
+                                                    @if(Auth::check() && Auth::user()->role === 'docter')
                                                     <a href="{{ route('rm.show', ['id' => $pasien->id]) }}" class="btn btn-primary">Riwayat</a>
+                                                    @endif
                                                 </div>
                                                 <div class="d-inline-block">
                                                     <form method="POST" action="{{ route('pasien.edit') }}">
@@ -52,7 +54,9 @@
                                                         <input type="hidden" name="Nomor_BPJS" value="{{ $pasien->Nomor_BPJS }}">
                                                         <input type="hidden" name="Jenis_Kelamin" value="{{ $pasien->Jenis_Kelamin }}">
                                                         <input type="hidden" name="Pekerjaan" value="{{ $pasien->Pekerjaan }}">
+                                                        @if(Auth::check() && Auth::user()->role === 'admin')
                                                         <button type="submit" class="btn btn-warning">Ubah Data</button>
+                                                        @endif
                                                     </form>
                                                 </div>
                                                 <div class="d-inline-block">
@@ -62,7 +66,9 @@
                                                         <input type="hidden" name="nama" value="{{ $pasien->Nama }}">
                                                         <input type="hidden" name="tanggal" value="{{ now()->format('Y-m-d') }}">
                                                         <input type="hidden" name="pemeriksaan" value="belum diperiksa">
-                                                        <button type="submit" class="btn btn-success">Daftar</button>
+                                                        @if(Auth::check() && Auth::user()->role === 'admin')
+                                                            <button type="submit" class="btn btn-success">Daftar</button>
+                                                        @endif
                                                     </form>
                                                 </div>
                                             </div>

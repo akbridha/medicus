@@ -32,9 +32,6 @@
                     </a>
                 </div>
                 @endif
-
-
-
                 {{-- Auth::check()  untuk handle ketika nilai null --}}
                 @if (Auth::check() && Auth::user()->role === 'admin')
                 <div class="col-md-4 mt-4">
