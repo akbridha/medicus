@@ -1,14 +1,11 @@
 @extends('header')
 
-
-
 @section('content')
 <div class="container">
     <h2>Ubah Data Pasien</h2>
     <form method="POST" action="{{ route('pasien.update', $request->pasien_id) }}">
         @csrf
         @method('PUT')
-    {{-- <form method="POST" action=""> --}}
         <h6> ID pasien : {{ $request->pasien_id }}</h6>
         <div class="form-group">
             <label for="NIK">NIK:</label>
@@ -34,13 +31,17 @@
             <label for="Alamat">Alamat:</label>
             <input type="text" class="form-control" id="Alamat" name="Alamat" value="{{ $request->Alamat }}">
         </div>
+        {{-- fitur dihlilangkan --}}
         <div class="form-group">
-            <label for="Nomor_BPJS">Nomor BPJS:</label>
-            <input type="text" class="form-control" id="Nomor_BPJS" name="Nomor_BPJS" value="{{ $request->Nomor_BPJS }}">
+            <input type="hidden" class="form-control" id="Nomor_BPJS" name="Nomor_BPJS" value="{{ $request->Nomor_BPJS }}">
         </div>
         <div class="form-group">
             <label for="Jenis_Kelamin">Jenis Kelamin:</label>
-            <input type="text" class="form-control" id="Jenis_Kelamin" name="Jenis_Kelamin" value="{{ $request->Jenis_Kelamin }}">
+            <select class="form-control" id="Jenis_Kelamin" name="Jenis_Kelamin">
+                <option value="male" {{ $request->Jenis_Kelamin == 'male' ? 'selected' : '' }}>Laki-laki</option>
+                <option value="female" {{ $request->Jenis_Kelamin == 'female' ? 'selected' : '' }}>Perempuan</option>
+                <option value="other" {{ $request->Jenis_Kelamin == 'other' ? 'selected' : '' }}>Lainnya</option>
+            </select>
         </div>
         <div class="form-group">
             <label for="Pekerjaan">Pekerjaan:</label>
@@ -49,15 +50,12 @@
         <button type="submit" class="btn btn-primary">Simpan</button>
     </form>
 
-   <div class="container">
-
-        <div class="d-flex justify-content-end">
-            <form method="GET" action="{{ route('pasien.hapus') }}">
-                @csrf
-                <input type="hidden" id="id" name="id" value="{{ $request->pasien_id }}">
-                <button type="submit" class="btn btn-danger">Hapus</button>
-            </form>
-        </div>
+    <div class="d-flex justify-content-end mt-3">
+        <form method="GET" action="{{ route('pasien.hapus') }}">
+            @csrf
+            <input type="hidden" id="id" name="id" value="{{ $request->pasien_id }}">
+            <button type="submit" class="btn btn-danger">Hapus</button>
+        </form>
     </div>
 </div>
 @endsection
