@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+//   crc card : Mengarahkan User ke dashboard
 Route::get('/', function () {
     $currentUser  = Auth::user();
     $jumlahPasien = Pasien::count();
@@ -126,7 +126,7 @@ Route::post('/logistik/{rm_id}/clear-session-logistik', function($rm_id){
 
 
 
-
+//   export data [iterasi 3]
 Route::get('/export_db', [DatabaseController::class,'eksport']);
 Route::get('/cek_path', function(){echo getenv('PATH');});
 // Route::get('/add_sql_to_path', function(){echo getenv('PATH');});

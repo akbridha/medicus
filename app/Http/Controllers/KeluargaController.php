@@ -14,10 +14,9 @@ use PhpParser\Node\Stmt\Return_;
 class KeluargaController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Menampilkan pasien yang memiliki data keluarga [ITERASI 6]
      */
-    public function index()
-    {
+    public function index() {
         $currentUser = Auth::user();
         $keluargas = Keluarga::with('pasiens:id,Nama')->get(['id', 'nama']);
 
@@ -25,6 +24,21 @@ class KeluargaController extends Controller
         return view('layouts.keluarga.index', compact('currentUser','keluargas'));
     }
 
+    /**
+     * Menampilkan form untuk menambahkan pasien [iterasi 6]
+     */
+    public function create()    {
+
+        $currentUser = Auth::user();
+        $pasiens =  null;
+        $pilihans = session()->get('sesipilihan', []);
+        // return $pilihans;
+        return view('layouts.keluarga.create', compact('pilihans','pasiens' , 'currentUser'));
+        //
+    }
+
+
+    // Mencari pasien untuk ditambahkan [iterasi 6]
     public function findPasien(Request $request) {
         $currentUser = Auth::user();
         $kataKunci = $request->input('kata_kunci');
@@ -52,78 +66,36 @@ class KeluargaController extends Controller
         // return $pasiens;
         return view('layouts.keluarga.create',compact( 'pilihans','pasiens','currentUser'));
     }
-
-    public function find(Request $request){
-        $currentUser = Auth::user();
-        // Mencari data dengan kata kunci pencarian
-        $pasien = Pasien::with('keluargas.pasiens')->findOrFail($request->id);
-        // return $pasien;
-        if ($pasien) {
-            return view('layouts.keluarga.findKeluarga', compact('pasien', 'currentUser'));
-        } else {
-            return redirect()->route('layouts.keluarga.index')->with('KEY', 'Pasien tidak ditemukan.');
-        }
-        // return view('layouts.keluarga.index',compact('keluarga'));
-    }
-
+    // Memilih pasien untuk ditambahkan [ITERASI 6]
     public function pilihPasienKeluarga( Request $request){
 
         $pilihans = session()->get('sesipilihan', []);
-
         $data = [
-
                 'id' => $request->pasien_id,
                 'NBL' => $request->NBL,
                 'Nama' => $request->Nama,
-    ];
-
-
+        ];
         // session()->put('sesipilihan', $pilihans);
-
         $pilihans[] = $data;
         session()->put('sesipilihan', $pilihans);
-
         // $pilihans = collect($data);
-
         // session()->put('sesipilihan', $pilihans->toArray());
         $try = session()->get('sesipilihan', []);
         // return $try;
         return redirect()->route('keluarga.create');
         //content refactor
         // return view('layouts.keluarga.index',compact('pasiens', 'currentUser'));
-
-
-
     }
 
-    public function clearSession() {
-        session()->flush();
-        return redirect()->route('keluarga.index');
-    }
 
     /**
-     * Show the form for creating a new resource.
+     * Membuat keluarga baru dan assign pasien-pasien [iterasi 6]
      */
-    public function create()
-    {
-
-        $currentUser = Auth::user();
-        $pasiens =  null;
-        $pilihans = session()->get('sesipilihan', []);
-        // return $pilihans;
-        return view('layouts.keluarga.create', compact('pilihans','pasiens' , 'currentUser'));
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
+    public function store(Request $request)    {
         $allPasiens = json_decode($request->input('all_pasiens'), true);
 
         // untuk validasi supaya aman/
-    // Validasi request
+        // Validasi request
         $validator = Validator::make(['pasien' => $allPasiens], [
             'pasien' => 'required|array',
             'pasien.*.id' => 'required|exists:pasiens,id',
@@ -153,6 +125,29 @@ class KeluargaController extends Controller
                 return redirect()->route('keluarga.index')->with('key', $e->getMessage());;
         }
     }
+
+
+
+    public function find(Request $request){
+        $currentUser = Auth::user();
+        // Mencari data dengan kata kunci pencarian
+        $pasien = Pasien::with('keluargas.pasiens')->findOrFail($request->id);
+        // return $pasien;
+        if ($pasien) {
+            return view('layouts.keluarga.findKeluarga', compact('pasien', 'currentUser'));
+        } else {
+            return redirect()->route('layouts.keluarga.index')->with('KEY', 'Pasien tidak ditemukan.');
+        }
+        // return view('layouts.keluarga.index',compact('keluarga'));
+    }
+
+    public function clearSession() {
+        session()->flush();
+        return redirect()->route('keluarga.index');
+    }
+
+
+
 
     public function assign_pasien(Keluarga $keluarga, array $all_pasien){
 
@@ -189,8 +184,10 @@ class KeluargaController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * [Mengelola Keluarga iterasi 7]
      */
+
+//    Menghapus data keluarga [iterasi 7]
     public function destroy($keluargaId)
     {
         // Temukan keluarga

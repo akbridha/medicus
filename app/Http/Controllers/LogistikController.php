@@ -11,11 +11,7 @@ use Illuminate\Support\Facades\Auth;
 
 class LogistikController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
+    public function index(){
         $currentUser = Auth::user();
 
         $logistiks = Logistik::all(); // Ambil semua data logistik dari database
@@ -23,19 +19,17 @@ class LogistikController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     *Menampilkan halaman input data BMHP ke sistem[iterasi 5]
      */
-    public function create()
-    {
+    public function create(){
         $currentUser = Auth::user();
         return view('layouts.logistik.insertLogistik', compact('currentUser'));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Menyimpan data baru yang dimasukkan[ iterasi 5]
      */
-    public function store(StoreLogistikRequest $request)
-    {
+    public function store(StoreLogistikRequest $request) {
         $currentUser = Auth::user();
 
         // Validasi manual
@@ -63,30 +57,30 @@ class LogistikController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * tidak dipakai
      */
-    public function show(Logistik $logistik)
-    {
+    public function show(Logistik $logistik) {
         $currentUser = Auth::user();
         return view('layouts.logistik.showLogistik', compact('logistiks','currentUser'));
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Menampilkan halaman untuk pembaruan BMHP [iterasi 7]
      */
-    public function edit($id)
+    public function edit($id){
         // isi request hanya id
-    {
         // return $id;
         $currentUser = Auth::user();
         $logistik = Logistik::findOrFail($id);
         // return $logistik;
- // Ambil data logistik berdasarkan ID
+        // Ambil data logistik berdasarkan ID
         return view('layouts.logistik.edit', compact('logistik','currentUser'));
     }
 
+
+
     /**
-     * Update the specified resource in storage.
+     *  Menyimpan Perubahan Pada BMHP [iterasi 7]
      */
     public function update(UpdateLogistikRequest $request, Logistik $logistik)
     {
@@ -113,6 +107,11 @@ class LogistikController extends Controller
         }
     }
 
+
+
+    /**
+     * Menampilkan BMHP [iterasi 5] [iterasi 7]
+     */
     public function transaksi($rekamMedis){
         // return $rekamMedis;
         $currentUser = Auth::user();
@@ -122,6 +121,8 @@ class LogistikController extends Controller
         return view('layouts.logistik.txrm', compact('logistiks','pilihans','rekamMedis','currentUser'));
     }
 
+
+    // Memilih BMHP yang digunakan [iterasi 5]
     public function pilihLogistik(Request $request){
         $pilihans = session()->get('sesipilihan', []);
         $data = [
@@ -149,8 +150,9 @@ class LogistikController extends Controller
         // return $request;
         return redirect()->route('logistik.tx', $request->id_rm);
     }
-    public function storeTransaksi(Request $request)
-    {
+
+    // Menyimpan perubahan BMHP tiap kali pemeriksaan [iterasi 5]
+    public function storeTransaksi(Request $request){
         $id_rm = $request->input('id_rm');
         $logistikData = $request->input('logistik');
 
@@ -172,10 +174,9 @@ class LogistikController extends Controller
 
 
     /**
-     * Remove the specified resource from storage.
+     * Menghapus BMHP [iterasi 7]
      */
-    public function destroy(Logistik $logistik)
-    {
+    public function destroy(Logistik $logistik){
         $currentUser = Auth::user();
         $logistik->delete();
 

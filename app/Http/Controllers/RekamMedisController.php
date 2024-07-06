@@ -26,6 +26,9 @@ class RekamMedisController extends Controller
         return view('layouts.rm.rekamMedis', compact('rekamMedises', 'currentUser'));
 
     }
+
+
+    // Menampilkan data rekam yang diantrikan [iterasi 3]
     public function antrian()
     {
 
@@ -37,7 +40,7 @@ class RekamMedisController extends Controller
         return view('layouts.rm.rekamMedisAntrian', compact('rekamMedises', 'currentUser'));
 
     }
-
+    // tidak digunakan
     public function create(Request $request)
     {
         //
@@ -69,9 +72,10 @@ class RekamMedisController extends Controller
 
 
     }
-    public function regis(Request $request)
-    {
-//   return $request;
+
+    // crc : Meneruskan data ke dalam antrian berobat [iterasi 2]
+    public function regis(Request $request)   {
+        //   return $request;
         try {
             RekamMedis::create([
                 'pasien_id' => $request->input('pasien_id'),
@@ -87,7 +91,7 @@ class RekamMedisController extends Controller
             return redirect()->route('home')->with('key', $e->getMessage());
         }
     }
-
+    // crc Menyimpan data registrasi berobat [iterasi 2]
     public function daftar(Request $request)
     {
 
@@ -98,15 +102,14 @@ class RekamMedisController extends Controller
 
     }
 
-
-    public function show( $id)
-    {
+        // Menampilkan Riwayat RM  [Iterasi 3]
+    public function show( $id)   {
 
         $rekamMedises = Pasien::find($id)->rekamMedis;
         $currentUser = Auth::user();
 
             if ($rekamMedises) {
-// return $rekamMedises;
+        // return $rekamMedises;
                 return view('layouts.rm.findRekamMedis', compact('rekamMedises', 'currentUser'));
             } else {
                 // Handle ketika pasien tidak ditemukan
@@ -114,9 +117,8 @@ class RekamMedisController extends Controller
                 return "data Tidak ditemukan";
             }
     }
-
-    public function periksa(RekamMedis $rekamMedis )
-    {
+    //    Menampilkan Keluhan (RPS)  [iterasi 3]
+    public function periksa(RekamMedis $rekamMedis )    {
         $currentUser = Auth::user();
         $rekamMedis->load('pasien');
         // return $rekamMedis;
@@ -134,22 +136,24 @@ class RekamMedisController extends Controller
         return view('layouts.rm.editRekamMedis', compact('rekamMedis', 'currentUser'));
     }
 
+    //    Menyimpan data rekam medis [iterasi 3].. method ini kembar siam..
+    // sebenarnya untuk fungsi update tapi digunakan untuk fungsi periksa RM oleh dokter
+    // karena data RM nya dibuat saat registrasi
+    // project ini tidak memuat kasus untuk create rekam medis. melainkan registrasi oleh admin
+    public function update(Request $request, RekamMedis $rekamMedis, $redirect) {
 
-    public function update(Request $request, RekamMedis $rekamMedis, $redirect)
-    {
+        // test print passed data
+        // return $redirect;
+        // return $request;
+        $rekamMedis->tanggal = $request->tanggal;
+        $rekamMedis->pemeriksaan = $request->pemeriksaan;
+        $rekamMedis->diagnosa = $request->diagnosa;
 
-    // test print passed data
-    // return $redirect;
-    // return $request;
-    $rekamMedis->tanggal = $request->tanggal;
-    $rekamMedis->pemeriksaan = $request->pemeriksaan;
-    $rekamMedis->diagnosa = $request->diagnosa;
+        // Lanjutkan dengan mengupdate data lainnya sesuai kebutuhan
 
-    // Lanjutkan dengan mengupdate data lainnya sesuai kebutuhan
+        $rekamMedis->save();
 
-    $rekamMedis->save();
-
-    return redirect()->route($redirect)->with('key', 'Data rekam medis berhasil diupdate');
+        return redirect()->route($redirect)->with('key', 'Data rekam medis berhasil diupdate');
     }
 
 

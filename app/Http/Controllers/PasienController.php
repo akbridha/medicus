@@ -19,7 +19,7 @@ class PasienController extends Controller
 
 
     /**
-     * Display the specified resource.
+     * crc :Mencari Pasien terdaftar [iterasi 1]
      */
     public function find(Request $request) {
         // $currentUser = Auth::user();
@@ -42,10 +42,9 @@ class PasienController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * CRC : Menyimpan pendaftaran pasien baru [iterasi 1]
      */
-    public function create()
-    {
+    public function create(){
         // return view("layouts.pasien.insertPasien");
 
 
@@ -53,43 +52,42 @@ class PasienController extends Controller
 
         if(Pasien::count() < 1){
             $newNBL = "00-01";
-        }
-        else
-        {$maxNBL = Pasien::max('NBL');
-        // $maxNBL = '09-99';
+        } else{
+            $maxNBL = Pasien::max('NBL');
+            // $maxNBL = '09-99';
 
-        // Pisahkan bagian angka sebelum dan setelah strip
-        $parts = explode('-', $maxNBL);
-        $prefix = intval($parts[0]);
-        $suffix = intval($parts[1]);
+            // Pisahkan bagian angka sebelum dan setelah strip
+            $parts = explode('-', $maxNBL);
+            $prefix = intval($parts[0]);
+            $suffix = intval($parts[1]);
 
-        // echo gettype($prefix);
-        // echo gettype($suffix);
+            // echo gettype($prefix);
+            // echo gettype($suffix);
 
-        // echo " \n";
-        // echo ($prefix);
-        // echo "-";
-        // echo ($suffix);
-
-
-        // Tambahkan 1 ke angka setelah strip
-        // $suffix++;
-
-        // Jika angka setelah strip melebihi 9, reset ke 1 dan tambahkan 1 ke angka sebelum strip
-        if ($suffix == 99) {
-            $finalSuffix = 0;
-            $finalPrefix = $prefix + 1;
-        }else{
-            $finalSuffix = $suffix+1;
-            $finalPrefix = $prefix;
-        }
-
-        // return " ini preffix : ". $prefix. ", dan ini suffix: ". $suffix. ", ini prefix + 1 = [". $finalPrefix . "], dan ini suffix + 1 = [". $finalSuffix."]";
+            // echo " \n";
+            // echo ($prefix);
+            // echo "-";
+            // echo ($suffix);
 
 
-        // Format ulang NBL
-        $newNBL = sprintf("%02d-%02d", $finalPrefix, $finalSuffix);
-        // return $newNBL;
+            // Tambahkan 1 ke angka setelah strip
+            // $suffix++;
+
+            // Jika angka setelah strip melebihi 9, reset ke 1 dan tambahkan 1 ke angka sebelum strip
+            if ($suffix == 99) {
+                $finalSuffix = 0;
+                $finalPrefix = $prefix + 1;
+            }else{
+                $finalSuffix = $suffix+1;
+                $finalPrefix = $prefix;
+            }
+
+            // return " ini preffix : ". $prefix. ", dan ini suffix: ". $suffix. ", ini prefix + 1 = [". $finalPrefix . "], dan ini suffix + 1 = [". $finalSuffix."]";
+
+
+            // Format ulang NBL
+            $newNBL = sprintf("%02d-%02d", $finalPrefix, $finalSuffix);
+            // return $newNBL;
         }
 
         return view("layouts.pasien.insertPasien", compact('newNBL', 'currentUser'));
@@ -121,11 +119,9 @@ class PasienController extends Controller
 
 
     /**
-     * Show the form for editing the specified resource.
+     * Menampilkan halaman ubah data Pasien [Iterasi 4]
      */
-    // public function edit(Pasien $pasien)
-    public function edit(Request $request)
-    {
+    public function edit(Request $request){
         $currentUser = Auth::user();
 
         // return $request;
@@ -133,7 +129,7 @@ class PasienController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     *  Menyimpan perubahan Pasien [iterasi 4]
      */
     public function update(Request $request, Pasien $pasien)
         {
@@ -156,12 +152,10 @@ class PasienController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request)
-    {
+    public function destroy(Request $request){
 
-// return $request;
 
-    // Cari pasien berdasarkan ID
+        // Cari pasien berdasarkan ID
         $pasien = Pasien::find($request->id);
         // return $pasien;
         if ($pasien) {
