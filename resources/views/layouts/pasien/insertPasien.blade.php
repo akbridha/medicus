@@ -3,11 +3,11 @@
 @section('content')
 <div class="container">
     <h2>Tambah Data Pasien</h2>
-    <form method="POST" action="{{ route('pasien.store') }}">
+    <form id="patientForm" method="POST" action="{{ route('pasien.store') }}">
         @csrf
         <div class="form-group">
             <label for="NIK">NIK:</label>
-            <input type="text" class="form-control" id="NIK" name="NIK">
+            <input type="text" class="form-control" id="NIK" name="NIK" maxlength="19">
         </div>
         <div class="form-group">
             <label for="NBL">NBL:</label>
@@ -21,10 +21,10 @@
             <label for="Tanggal_lahir">Tanggal Lahir:</label>
             <input type="date" class="form-control" id="Tanggal_lahir" name="Tanggal_lahir">
         </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="Umur">Umur:</label>
             <input type="text" class="form-control" id="Umur" name="Umur">
-        </div>
+        </div> -->
         <div class="form-group">
             <label for="Alamat">Alamat:</label>
             <input type="text" class="form-control" id="Alamat" name="Alamat">
@@ -52,4 +52,42 @@
         <button type="submit" class="btn btn-primary mb-5">Simpan</button>
     </form>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const nikInput = document.getElementById('NIK');
+    const form = document.getElementById('patientForm');
+
+    nikInput.addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D+/g, ''); // Remove all non-digit characters
+
+        if (value.length > 16) {
+            value = value.substring(0, 16); // Truncate to 16 digits
+        }
+
+        let formattedValue = '';
+
+        for (let i = 0; i < value.length; i++) {
+            if (i > 0 && i % 4 === 0) {
+                formattedValue += ' ';
+            }
+            formattedValue += value[i];
+        }
+
+        e.target.value = formattedValue;
+    });
+
+    nikInput.addEventListener('keypress', function(e) {
+        let value = e.target.value.replace(/\s+/g, ''); // Remove spaces for length check
+
+        if (value.length >= 16 && !isNaN(String.fromCharCode(e.which))) {
+            e.preventDefault(); // Prevent input if already 16 digits
+        }
+    });
+
+    form.addEventListener('submit', function(e) {
+        nikInput.value = nikInput.value.replace(/\s+/g, ''); // Remove all spaces before submitting the form
+    });
+});
+</script>
 @endsection

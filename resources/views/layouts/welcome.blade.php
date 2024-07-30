@@ -97,6 +97,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-md-2">
                     <div class="card" style="height: 250px;">
                         <div class="card-body mt-5">
@@ -106,6 +107,16 @@
                                 {{ $jumlahPasienBulanIni }} Orang.
                             </p>
                         </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-2">
+                    
+                    <div class="card" style="height: 250px; width: 550px;">
+                        <!-- <div class="card-body "> -->
+                            
+                            <canvas id="myChart"></canvas>
+                        <!-- </div> -->
                     </div>
                 </div>
 
@@ -132,5 +143,32 @@
     </body>
 
 </html>
+
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+<script src="{{asset('js/chart.js') }}"></script>
+
+<script>
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Total', 'Bulan Ini'],
+      datasets: [{
+        label: 'Pasien',
+        data: [ {{ $jumlahPasien }}, {{ $jumlahPasienBulanIni }}],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
 
 @endsection
