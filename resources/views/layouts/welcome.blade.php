@@ -48,6 +48,25 @@
                     </a>
                 </div>
                 @endif
+                {{-- Auth::check()  untuk handle ketika nilai null --}}
+                @if (Auth::check() && Auth::user()->role === 'docter')
+                <div class="col-md-4 mt-4">
+                    <a href="{{route('rm.antrian')}} " class="text-dark" >
+                        <div class="card bg-danger">
+                            <div class="card-body  mt-3">
+                                <h5 class="card-title">
+                                    <img src="{{ asset('Icons/person-lines-fill.svg') }}" alt="person list" widht="28" height="24">
+                                    Pasien on Queue
+                                </h5>
+                                <p class="card-text">
+                                    <img src="{{ asset('Icons/person-bulat.svg') }}" alt="person bulat">
+                                    {{ $antrian }} Orang
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                @endif
                 <div class="col-md-4 mt-4">
                     <a href="{{route('logistik.index')}}" class="text-decoration-none text-dark" >
                         <div class="card bg-warning text-white">
@@ -67,25 +86,7 @@
             {{-- row --}}
 
             <div class="row mt-4">
-                {{-- Auth::check()  untuk handle ketika nilai null --}}
-                @if (Auth::check() && Auth::user()->role === 'docter')
-                <div class="col-md-3">
-                    <a href="{{route('rm.antrian')}} " class="text-dark" >
-                        <div class="card bg-primary" style="height: 250px;">
-                            <div class="card-body  mt-5">
-                                <h5 class="card-title bg-primary">
-                                    <img src="{{ asset('Icons/person-lines-fill.svg') }}" alt="person list" widht="28" height="24">
-                                    Pasien on Queue
-                                </h5>
-                                <p class="card-text">
-                                    <img src="{{ asset('Icons/person-bulat.svg') }}" alt="person bulat">
-                                    {{ $antrian }} Orang
-                                </p>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                @endif
+                
                 <div class="col-md-2">
                     <div class="card" style="height: 250px;">
                         <div class="card-body mt-5">
@@ -154,10 +155,10 @@
   new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ['Total', 'Bulan Ini'],
+      labels: ['{{ $bulanSekarang }}', '{{ $bulanMinSatu }}', '{{ $bulanMinDua }}'],
       datasets: [{
         label: 'Pasien',
-        data: [ {{ $jumlahPasien }}, {{ $jumlahPasienBulanIni }}],
+        data: [ {{ $jumlahRmBulanSekarang }}, {{ $jumlahRmBulanMinSatu }}, {{$jumlahRmBulanMinDua}}],
         borderWidth: 1
       }]
     },
