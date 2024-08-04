@@ -51,6 +51,8 @@ class RekamMedisController extends Controller
     }
 
 
+
+    // tidak dipakai
     public function store(Request $request)
     {
 
@@ -59,7 +61,7 @@ class RekamMedisController extends Controller
                 'pasien_id' => $request->input('pasien_id'),
                 'tekanan_darah' => $request->input('tekanan_darah'),
                 'berat_badan' => $request->input('berat_badan'),
-                'tinggi_badang' => $request->input('tinggi_badan'),
+                'tinggi_badan' => $request->input('tinggi_badan'),
                 'keluhan' => $request->input('keluhan'),
                 'pemeriksaan' => $request->input('pemeriksaan'),
                 'diagnosa' => $request->input('diagnosa'),
@@ -82,8 +84,7 @@ class RekamMedisController extends Controller
                 'pemeriksaan' => $request->input('pemeriksaan'),//dari view dikirimkan value 'belum diperiksa'
                 'berat_badan' => $request->input('berat_badan'),
                 'tinggi_badan' => $request->input('tinggi_badan'),
-                'tekanan_darah' => $request->input('tekanan_darah'),
-                // 'keluhan' => 'suka makan dan obsesi berlebih',
+                'tekanan_darah' => $request->input('tekanan_darah_sistolik') . '/' . $request->input('tekanan_darah_diastolik'),
                 'keluhan' => $request->input('keluhan'),
             ]);
             return redirect()->route('home')->with('key', 'Berhasil Registrasi Pasien');

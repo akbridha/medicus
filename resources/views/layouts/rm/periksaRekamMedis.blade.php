@@ -43,6 +43,10 @@
         <label for="diagnosa">Diagnosa:</label>
         <textarea class="form-control" id="diagnosa" name="diagnosa">{{ $rekamMedis->diagnosa }}</textarea>
     </div>
+    <div class="form-group">
+        <label for="Terapi">Terapi:</label>
+        <textarea class="form-control" id="diagnosa" name="diagnosa">{{ $rekamMedis->terapi }}</textarea>
+    </div>
     <button type="submit" class="btn btn-primary">Simpan</button>
 </form>
 </div>
