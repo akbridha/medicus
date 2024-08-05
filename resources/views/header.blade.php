@@ -10,10 +10,18 @@
     {{-- link untuk bootstrap icon via online --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 56px; /* Adjust this value based on the height of your navbar */
+        }
+        .content-container {
+            margin-top: 20px; /* Adjust this value to provide the desired margin */
+        }
+    </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-sm navbar-light bg-info">
+    <nav class="navbar navbar-expand-sm navbar-light bg-info fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">
                 <img src="{{asset('Icons/person-rolodex.svg')}}" alt="folder-person">
@@ -60,7 +68,7 @@
     </nav>
 
 
-<div class="container-fluid">
+<div class="container-fluid mt-10">
     @if ($errors->any())
     <div class="alert alert-danger mt-3">
         <ul>
@@ -68,23 +76,18 @@
                 <li>
                     {{ $item }}
                 </li>
-
             @endforeach
         </ul>
     </div>
     @endif
-
     @if (session()->has('key'))
         <div class="alert alert-info mt-3">
             {{ session('key') }}
-
         </div>
         @php
             session()->forget('key');
         @endphp
     @endif
-
-
     @yield('content') <!-- Ini adalah tempat konten dari view akan ditempatkan -->
 </div>
 
