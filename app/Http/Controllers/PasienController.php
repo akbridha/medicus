@@ -42,7 +42,7 @@ class PasienController extends Controller
     }
 
     /**
-     * CRC : Menyimpan pendaftaran pasien baru [iterasi 1]
+     * CRC : Menampilkan pendaftaran pasien baru [iterasi 1]
      */
     public function create(){
         // return view("layouts.pasien.insertPasien");
@@ -93,15 +93,15 @@ class PasienController extends Controller
         return view("layouts.pasien.insertPasien", compact('newNBL', 'currentUser'));
     }
 
-    /**
-     * Store a newly created resource in storage.
+   /**
+     * CRC : Menyimpan pendaftaran pasien baru [iterasi 1]
      */
     public function store(Request $request)    {
 
-
+            // return $request;
         try {
             Pasien::create([
-                'NIK' => $request->input('NIK'),
+                'NIK' => $request->input('nik_pertama') . $request->input('nik_kedua') . $request->input('nik_ketiga') . $request->input('nik_keempat'),
                 'NBL' => $request->input('NBL'),
                 'Nama' => $request->input('Nama'),
                 'Tanggal_lahir' => $request->input('Tanggal_lahir'),
@@ -133,8 +133,9 @@ class PasienController extends Controller
      */
     public function update(Request $request, Pasien $pasien)
         {
+
         $pasien->Nama = $request->Nama;
-        $pasien->NIK = $request->NIK;
+        $pasien->NIK = $request->nik_pertama . $request->nik_kedua. $request->nik_ketiga . $request->nik_keempat;
         $pasien->NBL = $request->NBL;
         $pasien->Tanggal_lahir = $request->Tanggal_lahir;
         $pasien->Umur = $request->Umur;

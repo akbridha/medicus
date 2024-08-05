@@ -7,7 +7,20 @@
         @csrf
         <div class="form-group">
             <label for="NIK">NIK:</label>
-            <input type="text" class="form-control" id="NIK" name="NIK" maxlength="19">
+            <div class="form-row">
+                <div class="col-md-1">
+                    <input type="number" class="form-control" id="NIK1" name="nik_pertama" maxlength="4" oninput="limitInput(this)">
+                </div>
+                <div class="col-md-1">
+                    <input type="number" class="form-control" id="NIK2" name="nik_kedua" maxlength="4" oninput="limitInput(this)">
+                </div>
+                <div class="col-md-1">
+                    <input type="number" class="form-control" id="NIK3" name="nik_ketiga" maxlength="4" oninput="limitInput(this)">
+                </div>
+                <div class="col-md-1">
+                    <input type="number" class="form-control" id="NIK4" name="nik_keempat" maxlength="4" oninput="limitInput(this)">
+                </div>
+            </div>
         </div>
         <div class="form-group">
             <label for="NBL">NBL:</label>
@@ -19,7 +32,7 @@
         </div>
         <div class="form-group">
             <label for="Tanggal_lahir">Tanggal Lahir:</label>
-            <input type="date" class="form-control" id="Tanggal_lahir" name="Tanggal_lahir">
+            <input type="date" class="form-control" id="Tanggal_lahir" name="Tanggal_lahir" value="{{ old('Tanggal_lahir', '1980-01-01') }}">
         </div>
         <!-- <div class="form-group">
             <label for="Umur">Umur:</label>
@@ -54,40 +67,12 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const nikInput = document.getElementById('NIK');
-    const form = document.getElementById('patientForm');
 
-    nikInput.addEventListener('input', function(e) {
-        let value = e.target.value.replace(/\D+/g, ''); // Remove all non-digit characters
-
-        if (value.length > 16) {
-            value = value.substring(0, 16); // Truncate to 16 digits
+    function limitInput(element) {
+        if (element.value.length > element.maxLength) {
+            element.value = element.value.slice(0, element.maxLength);
         }
+    }
 
-        let formattedValue = '';
-
-        for (let i = 0; i < value.length; i++) {
-            if (i > 0 && i % 4 === 0) {
-                formattedValue += ' ';
-            }
-            formattedValue += value[i];
-        }
-
-        e.target.value = formattedValue;
-    });
-
-    nikInput.addEventListener('keypress', function(e) {
-        let value = e.target.value.replace(/\s+/g, ''); // Remove spaces for length check
-
-        if (value.length >= 16 && !isNaN(String.fromCharCode(e.which))) {
-            e.preventDefault(); // Prevent input if already 16 digits
-        }
-    });
-
-    form.addEventListener('submit', function(e) {
-        nikInput.value = nikInput.value.replace(/\s+/g, ''); // Remove all spaces before submitting the form
-    });
-});
 </script>
 @endsection
