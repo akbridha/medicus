@@ -8,6 +8,7 @@ use App\Http\Controllers\SessionController;
 use App\Http\Controllers\DatabaseController;
 use App\Http\Controllers\KeluargaController;
 use App\Models\Keluarga;
+use App\Models\Logistik;
 use App\Models\Pasien;
 use App\Models\RekamMedis;
 use Carbon\Carbon;
@@ -39,6 +40,9 @@ Route::get('/', function () {
     // untuk menampilkan jumlah antrian
     $antrian = RekamMedis::where('pemeriksaan', 'belum diperiksa')->count();
 
+    //untuk chart bmph
+    $bmph = Logistik::all(['nama', 'jumlah']);
+
 
     // Mendapatkan rentang tanggal untuk bulan ini
     $endDateBulanSekarang = Carbon::now()->endOfMonth(); // Akhir bulan ini
@@ -61,11 +65,14 @@ Route::get('/', function () {
     $bulanMinDua = Carbon::now()->subMonths(2)->format('F');
 
 // return 'Pasien bulan ini: --'. $jumlahRmBulanSekarang.',Bulan lalu:--'.$jumlahRmBulanMinSatu. ', Dua Bulan Lalu :--'. $jumlahRmBulanMinDua. 'bulan-buluan : '. $bulanSekarang. $bulanMinSatu.$bulanMinDua;
-   
 
 
 
-return view('layouts.welcome', compact('currentUser','antrian','jumlahPasien', 'jumlahPasienBulanIni', 'jumlahRmBulanSekarang','jumlahRmBulanMinSatu','jumlahRmBulanMinDua', 'bulanSekarang', 'bulanMinSatu', 'bulanMinDua'));
+
+return view('layouts.welcome', compact(
+'currentUser','antrian','jumlahPasien', 'jumlahPasienBulanIni',
+'jumlahRmBulanSekarang','jumlahRmBulanMinSatu','jumlahRmBulanMinDua',
+'bulanSekarang', 'bulanMinSatu', 'bulanMinDua','bmph'));
 })->name('home');
 
 

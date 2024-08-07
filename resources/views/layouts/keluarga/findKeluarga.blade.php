@@ -2,33 +2,47 @@
 
 @section('content')
 <div class="container">
-
-    <body>
     <h1>Detail Pasien</h1>
 
-    <p><strong>Nama Pasien:</strong> {{ $pasien->Nama }}</p>
-    <p><strong>NIK:</strong> {{ $pasien->NIK }}</p>
+    <table class="table table-bordered">
+        <tr>
+            <th>Nama Pasien</th>
+            <td>{{ $pasien->Nama }}</td>
+        </tr>
+        <tr>
+            <th>NIK</th>
+            <td>{{ $pasien->NIK }}</td>
+        </tr>
+    </table>
 
     @if($pasien->keluargas->isEmpty())
         <p>Pasien ini belum dihubungkan dengan keluarga manapun.</p>
     @else
         <h2>Keluarga</h2>
         @foreach($pasien->keluargas as $keluarga)
-            <p><strong>Nama Keluarga:</strong> {{ $keluarga->nama }}</p>
-            <h3>Anggota Keluarga</h3>
-            <ul>
-                @foreach($keluarga->pasiens as $anggota)
-                    <li>
-                        <a href="{{ route('rm.show', ['id' => $anggota->id]) }}" class="text-primary">
-                        {{ $anggota->Nama }}
-                        </a>
-                    </li>
-                @endforeach
-            </ul>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Nama Keluarga</th>
+                    <td>{{ $keluarga->nama }}</td>
+                </tr>
+                <tr>
+                    <th>Anggota Keluarga</th>
+                    <td>
+                        <ul>
+                            @foreach($keluarga->pasiens as $anggota)
+                                <li>
+                                    <a href="{{ route('rm.show', ['id' => $anggota->id]) }}" class="text-primary">
+                                        {{ $anggota->Nama }}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </td>
+                </tr>
+            </table>
         @endforeach
     @endif
 
-    <a href="{{ route('rm.antrian') }}">Kembali ke antrian</a>
-</body>
+    <a href="{{ route('rm.antrian') }}" class="btn btn-primary mt-3">Kembali ke antrian</a>
 </div>
 @endsection

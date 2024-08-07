@@ -86,7 +86,7 @@
             {{-- row --}}
 
             <div class="row mt-4">
-                
+
                 <div class="col-md-2">
                     <div class="card" style="height: 250px;">
                         <div class="card-body mt-5">
@@ -110,20 +110,21 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="col-md-2">
-                    
-                    <div class="card" style="height: 250px; width: 550px;">
-                        <!-- <div class="card-body "> -->
-                            
-                            <canvas id="myChart"></canvas>
-                        <!-- </div> -->
+
+                    <div class="card" style="height: 250px; width: 500px;">
+                        <canvas id="pasienChart"></canvas>
                     </div>
                 </div>
 
             </div>
 
-
+            <div class="card mt-4" style="height: 250px; width: 850px;">
+                {{-- <div class="card-body"> --}}
+                <canvas id="bmphChart"></canvas>
+                {{-- </div> --}}
+            </div>
             <div class="card mt-4">
                 <div class="card-header">
                     <h5 class="card-title">
@@ -141,6 +142,7 @@
             </div>
 
         </div>
+
     </body>
 
 </html>
@@ -150,26 +152,63 @@
 <script src="{{asset('js/chart.js') }}"></script>
 
 <script>
-  const ctx = document.getElementById('myChart');
+const pasienChart = document.getElementById('pasienChart');
+const bmphChart = document.getElementById('bmphChart');
+const bmph = @json($bmph);
+const NamaLabels = bmph.map(item => item.nama);
+const JumlahData = bmph.map(item => item.jumlah);
 
-  new Chart(ctx, {
+new Chart(pasienChart, {
     type: 'bar',
     data: {
-      labels: ['{{ $bulanSekarang }}', '{{ $bulanMinSatu }}', '{{ $bulanMinDua }}'],
-      datasets: [{
-        label: 'Pasien',
-        data: [ {{ $jumlahRmBulanSekarang }}, {{ $jumlahRmBulanMinSatu }}, {{$jumlahRmBulanMinDua}}],
-        borderWidth: 1
-      }]
-    },
+        labels: ['{{ $bulanSekarang }}', '{{ $bulanMinSatu }}', '{{ $bulanMinDua }}'],
+        datasets: [{
+            label: 'Pasien',
+            data: [ {{ $jumlahRmBulanSekarang }}, {{ $jumlahRmBulanMinSatu }}, {{$jumlahRmBulanMinDua}}],
+            borderWidth: 1,
+                backgroundColor: [
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)'
+            ],
+            borderColor: [
+                'rgba(75, 192, 192, 1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)'
+            ]
+        }]
+        },
     options: {
-      scales: {
-        y: {
-          beginAtZero: true
+        scales: {
+            y: {
+                beginAtZero: true
+            }
         }
-      }
     }
-  });
+});
+
+
+new Chart(bmphChart, {
+    type: 'bar',
+    data: {
+        labels: NamaLabels,
+        datasets: [{
+            label: 'Bahan Medis Habis Pakai',
+            data: JumlahData,
+            borderWidth: 1,
+
+        }]
+        },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
 </script>
 
 @endsection
