@@ -75,8 +75,23 @@
                                         <td>{{ $pilihan['nama'] }}</td>
                                         <td>
                                             <span id="counter-{{ $pilihan['id'] }}" class="counter-box">{{ $pilihan['jumlah'] }}</span>
-                                            <input type="hidden" name="logistik[{{ $pilihan['id'] }}][tersedia]" id="hiddenCounter-{{ $pilihan['id'] }}" value="{{ $pilihan['jumlah'] }}">
+
+
+
+                                            <input type="hidden"
+                                            name="logistik[{{ $pilihan['id'] }}][tersedia]"
+                                            id="hiddenCounter-{{ $pilihan['id'] }}"
+                                            value="{{ $pilihan['jumlah'] }}">
+
+
+
+
+
+
+
+
                                             <input type="hidden" name="logistik[{{ $pilihan['id'] }}][id]" value="{{ $pilihan['id'] }}">
+                                            <input type="hidden" name="logistik[{{ $pilihan['id'] }}][nama]" value="{{ $pilihan['nama'] }}">
                                         </td>
                                         <td>
                                             <div class="input-group">

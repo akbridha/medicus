@@ -153,12 +153,15 @@ class LogistikController extends Controller
 
     // Menyimpan perubahan BMHP tiap kali pemeriksaan [iterasi 5]
     public function storeTransaksi(Request $request){
+// return $request;
         $id_rm = $request->input('id_rm');
         $logistikData = $request->input('logistik');
+        $namaLogistik = [];
 
         foreach ($logistikData as $logistik) {
             $id = $logistik['id'];
             $tersedia = $logistik['tersedia'];
+            $namaLogistik[] = $logistik['nama'];
 
             // Lakukan update logistik sesuai dengan ID dan jumlah tersedia yang diterima
             $logistikItem = Logistik::find($id);
@@ -168,8 +171,9 @@ class LogistikController extends Controller
             }
         }
         session()->forget('sesipilihan');
+        $namaLogistik = implode(',', $namaLogistik);
 
-        return redirect()->route('rm.periksa', $id_rm)->with('key', 'Logistik berhasil diperbarui.');
+        return redirect()->route('rm.periksa', [$id_rm,$namaLogistik])->with('key', 'Logistik berhasil diperbarui.');
     }
 
 

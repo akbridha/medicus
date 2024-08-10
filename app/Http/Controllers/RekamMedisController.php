@@ -119,20 +119,27 @@ class RekamMedisController extends Controller
             }
     }
     //    Menampilkan Keluhan (RPS)  [iterasi 3]
-    public function periksa(RekamMedis $rekamMedis )    {
+    public function periksa(RekamMedis $rekamMedis, $namaLogistik = null  )    {
         $currentUser = Auth::user();
         $rekamMedis->load('pasien');
+        // apabila nama logistik ada
+        if ($namaLogistik) {
+            //  ubah $namaLogistik menjadi array
+            $namaLogistikArray = explode(',', $namaLogistik);
+        }
         // return $rekamMedis;
-        return view('layouts.rm.periksaRekamMedis', compact('rekamMedis', 'currentUser'));
+        return view('layouts.rm.periksaRekamMedis', compact('rekamMedis','namaLogistik', 'currentUser'));
     }
 
 
 
     // public function edit(RekamMedis $rekamMedis , Pasien $pasien)
-    public function edit(RekamMedis $rekamMedis )
+    public function edit(RekamMedis $rekamMedis)
     {
         $currentUser = Auth::user();
         $rekamMedis->load('pasien');
+
+
         // return $rekamMedis;
         return view('layouts.rm.editRekamMedis', compact('rekamMedis', 'currentUser'));
     }
@@ -149,6 +156,10 @@ class RekamMedisController extends Controller
         $rekamMedis->tanggal = $request->tanggal;
         $rekamMedis->pemeriksaan = $request->pemeriksaan;
         $rekamMedis->diagnosa = $request->diagnosa;
+        $rekamMedis->terapi = $request->terapi;
+        $rekamMedis->bmhp = $request->bmhp;
+
+
 
         // Lanjutkan dengan mengupdate data lainnya sesuai kebutuhan
 

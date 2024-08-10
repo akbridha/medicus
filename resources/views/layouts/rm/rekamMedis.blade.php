@@ -18,10 +18,10 @@
             <tbody>
                 @foreach($rekamMedises as $rekamMedis)
                 <tr>
-                    <td style="width: 130px;">{{ $rekamMedis->tanggal }}</td>
-                    <td>{{ $rekamMedis->pasien->Nama }}</td>
-                    <td>{{ $rekamMedis->pemeriksaan }}</td>
-                    <td>{{ $rekamMedis->diagnosa }}</td>
+                    <td style="width: 130px;">{{ $rekamMedis->tanggal ?? '-' }}</td>
+                    <td>{{ $rekamMedis->pasien->Nama ?? 'Tidak Diketahui' }}</td>
+                    <td>{{ $rekamMedis->pemeriksaan ?? 'Tidak Ada Pemeriksaan' }}</td>
+                    <td>{{ $rekamMedis->diagnosa ?? 'Belum Ada Diagnosa' }}</td>
                     <td>
                         <a href="{{ route('rm.edit', $rekamMedis) }}" class="btn btn-outline-secondary">Edit</a>
                     </td>

@@ -122,7 +122,7 @@
 
             <div class="card mt-4" style="height: 250px; width: 850px;">
                 {{-- <div class="card-body"> --}}
-                <canvas id="bmphChart"></canvas>
+                <canvas id="bmhpChart"></canvas>
                 {{-- </div> --}}
             </div>
             <div class="card mt-4">
@@ -142,6 +142,7 @@
             </div>
 
         </div>
+        {{-- <h2>{{ $bmhp }}</h2> --}}
 
     </body>
 
@@ -153,10 +154,10 @@
 
 <script>
 const pasienChart = document.getElementById('pasienChart');
-const bmphChart = document.getElementById('bmphChart');
-const bmph = @json($bmph);
-const NamaLabels = bmph.map(item => item.nama);
-const JumlahData = bmph.map(item => item.jumlah);
+const bmhpChart = document.getElementById('bmhpChart');
+const bmhp = @json($bmhp);
+const NamaLabels = bmhp.map(item => item.nama);
+const JumlahData = bmhp.map(item => item.jumlah);
 
 new Chart(pasienChart, {
     type: 'bar',
@@ -188,7 +189,7 @@ new Chart(pasienChart, {
 });
 
 
-new Chart(bmphChart, {
+new Chart(bmhpChart, {
     type: 'bar',
     data: {
         labels: NamaLabels,

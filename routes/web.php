@@ -40,8 +40,8 @@ Route::get('/', function () {
     // untuk menampilkan jumlah antrian
     $antrian = RekamMedis::where('pemeriksaan', 'belum diperiksa')->count();
 
-    //untuk chart bmph
-    $bmph = Logistik::all(['nama', 'jumlah']);
+    //untuk chart bmhp
+    $bmhp = Logistik::all(['nama', 'jumlah']);
 
 
     // Mendapatkan rentang tanggal untuk bulan ini
@@ -72,7 +72,7 @@ Route::get('/', function () {
 return view('layouts.welcome', compact(
 'currentUser','antrian','jumlahPasien', 'jumlahPasienBulanIni',
 'jumlahRmBulanSekarang','jumlahRmBulanMinSatu','jumlahRmBulanMinDua',
-'bulanSekarang', 'bulanMinSatu', 'bulanMinDua','bmph'));
+'bulanSekarang', 'bulanMinSatu', 'bulanMinDua','bmhp'));
 })->name('home');
 
 
@@ -125,7 +125,8 @@ Route::group(
         Route::put('/rm/{rekamMedis}/{redirect}', [RekamMedisController::class, 'update'])->name('rm.update');
 
         // Route::get('/rm/{rekamMedis}/{pasien}/edit', [RekamMedisController::class, 'edit'])->name('rm.edit');
-        Route::get('/rm/{rekamMedis}/periksa', [RekamMedisController::class, 'periksa'])->name('rm.periksa');
+        // Route::get('/rm/{rekamMedis}/periksa', [RekamMedisController::class, 'periksa'])->name('rm.periksa');
+        Route::get('/rm/{rekamMedis}/periksa/{namaLogistik?}', [RekamMedisController::class, 'periksa'])->name('rm.periksa');
         Route::get('/rm/{rekamMedis}/edit', [RekamMedisController::class, 'edit'])->name('rm.edit');
         Route::post('/rm/create', [RekamMedisController::class, 'create'])->name('rm.create');
     }
