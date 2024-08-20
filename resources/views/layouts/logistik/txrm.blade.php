@@ -56,7 +56,7 @@
             </div>
 
             @if($pilihans)
-                <h3 class="mb-3">BMPH yang Dipilih</h3>
+                <h3 class="mb-3">BMHP yang Dipilih</h3>
                 <form method="POST" action="{{ route('logistik.txupdate') }}">
                     @csrf
                     <input type="hidden" name="id_rm" value="{{ $rekamMedis }}">

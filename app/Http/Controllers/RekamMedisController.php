@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\RekamMedis;
 use App\Http\Requests\StoreRekamMedisRequest;
 use App\Http\Requests\UpdateRekamMedisRequest;
+use App\Models\Anatomi;
 use App\Models\Pasien;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -104,8 +105,10 @@ class RekamMedisController extends Controller
     }
 
         // Menampilkan Riwayat RM  [Iterasi 3]
-    public function show( $id)   {
+    public function showRiwayats( $id)   {
 
+        // menampilkan riwayat berdasarkan ID pasien
+        // return "suka blyat";
         $rekamMedises = Pasien::find($id)->rekamMedis;
         $currentUser = Auth::user();
 
@@ -118,6 +121,23 @@ class RekamMedisController extends Controller
                 return "data Tidak ditemukan";
             }
     }
+
+
+    public function show($id)  {
+        $currentUser = Auth::user();
+        $rekamMedis = RekamMedis::with('anatomi')->findOrFail($id);
+        // $rekamMedis->load('pasien');
+        // $anatomis = Anatomi::with('pasien')->get();
+            // experiment vital sign
+
+        // return $anatomis;
+        // return $rekamMedis;
+
+        return view('layouts.rm.detailRekamMedis', compact('rekamMedis', 'currentUser'));
+    }
+
+
+
     //    Menampilkan Keluhan (RPS)  [iterasi 3]
     public function periksa(RekamMedis $rekamMedis, $namaLogistik = null  )    {
         $currentUser = Auth::user();
@@ -128,6 +148,9 @@ class RekamMedisController extends Controller
             $namaLogistikArray = explode(',', $namaLogistik);
         }
         // return $rekamMedis;
+
+
+
         return view('layouts.rm.periksaRekamMedis', compact('rekamMedis','namaLogistik', 'currentUser'));
     }
 
@@ -167,6 +190,61 @@ class RekamMedisController extends Controller
 
         return redirect()->route($redirect)->with('key', 'Data rekam medis berhasil diupdate');
     }
+
+
+    public function simpan_anatomi(Request $request){
+
+    // return $request;
+
+        // Validasi data yang dikirim
+        $validatedData = $request->validate([
+            'rekam_medis_id' => 'required | numeric',
+            'x' => 'required|numeric',
+            'y' => 'required|numeric',
+            'BagianTubuh' => 'required|string|max:255',
+            'keterangan' => 'required|string|max:255',
+        ]);
+         // Simpan data ke database
+        $anatomi = new Anatomi();
+        $anatomi->x = $validatedData['x'];
+        $anatomi->y = $validatedData['y'];
+        $anatomi->bagian_tubuh = $validatedData['BagianTubuh'];
+        $anatomi->rekam_medis_id = $validatedData['rekam_medis_id'];
+        $anatomi->keterangan = $validatedData['keterangan'];
+        $anatomi->save();
+
+        // Mengembalikan respon JSON
+        return response()->json(['success' => true, 'anatomi' => $anatomi]);
+    }
+
+
+
+
+### Untuk mengambil kembali data anatomi setelah berhasil di masukkan .. diambil ulang dari database supaya sudah ada ID nya yg tergenerate
+
+    public function getAnatomiByRekamMedisId($rekam_medis_id)
+    {
+    // Mengambil data dari tabel Anatomi berdasarkan rekam_medis_id
+    $anatomiData = Anatomi::where('rekam_medis_id', $rekam_medis_id)->get();
+
+    // Mengembalikan data dalam format JSON
+    return response()->json($anatomiData);
+    }
+
+    public function deletePoint($id)
+    {
+        // Hapus data dari tabel Anatomi berdasarkan ID
+        $anatomi = Anatomi::find($id);
+
+        if ($anatomi) {
+            $anatomi->delete();
+            return response()->json(['success' => true, 'message' => 'Data berhasil dihapus']);
+        } else {
+            return response()->json(['success' => false, 'message' => 'Data tidak ditemukan']);
+        }
+    }
+
+
 
 
     public function destroy(RekamMedis $rekamMedis)

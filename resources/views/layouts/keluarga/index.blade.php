@@ -2,51 +2,48 @@
 
 @section('content')
     <div class="container-fluid">
-
-
-
-            {{-- pengecekan apabila data yang dikirim kosong --}}
-
-        @if($keluargas->isEmpty())
-            <div class="alert alert-warning" role="alert">
-                Data Pasien tidak ditemukan
-            </div>
-        @else
         <div class="container">
             <h1>Daftar Keluarga dan Pasien</h1>
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Nama Keluarga</th>
-                        <th>Nama Pasien</th>
-                        <th> </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($keluargas as $keluarga)
+            <a href="{{route('keluarga.create')}}" class="btn btn-info mb-4 float-right">Tambah</a>
+                {{-- pengecekan apabila data yang dikirim kosong --}}
+
+            @if($keluargas->isEmpty())
+                <div class="alert alert-warning" role="alert">
+                    Data Pasien tidak ditemukan
+                </div>
+            @else
+                    <table class="table table-hover table-bordered">
+                        <thead class="thead-dark">
                         <tr>
-                            <td>{{ $keluarga->nama }}</td>
-                            <td>
-                                <ul>
-                                    @foreach($keluarga->pasiens as $pasien)
-                                        <li>{{ $pasien->Nama }}</li>
-                                    @endforeach
-                                </ul>
-                            </td>
-                            <td>
-                                <form action="{{ route('keluarga.pasien.destroy',  $keluarga->id) }}" method="POST" style="display: inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
-                                </form>
-                            </td>
+                            <th>Nama Keluarga</th>
+                            <th>Nama Pasien</th>
+                            <th> </th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach($keluargas as $keluarga)
+                            <tr>
+                                <td>{{ $keluarga->nama }}</td>
+                                <td>
+                                    <ul>
+                                        @foreach($keluarga->pasiens as $pasien)
+                                            <li>{{ $pasien->Nama }}</li>
+                                        @endforeach
+                                    </ul>
+                                </td>
+                                <td>
+                                    <form action="{{ route('keluarga.pasien.destroy',  $keluarga->id) }}" method="POST" style="display: inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @endif
         </div>
-        @endif
-        <a href="{{route('keluarga.create')}}" class="btn btn-info mb-4 float-right">Tambah</a>
         {{-- akhir pengecekan apabila data yang dikirim kosong --}}
 
 

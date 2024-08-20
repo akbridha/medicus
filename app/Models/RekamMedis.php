@@ -27,4 +27,9 @@ class RekamMedis extends Model
     {
         return $this->belongsTo(Pasien::class, 'pasien_id');
     }
+
+    public function anatomi()
+    {
+        return $this->hasMany(Anatomi::class, 'rekam_medis_id');
+    }
 }

@@ -181,9 +181,8 @@ class LogistikController extends Controller
      * Menghapus BMHP [iterasi 7]
      */
     public function destroy(Logistik $logistik){
-        $currentUser = Auth::user();
+        // return $logistik;
         $logistik->delete();
-
         return redirect()->route('logistik.index')->with('success', 'Logistik berhasil dihapus.');
     }
 }

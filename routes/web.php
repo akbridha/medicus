@@ -94,13 +94,13 @@ Route::group(
         Route::get('pasien/create', [PasienController::class, 'create'])->name('pasien.create');
         Route::post('pasien/store', [PasienController::class, 'store'])->name('pasien.store');
         Route::post('pasien/edit', [PasienController::class, 'edit'])->name('pasien.edit');
-        Route::get('/pasien/cari', [PasienController::class,'find' ])->name('pasien.cari');
         Route::put('/pasien/{pasien}', [PasienController::class, 'update'])->name('pasien.update');
         Route::get('/hapus', [PasienController::class, 'destroy'])->name('pasien.hapus');
     }
 );
         // route menggunakan 2 role. cukup dengan menggunakan auth: di blade
         Route::get('pasien', [PasienController::class, 'index'])->name('pasien.index');
+        Route::get('/pasien/cari', [PasienController::class,'find' ])->name('pasien.cari');
 
 
 // ######### Keluarga
@@ -118,7 +118,8 @@ Route::post('/keluarga/clear-session', [KeluargaController::class, 'clearSession
 Route::group(
     ['middleware' =>['isDocter']], function(){
         Route::get('/rm', [RekamMedisController::class, 'index'])->name('rm.index');
-        Route::get('/rm/show/{id}', [RekamMedisController::class, 'show'])->name('rm.show');
+        Route::get('/rm/show/{id}', [RekamMedisController::class, 'showRiwayats'])->name('rm.showlist');
+        Route::get('/rekam-medis/{id}', [RekamMedisController::class, 'show'])->name('rekamMedis.show');
         // Route::get('/rm/edit/{id}', [RekamMedisController::class, 'edit'])->name('rm.edit');
         Route::get('/rm/antrian', [RekamMedisController::class, 'antrian'])->name('rm.antrian');
         Route::post('/rm/store', [RekamMedisController::class, 'store'])->name('rm.store');
@@ -129,6 +130,11 @@ Route::group(
         Route::get('/rm/{rekamMedis}/periksa/{namaLogistik?}', [RekamMedisController::class, 'periksa'])->name('rm.periksa');
         Route::get('/rm/{rekamMedis}/edit', [RekamMedisController::class, 'edit'])->name('rm.edit');
         Route::post('/rm/create', [RekamMedisController::class, 'create'])->name('rm.create');
+        Route::post('/save-point', [RekamMedisController::class, 'simpan_anatomi'])->name('anatomi.store');
+        Route::get('/get-anatomi/{rekam_medis_id}', [RekamMedisController::class, 'getAnatomiByRekamMedisId']);
+        Route::delete('/delete-point/{id}', [RekamMedisController::class, 'deletePoint']);
+
+
     }
 );
 

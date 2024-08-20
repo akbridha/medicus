@@ -24,7 +24,7 @@
                                 <!-- tombol untuk ke halaman periksa -->
                                 <a href="{{ route('rm.periksa', $rekamMedis) }}" class="btn btn-success btn-block">Periksa</a>
                                 <div class="btn-group mt-2" role="group" aria-label="Action Buttons">
-                                    <a href="{{ route('rm.show', ['id' => $rekamMedis->pasien->id ]) }}" class="btn btn-primary">Riwayat</a>
+                                    <a href="{{ route('rm.showlist', ['id' => $rekamMedis->pasien->id ]) }}" class="btn btn-primary">Riwayat</a>
                                     <a href="{{ route('keluarga.find', ['id' => $rekamMedis->pasien->id ]) }}" class="btn btn-info">Keluarga</a>
                                 </div>
                             </div>

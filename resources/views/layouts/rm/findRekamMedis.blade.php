@@ -1,5 +1,6 @@
 @extends('header')
-
+{{-- Menampilkan riwayat rekam medis yang sudah ada --}}
+{{-- dicari berdasarkan id pasien --}}
 @section('content')
 <div class="container">
     <h1 class="my-4">Rekam Medis Pasien</h1>
@@ -36,24 +37,24 @@
     </div>
 
     <div class="table-responsive">
-        <table class="table table-bordered">
-            <thead class="thead-light">
-                <tr>
-                    <th>Tanggal</th>
-                    <th>Pemeriksaan</th>
-                    <th>Diagnosa</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($rekamMedises as $rm)
-                    <tr>
-                        <td style="width: 130px;">{{ $rm->tanggal }}</td>
-                        <td>{{ $rm->pemeriksaan }}</td>
-                        <td>{{ $rm->diagnosa }}</td>
-                    </tr>
-                @endforeach
-            </tbody>
-        </table>
+    <table class="table table-bordered">
+    <thead class="thead-light">
+        <tr>
+            <th>Tanggal</th>
+            <th>Pemeriksaan</th>
+            <th>Diagnosa</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($rekamMedises as $rm)
+            <tr onclick="window.location.href='{{ route('rekamMedis.show', $rm->id) }}'">
+                <td style="width: 130px;">{{ $rm->tanggal }}</td>
+                <td>{{ $rm->pemeriksaan }}</td>
+                <td>{{ $rm->diagnosa }}</td>
+            </tr>
+        @endforeach
+    </tbody>
+</table>
     </div>
 </div>
 
