@@ -49,6 +49,7 @@
                                         <form method="POST" action="{{ route('rm.daftar') }}" class="d-inline-block">
                                             @csrf
                                             <input type="hidden" name="pasien_id" value="{{ $pasien->id }}">
+                                            <input type="hidden" name="nama" value="{{ $pasien->Nama }}">
                                             <button type="submit" class="btn btn-success btn-sm">Daftar</button>
                                         </form>
                                     @endif

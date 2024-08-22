@@ -20,7 +20,10 @@ class RekamMedis extends Model
         'tinggi_badan',
         'tanggal' ,
         'pemeriksaan' ,
-        'diagnosa'
+        'diagnosa',
+        'suhu',
+        'respiratory',
+        'heart_rate'
     ];
 
     public function pasien()

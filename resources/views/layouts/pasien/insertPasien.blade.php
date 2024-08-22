@@ -34,10 +34,10 @@
             <label for="Tanggal_lahir">Tanggal Lahir:</label>
             <input type="date" class="form-control" id="Tanggal_lahir" name="Tanggal_lahir" value="{{ old('Tanggal_lahir', '1980-01-01') }}">
         </div>
-        <!-- <div class="form-group">
-            <label for="Umur">Umur:</label>
-            <input type="text" class="form-control" id="Umur" name="Umur">
-        </div> -->
+        <div class="form-group">
+            <label for="Kontak">Kontak:</label>
+            <input type="text" class="form-control" id="Kontak" name="Kontak">
+        </div>
         <div class="form-group">
             <label for="Alamat">Alamat:</label>
             <input type="text" class="form-control" id="Alamat" name="Alamat">

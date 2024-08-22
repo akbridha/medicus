@@ -57,6 +57,7 @@ class RekamMedisController extends Controller
     public function store(Request $request)
     {
 
+
         try {
             RekamMedis::create([
                 'pasien_id' => $request->input('pasien_id'),
@@ -79,10 +80,14 @@ class RekamMedisController extends Controller
     // crc : Meneruskan data ke dalam antrian berobat [iterasi 2]
     public function regis(Request $request)   {
         //   return $request;
+     
         try {
             RekamMedis::create([
                 'pasien_id' => $request->input('pasien_id'),
                 'pemeriksaan' => $request->input('pemeriksaan'),//dari view dikirimkan value 'belum diperiksa'
+                'respiratory' => $request->input('Respiratory'),
+                'suhu' => $request->input('Suhu'),
+                'heart_rate' => $request->input('heart_rate'),
                 'berat_badan' => $request->input('berat_badan'),
                 'tinggi_badan' => $request->input('tinggi_badan'),
                 'tekanan_darah' => $request->input('tekanan_darah_sistolik') . '/' . $request->input('tekanan_darah_diastolik'),
