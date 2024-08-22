@@ -1,6 +1,38 @@
 @extends('header')
 
 @section('content')
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 1em;
+        font-family: 'Arial', sans-serif;
+    }
+
+    table thead tr {
+        background-color: #009879;
+        color: #ffffff;
+        text-align: left;
+    }
+
+    table th, table td {
+        border: 1px solid #dddddd;
+        padding: 12px 15px;
+    }
+
+    table tbody tr {
+        border-bottom: 1px solid #dddddd;
+    }
+
+    table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+    }
+
+    table tbody tr:last-of-type {
+        border-bottom: 2px solid #009879;
+    }
+</style>
     <div class="container-fluid" style="width: 90%;">
         <div class="row">
             <div class="col-md-6"> <!-- Menggunakan setengah lebar -->
@@ -82,30 +114,19 @@
                     </div>
 
                     <!-- Tabel untuk menampilkan daftar bagian tubuh -->
-<table id="yourTableId">
-    <thead>
-        <tr>
-            <th>X</th>
-            <th>Y</th>
-            <th>Bagian Tubuh</th>
-            <th>Keterangan</th>
-            <th>Aksi</th>
-        </tr>
-    </thead>
-    <tbody id="tableBody">
-        {{-- @foreach($anatomi as $item)
-            <tr id="row-{{ $item->id }}">
-                <td>{{ $item->x }}</td>
-                <td>{{ $item->y }}</td>
-                <td>{{ $item->BagianTubuh }}</td>
-                <td>{{ $item->keterangan }}</td>
-                <td>
-                    <button onclick="deletePoint({{ $item->id }})">Hapus</button>
-                </td>
-            </tr>
-        @endforeach --}}
-    </tbody>
-</table>
+                <table id="yourTableId">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Bagian Tubuh</th>
+                            <th>Keterangan</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Diisi oleh JavaScript -->
+                    </tbody>
+                </table>
                 </div>
             </div>
         </div>
@@ -118,36 +139,122 @@
 
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    getDataFromAnatomiTable('{{ $rekamMedis->id }}');
+
+function deletePoint(id) {
+        console.log(id);
+    fetch(`/delete-point/${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Tampilkan pesan atau lakukan sesuatu setelah data berhasil dihapus
+        console.log('Data berhasil dihapus', data);
+
+        // Refresh tabel setelah penghapusan
+        loadImageAndDraw('{{ $rekamMedis->id }}');
+    })
+    .catch(error => {
+        console.error('Terjadi kesalahan:', error);
+    });
+}
 
 
 
-// #####untuk menampilkan gambar anatomi
+
+
+function loadImageAndDraw(rekam_medis_id) {
     const canvas = document.getElementById('graphCanvas');
     const ctx = canvas.getContext('2d');
-    const popup = document.getElementById('popup');
-
-
-    let clickX, clickY;
-
-    // Data titik koordinat dari backend
-    let points = @json($rekamMedis->anatomi);
-
-    // Gambar background grafik
+    const imgSrc = "{{asset('anatomi_lk.png')}}";
     const img = new Image();
-    img.src = "{{asset('anatomi_lk.png')}}";
+    img.src = imgSrc;
     img.onload = function() {
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-        // Gambar ulang semua titik dengan keterangan
-        if (points && points.length > 0) {
-            points.forEach(point => {
-                drawPoint(point.x, point.y, point.keterangan);
-            });
+        // Setelah gambar dimuat, ambil data anatomi
+        fetchDataAndDrawPoints(rekam_medis_id);
+    };
+}
+
+async function fetchDataAndDrawPoints(rekam_medis_id) {
+    try {
+        const data = await getDataFromAnatomiTable(rekam_medis_id);
+        console.log(data);
+        let tableBody = document.getElementById('tableBody');
+        tableBody.innerHTML = ''; // Kosongkan tabel sebelum mengisi ulang
+        if (data && data.length > 0) {
+            data.forEach(point =>{
+                drawPoint(point.x, point.y, point.keterangan)
+                let row = `
+                    <tr id="row-${point.id}">
+                        <td>${point.id}</td>
+                        <td>${point.bagian_tubuh}</td>
+                        <td>${point.keterangan}</td>
+                        <td>
+                            <button onclick="deletePoint(${point.id})" class="btn btn-danger btn-sm">Hapus</button>
+                        </td>
+                    </tr>
+                `;
+            tableBody.innerHTML += row;
+            } );
         } else {
             console.log("Data anatomi kosong atau tidak tersedia.");
         }
+    } catch (error) {
+        console.error('Kesalahan saat mengambil data:', error);
     }
+}
+
+function getDataFromAnatomiTable(rekam_medis_id) {
+    return fetch(`/get-anatomi/${rekam_medis_id}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => data)
+    .catch(error => {
+        console.error('Terjadi kesalahan:', error);
+        throw error;
+    });
+}
+
+// Fungsi untuk menggambar titik di kanvas
+function drawPoint(x, y, keterangan) {
+    const canvas = document.getElementById('graphCanvas');
+    const ctx = canvas.getContext('2d');
+    ctx.beginPath();
+    ctx.arc(x, y, 5, 0, 2 * Math.PI);
+    ctx.fillStyle = 'blue';
+    ctx.fill();
+    ctx.fillText(keterangan, x + 10, y + 10); // Menampilkan teks di samping titik
+}
+
+
+
+document.addEventListener("DOMContentLoaded", function() {
+
+
+   console.log("DOMContentLoaded");
+    loadImageAndDraw('{{ $rekamMedis->id }}');
+
+
+//     getDataFromAnatomiTable('{{ $rekamMedis->id }}');
+
+
+
+// // #####untuk menampilkan gambar anatomi
+    const canvas = document.getElementById('graphCanvas');
 
     canvas.addEventListener('click', function(event) {
         const rect = canvas.getBoundingClientRect();
@@ -189,8 +296,8 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(data => {
                 // Lakukan sesuatu setelah data berhasil disimpan, misalnya:
                 console.log('Data berhasil disimpan', data);
-                drawPoint(x, y, keterangan); // Gambar titik baru di canvas
-                getDataFromAnatomiTable(rekam_medis_id); // Tambahkan baris baru ke tabel
+                // drawPoint(x, y, keterangan); // Gambar titik baru di canvas
+                loadImageAndDraw(rekam_medis_id); // Tambahkan baris baru ke tabel
             })
             .catch(error => {
                 console.error('Terjadi kesalahan:', error);
@@ -206,74 +313,6 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('closePopupBtn').addEventListener('click', function() {
         popup.style.display = 'none';
     });
-
-    function drawPoint(x, y, keterangan) {
-        ctx.beginPath();
-        ctx.arc(x, y, 5, 0, 2 * Math.PI);
-        ctx.fillStyle = 'blue';
-        ctx.fill();
-        ctx.fillText(keterangan, x + 10, y + 10); // Menampilkan teks di samping titik
-    }
-
-        function deletePoint(id) {
-            console.log(id);
-        // fetch(`/delete-point/${id}`, {
-        //     method: 'DELETE',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'X-CSRF-TOKEN': '{{ csrf_token() }}'
-        //     }
-        // })
-        // .then(response => response.json())
-        // .then(data => {
-        //     // Tampilkan pesan atau lakukan sesuatu setelah data berhasil dihapus
-        //     console.log('Data berhasil dihapus', data);
-
-        //     // Refresh tabel setelah penghapusan
-        //     updateTable();
-        // })
-        // .catch(error => {
-        //     console.error('Terjadi kesalahan:', error);
-        // });
-    }
-
-    function renderTable(data) {
-        let tableBody = document.getElementById('tableBody');
-        tableBody.innerHTML = ''; // Kosongkan tabel sebelum mengisi ulang
-
-        data.forEach(item => {
-            let row = `
-                <tr id="row-${item.id}">
-                    <td>${item.x}</td>
-                    <td>${item.y}</td>
-                    <td>${item.BagianTubuh}</td>
-                    <td>${item.keterangan}</td>
-                    <td>
-                        <button onclick="deletePoint(${item.id})" class="btn btn-danger btn-sm">Hapus</button>
-                    </td>
-                </tr>
-            `;
-            tableBody.innerHTML += row;
-        });
-    }
-
-    function getDataFromAnatomiTable(rekam_medis_id){
-        fetch(`/get-anatomi/${rekam_medis_id}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Panggil fungsi untuk me-render data di Blade
-            renderTable(data);
-        })
-        .catch(error => {
-            console.error('Terjadi kesalahan:', error);
-        });
-    }
 
 
 
