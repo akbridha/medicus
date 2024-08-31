@@ -31,7 +31,7 @@
                         <ul>
                             @foreach($keluarga->pasiens as $anggota)
                                 <li>
-                                    <a href="{{ route('rm.show', ['id' => $anggota->id]) }}" class="text-primary">
+                                    <a href="{{ route('rekamMedis.show', ['id' => $anggota->id]) }}" class="text-primary">
                                         {{ $anggota->Nama }}
                                     </a>
                                 </li>

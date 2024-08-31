@@ -153,27 +153,37 @@ class LogistikController extends Controller
 
     // Menyimpan perubahan BMHP tiap kali pemeriksaan [iterasi 5]
     public function storeTransaksi(Request $request){
-// return $request;
-        $id_rm = $request->input('id_rm');
-        $logistikData = $request->input('logistik');
-        $namaLogistik = [];
-
-        foreach ($logistikData as $logistik) {
-            $id = $logistik['id'];
-            $tersedia = $logistik['tersedia'];
-            $namaLogistik[] = $logistik['nama'];
-
-            // Lakukan update logistik sesuai dengan ID dan jumlah tersedia yang diterima
-            $logistikItem = Logistik::find($id);
-            if ($logistikItem) {
-                $logistikItem->jumlah = $tersedia;
-                $logistikItem->save();
+        try {
+            // Retrieve the array of logistik data from the request
+            $logistikData = $request->bmhpUpdate;
+    
+            // Iterate over each logistik data item
+            foreach ($logistikData as $logistik) {
+                $id = $logistik['id'];
+                $jumlah = $logistik['jumlah'];
+                $namaLogistik[] = $logistik['nama'];
+    
+                // Find the Logistik item by ID and update its 'jumlah' value
+                $logistikItem = Logistik::find($id);
+                if ($logistikItem) {
+                    $logistikItem->jumlah = $jumlah;
+                    $logistikItem->save();
+                }
             }
+    
+            // If everything went well, return a success response
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Data berhasil disimpan'
+            ]);
+    
+        } catch (\Exception $e) {
+            // If an error occurs, return an error response
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Terjadi kesalahan saat menyimpan data: ' . $e->getMessage()
+            ], 500);
         }
-        session()->forget('sesipilihan');
-        $namaLogistik = implode(',', $namaLogistik);
-
-        return redirect()->route('rm.periksa', [$id_rm,$namaLogistik])->with('key', 'Logistik berhasil diperbarui.');
     }
 
 

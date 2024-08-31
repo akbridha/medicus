@@ -162,13 +162,18 @@ class RekamMedisController extends Controller
 
 
     // public function edit(RekamMedis $rekamMedis , Pasien $pasien)
-    public function edit(RekamMedis $rekamMedis)
+    public function edit(RekamMedis $rekamMedis, $namaLogistik = null)
     {
         $currentUser = Auth::user();
         $rekamMedis->load('pasien');
+        if ($namaLogistik) {
+            $rekamMedis->BMHP .= ($rekamMedis->BMHP ? ',' : '') . $namaLogistik;
+   
+        }
+        
+        // return $rekamMedis->BMHP;
 
-
-        // return $rekamMedis;
+        
         return view('layouts.rm.editRekamMedis', compact('rekamMedis', 'currentUser'));
     }
 

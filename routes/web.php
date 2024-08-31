@@ -128,7 +128,7 @@ Route::group(
         // Route::get('/rm/{rekamMedis}/{pasien}/edit', [RekamMedisController::class, 'edit'])->name('rm.edit');
         // Route::get('/rm/{rekamMedis}/periksa', [RekamMedisController::class, 'periksa'])->name('rm.periksa');
         Route::get('/rm/{rekamMedis}/periksa/{namaLogistik?}', [RekamMedisController::class, 'periksa'])->name('rm.periksa');
-        Route::get('/rm/{rekamMedis}/edit', [RekamMedisController::class, 'edit'])->name('rm.edit');
+        Route::get('/rm/{rekamMedis}/edit/{namaLogistik?}', [RekamMedisController::class, 'edit'])->name('rm.edit');
         Route::post('/rm/create', [RekamMedisController::class, 'create'])->name('rm.create');
         Route::post('/save-point', [RekamMedisController::class, 'simpan_anatomi'])->name('anatomi.store');
         Route::get('/get-anatomi/{rekam_medis_id}', [RekamMedisController::class, 'getAnatomiByRekamMedisId']);

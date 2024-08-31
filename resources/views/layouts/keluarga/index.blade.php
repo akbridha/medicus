@@ -8,8 +8,11 @@
                 {{-- pengecekan apabila data yang dikirim kosong --}}
 
             @if($keluargas->isEmpty())
-                <div class="alert alert-warning" role="alert">
-                    Data Pasien tidak ditemukan
+                <div class="container-fluid w-75">
+
+                    <div class="alert alert-warning" role="alert">
+                        Data Pasien tidak ditemukan
+                    </div>
                 </div>
             @else
                     <table class="table table-hover table-bordered">
