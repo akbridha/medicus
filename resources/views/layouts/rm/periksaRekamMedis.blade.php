@@ -63,6 +63,18 @@
                         <input type="text" class="form-control" id="nama" name="nama" value="{{ $rekamMedis->pasien->Nama }}" readonly>
                     </div>
                     <div class="form-group">
+                        <label for="berat_badan">Berat Badan:</label>
+                        <input type="text" class="form-control" id="berat_badan" name="berat_badan" value="{{ $rekamMedis->berat_badan }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="tinggi_badan">Tinggi Badan:</label>
+                        <input type="text" class="form-control" id="tinggi_badan" name="tinggi_badan" value="{{ $rekamMedis->tinggi_badan }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="imt">IMT:</label>
+                        <input type="text" class="form-control" id="imt" name="imt" value="{{  number_format($rekamMedis->berat_badan/(pow($rekamMedis->tinggi_badan / 100, 2)),1)}}" readonly>
+                    </div>
+                    <div class="form-group">
                         <label for="tanggal">Tanggal:</label>
                         <input type="date" class="form-control" id="tanggal" name="tanggal" value="{{ $rekamMedis->tanggal }}">
                     </div>
