@@ -62,18 +62,76 @@
                         <label for="nama">Nama Pasien:</label>
                         <input type="text" class="form-control" id="nama" name="nama" value="{{ $rekamMedis->pasien->Nama }}" readonly>
                     </div>
-                    <div class="form-group">
-                        <label for="berat_badan">Berat Badan:</label>
-                        <input type="text" class="form-control" id="berat_badan" name="berat_badan" value="{{ $rekamMedis->berat_badan }}" readonly>
+                    <div class="d-flex justify-content-start">
+                        <div class="form-group">
+                            <label for="Tanggal_lahir">Tanggal Lahir:</label>
+                            <input type="text" class="form-control" id="Tanggal_lahir" name="Tanggal_lahir" value="{{ $rekamMedis->pasien->Tanggal_lahir }}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="umur">Umur:</label>
+                            @php
+                                $birthDate = new DateTime($rekamMedis->pasien->Tanggal_lahir);
+                                $today = new DateTime('today');
+                                $age = $today->diff($birthDate)->y;
+                            @endphp
+                            <input type="text" class="form-control" id="umur" name="umur" value="{{ $age }} tahun" readonly>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="tinggi_badan">Tinggi Badan:</label>
-                        <input type="text" class="form-control" id="tinggi_badan" name="tinggi_badan" value="{{ $rekamMedis->tinggi_badan }}" readonly>
+                    @php
+                    $imt =  number_format($rekamMedis->berat_badan/(pow($rekamMedis->tinggi_badan / 100, 2)),1);
+                    $status = '';
+                    $colorClass = '';
+
+                    if ($rekamMedis->pasien->Jenis_Kelamin == 'female') {
+                        if ($imt < 17) {
+                            $status = 'Underweight';
+                            $colorClass = 'bg-danger';
+                        } elseif ($imt >= 17 && $imt < 23) {
+                            $status = 'Normal';
+                            $colorClass = 'bg-success';
+                        } elseif ($imt >= 23 && $imt <= 27) {
+                            $status = 'Overweight';
+                            $colorClass = 'bg-warning';
+                        } else {
+                            $status = 'Obesity';
+                            $colorClass = 'bg-danger';
+                        }
+                    } elseif ($rekamMedis->pasien->Jenis_Kelamin == 'male') {
+                        if ($imt < 18) {
+                            $status = 'Underweight';
+                            $colorClass = 'bg-danger';
+                        } elseif ($imt >= 18 && $imt < 25) {
+                            $status = 'Normal';
+                            $colorClass = 'bg-success';
+                        } elseif ($imt >= 25 && $imt <= 27) {
+                            $status = 'Overweight';
+                            $colorClass = 'bg-warning';
+                        } else {
+                            $status = 'Obesity';
+                            $colorClass = 'bg-danger';
+                        }
+                    }else{
+                        $status = 'Nilai tidak masuk';
+                        $colorClass = 'bg-danger';
+                    }
+                    @endphp
+                    <div class="d-flex justify-content-between">
+                        <div class="form-group">
+                            <label for="berat_badan">Berat Badan:</label>
+                            <input type="text" class="form-control" id="berat_badan" name="berat_badan" value="{{ $rekamMedis->berat_badan }}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="tinggi_badan">Tinggi Badan:</label>
+                            <input type="text" class="form-control" id="tinggi_badan" name="tinggi_badan" value="{{ $rekamMedis->tinggi_badan }}" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="imt">IMT:</label>
+                            <input type="text" class="form-control" id="imt" name="imt" value="{{  number_format($rekamMedis->berat_badan/(pow($rekamMedis->tinggi_badan / 100, 2)),1)}}" readonly>
+                        </div>
+                        <h2><span class="badge {{ $colorClass }} mt-4">{{ $status }}</span></h2>
                     </div>
-                    <div class="form-group">
-                        <label for="imt">IMT:</label>
-                        <input type="text" class="form-control" id="imt" name="imt" value="{{  number_format($rekamMedis->berat_badan/(pow($rekamMedis->tinggi_badan / 100, 2)),1)}}" readonly>
-                    </div>
+               
+             
                     <div class="form-group">
                         <label for="tanggal">Tanggal:</label>
                         <input type="date" class="form-control" id="tanggal" name="tanggal" value="{{ $rekamMedis->tanggal }}">
