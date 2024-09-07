@@ -26,10 +26,10 @@ class PasienFactory extends Factory
             'NBL' => $formattedNomor,
             'Nama' => $faker->name,
             'Tanggal_lahir' => $faker->date,
-            'Umur' => $faker->randomNumber(2),
+            // 'Umur' => $faker->randomNumber(2),
             'Alamat' => $faker->address,
-            'Nomor_BPJS' => $faker->numerify('BPJS########'), // BPJS dengan 9 angka acak
-            'Jenis_Kelamin' => $faker->randomElement(['Laki-laki', 'Perempuan']),
+            // 'Nomor_BPJS' => $faker->numerify('BPJS########'), // BPJS dengan 9 angka acak
+            'Jenis_Kelamin' => $faker->randomElement(['male', 'female']),
             'Pekerjaan' => $faker->jobTitle,
         ];
     }

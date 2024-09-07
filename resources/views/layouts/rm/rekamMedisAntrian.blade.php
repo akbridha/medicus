@@ -1,7 +1,8 @@
 @extends('header') <!-- Anda perlu mengganti 'layouts.app' sesuai dengan layout Anda -->
 
 @section('content')
-    <div class="container mt-5">
+<div class="container mt-5">
+        <h3>Daftar Antrian Berobat</h3>
         <table class="table table-bordered table-hover">
             <thead class="thead-dark">
                 <tr>

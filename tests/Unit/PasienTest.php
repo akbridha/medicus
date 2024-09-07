@@ -21,14 +21,21 @@ class PasienTest extends TestCase
 
     public function testIndexPasien(): void
     {
+        // akses url
         $response = $this->get('/pasien');
-
+        // cek status
         $response->assertStatus(200);
+        //cek konten yg ditampilkeun
+        $response->assertSee('pasien');
     }
 
     public function testCariDataPasien(){
-        $response = $this->get('cari?kata_kunci=adam');
+        //akses url
+        $response = $this->get('/pasien/cari?kata_kunci=adam');
+        // test status
         $response->assertStatus(200);
+        //cek halaman
+        $response->assertSee('pasien');
 
     }
 }

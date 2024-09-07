@@ -23,7 +23,8 @@ class RekamMedis extends Model
         'diagnosa',
         'suhu',
         'respiratory',
-        'heart_rate'
+        'heart_rate',
+        'bmhp'
     ];
 
     public function pasien()

@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
+use Tests\TestCase;
 
 class IterasiLimaTest extends TestCase
 {
@@ -11,8 +11,14 @@ class IterasiLimaTest extends TestCase
     /**
      * Menampilkan halaman input data BMHP ke sistem
      */
-    public function test__show_create(): void
+    public function test_show_create(): void
     {
+        //aksi akses
+        $response = $this->get('/logistik_create');
+        //cek status
+        $response->assertStatus(200);
+        //cek konten
+        $response->assertSee("Formulir Logistik Baru");
         $this->assertTrue(true);
     }
 

@@ -12,6 +12,6 @@ class RekamMedisSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        \App\Models\RekamMedis::factory(300)->create();
     }
 }

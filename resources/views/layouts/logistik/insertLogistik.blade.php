@@ -5,7 +5,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        Formulir Logistik
+                        Formulir Logistik Baru
                     </div>
                     <div class="card-body">
                         <form action="{{ route('logistik.store') }}" method="POST">

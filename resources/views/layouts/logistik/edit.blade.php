@@ -32,17 +32,19 @@
                                 <input type="number" name="jumlah" id="jumlah" class="form-control" value="{{ $logistik->jumlah }}">
                             </div>
 
-                            <div class="d-flex justify-content-between">
                                 <button type="submit" class="btn btn-primary">Update</button>
-                                {{-- tombol hapus --}}
-                                <form action="{{ route('logistik.destroy', $logistik->id) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">Hapus</button>
-                                </form>
 
-                            </div>
                         </form>
+                        <div class="container-fluid">
+                            {{-- tombol hapus --}}
+                            <form action="{{ route('logistik.destroy', $logistik->id) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger float-right">Hapus</button>
+                            </form>
+
+                        </div>
+
                     </div>
 
                 </div>
