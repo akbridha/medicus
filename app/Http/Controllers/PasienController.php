@@ -124,8 +124,8 @@ class PasienController extends Controller
     public function edit(Request $request){
         $currentUser = Auth::user();
 
-        // return $request;
-        return view('layouts.pasien.editPasien', compact('request', 'currentUser'));
+        $pasien = Pasien::find($request->pasien_id);
+        return view('layouts.pasien.editPasien', compact('pasien', 'currentUser'));
     }
 
     /**
