@@ -59,9 +59,9 @@
     </form>
 
     <div class="d-flex justify-content-end mt-3">
-        <form method="GET" action="{{ route('pasien.hapus') }}">
+        <form method="POST" action="{{ route('pasien.hapus') }}">
             @csrf
-            <input type="hidden" id="id" name="id" value="{{ $pasien->pasien_id }}">
+            <input type="hidden" id="id" name="id" value="{{ $pasien->id }}">
             <button type="submit" class="btn btn-danger">Hapus</button>
         </form>
     </div>

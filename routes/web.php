@@ -14,6 +14,7 @@ use App\Models\RekamMedis;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request ;
 
 /*
 |--------------------------------------------------------------------------
@@ -95,7 +96,8 @@ Route::group(
         Route::post('pasien/store', [PasienController::class, 'store'])->name('pasien.store');
         Route::post('pasien/edit', [PasienController::class, 'edit'])->name('pasien.edit');
         Route::put('/pasien/{pasien}', [PasienController::class, 'update'])->name('pasien.update');
-        Route::get('/hapus', [PasienController::class, 'destroy'])->name('pasien.hapus');
+        Route::post('/hapus', [PasienController::class, 'destroy'])->name('pasien.hapus');
+        // Route::post('/hapus', function(Request $request){       return $request;    })->name('pasien.hapus');
     }
 );
         // route menggunakan 2 role. cukup dengan menggunakan auth: di blade
