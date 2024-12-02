@@ -23,11 +23,19 @@
                         <td style="width: 250px;">
                             <div class="action-buttons d-inline-block">
                                 <!-- tombol untuk ke halaman periksa -->
+                                @if (isset($rekamMedis->pasien->id))
                                 <a href="{{ route('rm.periksa', $rekamMedis) }}" class="btn btn-success btn-block">Periksa</a>
                                 <div class="btn-group mt-2" role="group" aria-label="Action Buttons">
                                     <a href="{{ route('rm.showlist', ['id' => $rekamMedis->pasien->id ]) }}" class="btn btn-primary">Riwayat</a>
                                     <a href="{{ route('keluarga.find', ['id' => $rekamMedis->pasien->id ]) }}" class="btn btn-info">Keluarga</a>
                                 </div>
+                                @else
+                                <a href="{{ route('rm.periksa', $rekamMedis) }}" class="btn btn-success btn-block disabled" tabindex="-1" aria-disabled="true">Periksa</a>
+                                <div>
+                                    <a href="#" class="btn btn-primary disabled" tabindex="-1" aria-disabled="true">Riwayat</a>
+                                    <a href="#" class="btn btn-secondary disabled" tabindex="-1" aria-disabled="true">Keluarga</a>
+                                </div>
+                                @endif
                             </div>
                         </td>
                     </tr>

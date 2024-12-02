@@ -80,7 +80,7 @@ class RekamMedisController extends Controller
     // crc : Meneruskan data ke dalam antrian berobat [iterasi 2]
     public function regis(Request $request)   {
         //   return $request;
-     
+
         try {
             RekamMedis::create([
                 'pasien_id' => $request->input('pasien_id'),
@@ -168,12 +168,12 @@ class RekamMedisController extends Controller
         $rekamMedis->load('pasien');
         if ($namaLogistik) {
             $rekamMedis->BMHP .= ($rekamMedis->BMHP ? ',' : '') . $namaLogistik;
-   
+
         }
-        
+
         // return $rekamMedis->BMHP;
 
-        
+
         return view('layouts.rm.editRekamMedis', compact('rekamMedis', 'currentUser'));
     }
 
