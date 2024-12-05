@@ -153,16 +153,17 @@ class LogistikController extends Controller
 
     // Menyimpan perubahan BMHP tiap kali pemeriksaan [iterasi 5]
     public function storeTransaksi(Request $request){
+        // return $request->bmhpUpdate;
         try {
             // Retrieve the array of logistik data from the request
             $logistikData = $request->bmhpUpdate;
-    
+
             // Iterate over each logistik data item
             foreach ($logistikData as $logistik) {
                 $id = $logistik['id'];
                 $jumlah = $logistik['jumlah'];
                 $namaLogistik[] = $logistik['nama'];
-    
+
                 // Find the Logistik item by ID and update its 'jumlah' value
                 $logistikItem = Logistik::find($id);
                 if ($logistikItem) {
@@ -170,13 +171,13 @@ class LogistikController extends Controller
                     $logistikItem->save();
                 }
             }
-    
+
             // If everything went well, return a success response
             return response()->json([
                 'status' => 'success',
                 'message' => 'Data berhasil disimpan'
             ]);
-    
+
         } catch (\Exception $e) {
             // If an error occurs, return an error response
             return response()->json([

@@ -32,8 +32,8 @@
                                 @else
                                 <a href="{{ route('rm.periksa', $rekamMedis) }}" class="btn btn-success btn-block disabled" tabindex="-1" aria-disabled="true">Periksa</a>
                                 <div>
-                                    <a href="#" class="btn btn-primary disabled" tabindex="-1" aria-disabled="true">Riwayat</a>
-                                    <a href="#" class="btn btn-secondary disabled" tabindex="-1" aria-disabled="true">Keluarga</a>
+                                    <a href="#" class="btn btn-primary disabled mt-1" tabindex="-1" aria-disabled="true">Riwayat</a>
+                                    <a href="#" class="btn btn-secondary disabled mt-1" tabindex="-1" aria-disabled="true">Keluarga</a>
                                 </div>
                                 @endif
                             </div>

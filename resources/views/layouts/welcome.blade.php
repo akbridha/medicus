@@ -85,6 +85,8 @@
             </div>
             {{-- row --}}
 
+
+
             <div class="row mt-4">
 
                 <div class="col-md-2">
@@ -124,6 +126,39 @@
                 {{-- <div class="card-body"> --}}
                 <canvas id="bmhpChart"></canvas>
                 {{-- </div> --}}
+            </div>
+
+            <div class="card mt-5" style="height: 250px; width: 1100px;">
+
+
+                <div class="container">
+                    <h1>To-Do List</h1>
+                    <!-- Task List -->
+                    <div class="card-body">
+
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Task</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($todos as $todo)
+                                <tr>
+                                    <td>{{ $todo->title }}</td>
+                                    <td>{{ $todo->is_completed ? 'Completed' : 'Pending' }}</td>
+
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td colspan="3" class="text-center">No tasks found.</td>
+                                </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
             <div class="card mt-4">
                 <div class="card-header">

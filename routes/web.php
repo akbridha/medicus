@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TodoController;
 use App\Http\Controllers\PasienController;
 use App\Http\Controllers\RekamMedisController;
 use App\Http\Controllers\UserController;
@@ -11,8 +13,6 @@ use App\Models\Keluarga;
 use App\Models\Logistik;
 use App\Models\Pasien;
 use App\Models\RekamMedis;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request ;
 
@@ -28,53 +28,7 @@ use Illuminate\Http\Request ;
 */
 
 //   crc card : Mengarahkan User ke dashboard
-Route::get('/', function () {
-    $currentUser  = Auth::user();
-    $jumlahPasien = Pasien::count();
-    $bulanIni = Carbon::now()->month;
-    $tahunIni = Carbon::now()->year;
-
-    $jumlahPasienBulanIni = Pasien::whereMonth('created_at', $bulanIni)
-                        ->whereYear('created_at', $tahunIni)
-                        ->count();
-
-    // untuk menampilkan jumlah antrian
-    $antrian = RekamMedis::where('pemeriksaan', 'belum diperiksa')->count();
-
-    //untuk chart bmhp
-    $bmhp = Logistik::all(['nama', 'jumlah']);
-
-
-    // Mendapatkan rentang tanggal untuk bulan ini
-    $endDateBulanSekarang = Carbon::now()->endOfMonth(); // Akhir bulan ini
-    $startDateBulanSekarang = Carbon::now()->startOfMonth(); // Awal bulan ini
-    $jumlahRmBulanSekarang = RekamMedis::whereBetween('tanggal', [$startDateBulanSekarang, $endDateBulanSekarang])->count();
-
-    // Mendapatkan rentang tanggal untuk bulan lalu
-    $endDateBulanMinSatu = Carbon::now()->subMonth()->endOfMonth(); // Akhir bulan lalu
-    $startDateBulanMinSatu = Carbon::now()->subMonth()->startOfMonth(); // Awal bulan lalu
-    $jumlahRmBulanMinSatu = RekamMedis::whereBetween('tanggal', [$startDateBulanMinSatu, $endDateBulanMinSatu])->count();
-
-    // Mendapatkan rentang tanggal untuk dua bulan lalu
-    $endDateBulanMinDua = Carbon::now()->subMonths(2)->endOfMonth(); // Akhir dua bulan lalu
-    $startDateBulanMinDua = Carbon::now()->subMonths(2)->startOfMonth(); // Awal dua bulan lalu
-    $jumlahRmBulanMinDua = RekamMedis::whereBetween('tanggal', [$startDateBulanMinDua, $endDateBulanMinDua])->count();
-
-    // Mendapatkan nama bulan
-    $bulanSekarang = Carbon::now()->format('F');
-    $bulanMinSatu = Carbon::now()->subMonth()->format('F');
-    $bulanMinDua = Carbon::now()->subMonths(2)->format('F');
-
-// return 'Pasien bulan ini: --'. $jumlahRmBulanSekarang.',Bulan lalu:--'.$jumlahRmBulanMinSatu. ', Dua Bulan Lalu :--'. $jumlahRmBulanMinDua. 'bulan-buluan : '. $bulanSekarang. $bulanMinSatu.$bulanMinDua;
-
-
-
-
-return view('layouts.welcome', compact(
-'currentUser','antrian','jumlahPasien', 'jumlahPasienBulanIni',
-'jumlahRmBulanSekarang','jumlahRmBulanMinSatu','jumlahRmBulanMinDua',
-'bulanSekarang', 'bulanMinSatu', 'bulanMinDua','bmhp'));
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 
 
@@ -171,3 +125,9 @@ Route::post('/logistik/{rm_id}/clear-session-logistik', function($rm_id){
 Route::get('/export_db', [DatabaseController::class,'eksport']);
 Route::get('/cek_path', function(){echo getenv('PATH');});
 // Route::get('/add_sql_to_path', function(){echo getenv('PATH');});
+
+
+Route::get('/todos', [TodoController::class, 'index'])->name('todos.index');
+Route::post('/todos', [TodoController::class, 'store'])->name('todos.store');
+Route::patch('/todos/{todo}', [TodoController::class, 'update'])->name('todos.update');
+Route::delete('/todos/{todo}', [TodoController::class, 'destroy'])->name('todos.destroy');

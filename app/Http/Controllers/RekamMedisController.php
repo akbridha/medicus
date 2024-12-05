@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Logistik;
 use App\Models\RekamMedis;
 use App\Http\Requests\StoreRekamMedisRequest;
 use App\Http\Requests\UpdateRekamMedisRequest;
@@ -144,19 +145,20 @@ class RekamMedisController extends Controller
 
 
     //    Menampilkan Keluhan (RPS)  [iterasi 3]
-    public function periksa(RekamMedis $rekamMedis, $namaLogistik = null  )    {
+    public function periksa(RekamMedis $rekamMedis, $namaLogistikDipilih = null  )    {
         $currentUser = Auth::user();
         $rekamMedis->load('pasien');
+        $logistikAll = Logistik::all();
         // apabila nama logistik ada
-        if ($namaLogistik) {
+        if ($namaLogistikDipilih) {
             //  ubah $namaLogistik menjadi array
-            $namaLogistikArray = explode(',', $namaLogistik);
+            $namaLogistikArray = explode(',', $namaLogistikDipilih);
         }
         // return $rekamMedis;
 
 
 
-        return view('layouts.rm.periksaRekamMedis', compact('rekamMedis','namaLogistik', 'currentUser'));
+        return view('layouts.rm.periksaRekamMedis', compact('rekamMedis','logistikAll','namaLogistikDipilih', 'currentUser'));
     }
 
 

@@ -10,11 +10,7 @@
                     <h3>Barang Medis Habis Pakai</h3>
                 </div>
                 <div class="card-body">
-                    @if(session('success'))
-                        <div class="alert alert-success">
-                            {{ session('success') }}
-                        </div>
-                    @endif
+
                     @if($logistiks->isEmpty())
                         <p class="text-center">Tidak ada data logistik.</p>
                     @else
@@ -39,19 +35,11 @@
                                         <td>{{ $logistik->jumlah }}</td>
                                         <td>
 
-                                        <button type="button" class="btn btn-success pilih-logistik" 
-                                        data-id="{{ $logistik->id }}" 
-                                        data-nama="{{ $logistik->nama }}" 
+                                        <button type="button" class="btn btn-success pilih-logistik"
+                                        data-id="{{ $logistik->id }}"
+                                        data-nama="{{ $logistik->nama }}"
                                         data-jumlah="{{ $logistik->jumlah }}">Pilih</button>
 
-                                            <!-- <form method="POST" action="{{ route('logistik.pilihtambah') }}" class="d-inline-block">
-                                                @csrf
-                                                <input type="hidden" name="id" value="{{ $logistik->id }}">
-                                                <input type="hidden" name="nama" value="{{ $logistik->nama }}">
-                                                <input type="hidden" name="jumlah" value="{{ $logistik->jumlah }}">
-                                                <input type="hidden" name="id_rm" value="{{ $rekamMedis }}">
-                                                <button type="submit" class="btn btn-success">Pilih</button>
-                                            </form> -->
                                         </td>
                                     </tr>
                                 @endforeach
@@ -61,83 +49,24 @@
                 </div>
             </div>
 
-            @if($pilihans)
-                <h3 class="mb-3">BMHP yang Dipilih</h3>
-                <form method="POST" action="{{ route('logistik.txupdate') }}">
-                    @csrf
-                    <input type="hidden" name="id_rm" value="{{ $rekamMedis }}">
-                    <div class="table-responsive mb-4">
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Nama</th>
-                                    <th>Tersedia</th>
-                                    <th>Alokasi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($pilihans as $pilihan)
-                                    <tr>
-                                        <td>{{ $pilihan['nama'] }}</td>
-                                        <td>
-                                            <span id="counter-{{ $pilihan['id'] }}" class="counter-box">{{ $pilihan['jumlah'] }}</span>
-
-
-
-                                            <input type="hidden"
-                                            name="logistik[{{ $pilihan['id'] }}][tersedia]"
-                                            id="hiddenCounter-{{ $pilihan['id'] }}"
-                                            value="{{ $pilihan['jumlah'] }}">
-                                            <input type="hidden" name="logistik[{{ $pilihan['id'] }}][id]" value="{{ $pilihan['id'] }}">
-                                            <input type="hidden" name="logistik[{{ $pilihan['id'] }}][nama]" value="{{ $pilihan['nama'] }}">
-                                        </td>
-                                        <td>
-                                            <div class="input-group">
-                                                <span class="input-group-btn">
-                                                    <button type="button" class="btn btn-primary decrementButton" data-id="{{ $pilihan['id'] }}">-</button>
-                                                </span>
-                                                <input type="number" id="numberInput-{{ $pilihan['id'] }}" class="form-control text-center numberInput" value="0">
-                                                <span class="input-group-btn">
-                                                    <button type="button" class="btn btn-primary incrementButton" data-id="{{ $pilihan['id'] }}">+</button>
-                                                </span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                        <button type="submit" class="btn btn-primary">
-                            <img src="{{ asset('Icons/file-plus.svg') }}" alt="file-plus" width="25" height="27">
-                            Simpan
-                        </button>
-                    </div>
-                </form>
-                        <form method="POST" action="{{ route('logistik.clear-session', $rekamMedis) }}">
-                            @csrf
-                            <button type="submit" class="btn btn-danger">Hapus pilihan</button>
-                        </form>
-            @endif
+            <button class="btn btn-success tambah-btn" id="tambah-btn">Print <></button>
+            <button id="submitButton" class="btn btn-success tambah-btn">Tambah</button>
         </div>
     </div>
-    <button class="btn btn-success" id="tambah-btn">Tambah</button>
-
-    <button id="submitButton">Kirim Data</button>
 
 
     <table id="pilihan-table" class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Nama</th>
-            <th>Tersedia</th>
-            <th>Alokasi</th>
-        </tr>
-    </thead>
-    <tbody>
-        <!-- Data dari array `pilihans` akan diisi di sini -->
-    </tbody>
-</table>
+        <thead>
+            <tr>
+                <th>Nama</th>
+                <th>Tersedia</th>
+                <th>Alokasi</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data dari array `pilihans` akan diisi di sini -->
+        </tbody>
+    </table>
 </div>
 
 <style>
@@ -154,11 +83,73 @@
 </style>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>let bmhpPilihan = [];
+<script>
+
+let bmhpPilihan = [];
+
+// Fungsi utama untuk memperbarui tabel
+function updatePilihanTable() {
+    let tableBody = document.querySelector('#pilihan-table tbody');
+    clearTable(tableBody);
+
+    bmhpPilihan.forEach(bmhp => {
+        let newRow = createTableRow(bmhp);
+        appendRowToTable(tableBody, newRow);
+    });
+}
+
+// Fungsi untuk mengosongkan tabel
+function clearTable(tableBody) {
+    tableBody.innerHTML = '';
+}
+
+// Fungsi untuk membuat baris tabel baru
+function createTableRow(bmhp) {
+    return `
+        <tr>
+            <td>${bmhp.nama}</td>
+            <td>
+                <span id="counter-${bmhp.id}" class="counter-box">${bmhp.jumlah}</span>
+                <input type="hidden" name="logistik[${bmhp.id}][tersedia]" id="hiddenCounter-${bmhp.id}" value="${bmhp.jumlah}">
+                <input type="hidden" name="logistik[${bmhp.id}][id]" value="${bmhp.id}">
+                <input type="hidden" name="logistik[${bmhp.id}][nama]" value="${bmhp.nama}">
+            </td>
+            <td>
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-primary decrementButton" data-id="${bmhp.id}">-</button>
+                    </span>
+                    <input type="number" id="numberInput-${bmhp.id}" class="form-control text-center numberInput" value="${bmhp.dipakai}">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-primary incrementButton" data-id="${bmhp.id}">+</button>
+                    </span>
+                </div>
+            </td>
+        </tr>
+    `;
+}
+
+// Fungsi untuk menambahkan baris baru ke tabel
+function appendRowToTable(tableBody, row) {
+    tableBody.insertAdjacentHTML('beforeend', row);
+}
+
+//apabila belum memilih bmhp apapun
+function cekPilihanKosongHideHeader() {
+    let tableHeader = document.querySelector('#pilihan-table thead');
+    if (bmhpPilihan.length === 0) {
+        tableHeader.style.display = 'none';
+        console.log("array kosong");
+    } else {
+        tableHeader.style.display = '';
+        console.log("array ada");
+    }
+}
 
 document.addEventListener('DOMContentLoaded', function () {
-    toggleTableHeader();
-    document.querySelectorAll('.pilih-logistik').forEach(function (button) {
+
+    cekPilihanKosongHideHeader();
+    document.querySelectorAll('.pilih-logistik').forEach(function (button) { /*untuk setiap button dibikinkan function*/
         button.addEventListener('click', function () {
             let logistikId = this.getAttribute('data-id');
             let logistikNama = this.getAttribute('data-nama');
@@ -166,7 +157,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Cek apakah item dengan logistikId sudah ada di array bmhpPilihan
             let itemExist = bmhpPilihan.some(function(item) {
-            return item.id === logistikId;
+            return item.id === logistikId; /*ini adalah persyaratan apakah ada salah satu item yang id nya sama dengan yg sudah ada*/
             });
 
             if (!itemExist) {
@@ -174,22 +165,24 @@ document.addEventListener('DOMContentLoaded', function () {
                 bmhpPilihan.push({
                     id: logistikId,
                     nama: logistikNama,
-                    jumlah: logistikJumlah,
-                    dipakai: 0
+                    jumlah: (logistikJumlah - 1),
+                    dipakai: 1
                 });
                 // Perbarui tabel tampilan BMHP yang dipilih
                 updatePilihanTable();
             } else {
                 console.log("Item dengan ID " + logistikId + " sudah ada dalam pilihan.");
             }
-            toggleTableHeader();
+            cekPilihanKosongHideHeader();
         });
+
     });
 
 
 
     // Event delegation untuk tombol increment dan decrement
     document.addEventListener('click', function(event) {
+        //tombol tambah
         if (event.target.classList.contains('incrementButton')) {
             let logistikId = event.target.getAttribute('data-id');
             let item = bmhpPilihan.find(item => item.id === logistikId);
@@ -211,11 +204,12 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
 
+        //Tombol kurangi
         if (event.target.classList.contains('decrementButton')) {
             let logistikId = event.target.getAttribute('data-id');
             let item = bmhpPilihan.find(item => item.id === logistikId);
 
-            if (item && item.dipakai > 0) {
+            if (item && item.dipakai > 1) {
                 item.dipakai--;
                 item.jumlah++;
 
@@ -230,16 +224,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 console.log('Jumlah tersedia sekarang untuk logistik ' + logistikId + ': ' + item.jumlah);
             }
+            else{
+                bmhpPilihan = bmhpPilihan.filter(function(obj){
+                    return obj.id !== item.id ;
+                })
+                console.log(`id yang dihapus ${item.id}`);
+                updatePilihanTable();
+                cekPilihanKosongHideHeader();
+            }
         }
-    });
 
-        // Event listener untuk tombol "Tambah"
-    document.getElementById("tambah-btn").addEventListener('click', function(){
-        console.log(bmhpPilihan);
-    });
+        if (event.target.classList.contains('tambah-btn')) {
+            console.log('aloha');
+        }
 
-    document.getElementById('submitButton').addEventListener('click', function() {
-        let selectedItemNames = bmhpPilihan.map(item => item.nama).join(',');
+
+
+        if (event.target.id === 'submitButton') {
+
+
+            console.log(event.target.id);
+            let selectedItemNames = bmhpPilihan.map(item => item.nama).join(',');
         fetch('{{ route("logistik.txupdate") }}', { // Ganti dengan nama route Anda
             method: 'POST',
             headers: {
@@ -252,61 +257,22 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(data => {
             console.log(data);
             // Redirect atau tindakan lainnya setelah sukses
-            window.location.href = `/rm/{{ $rekamMedis }}/periksa/${encodeURIComponent(selectedItemNames)}`;
+            // window.location.href = `/rm/{{ $rekamMedis }}/periksa/${encodeURIComponent(selectedItemNames)}`;
+            console.log({{ $rekamMedis }});
         })
         .catch((error) => {
             console.error('Error:', error);
         });
+        }
+
+
+
     });
+
 
 
 
 });
-
-function updatePilihanTable() {
-    // Kosongkan tabel sebelum diisi ulang
-    let tableBody = document.querySelector('#pilihan-table tbody');
-    tableBody.innerHTML = '';
-
-    // Tambahkan setiap item di `bmhpPilihan` ke tabel
-    bmhpPilihan.forEach(bmhp => {
-        let newRow = `
-            <tr>
-                <td>${bmhp.nama}</td>
-                <td>
-                    <span id="counter-${bmhp.id}" class="counter-box">${bmhp.jumlah}</span>
-                    <input type="hidden" name="logistik[${bmhp.id}][tersedia]" id="hiddenCounter-${bmhp.id}" value="${bmhp.jumlah}">
-                    <input type="hidden" name="logistik[${bmhp.id}][id]" value="${bmhp.id}">
-                    <input type="hidden" name="logistik[${bmhp.id}][nama]" value="${bmhp.nama}">
-                </td>
-                <td>
-                    <div class="input-group">
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-primary decrementButton" data-id="${bmhp.id}">-</button>
-                        </span>
-                        <input type="number" id="numberInput-${bmhp.id}" class="form-control text-center numberInput" value="0">
-                        <span class="input-group-btn">
-                            <button type="button" class="btn btn-primary incrementButton" data-id="${bmhp.id}">+</button>
-                        </span>
-                    </div>
-                </td>
-            </tr>
-        `;
-        tableBody.insertAdjacentHTML('beforeend', newRow);
-    });
-
-    
-}
-function toggleTableHeader() {
-let tableHeader = document.querySelector('#pilihan-table thead');
-    if (bmhpPilihan.length === 0) {
-        tableHeader.style.display = 'none';
-        console.log("array kosong");
-    } else {
-        tableHeader.style.display = '';
-        console.log("array ada");
-    }
-}
 
 
 
