@@ -49,9 +49,10 @@ class HomeController extends Controller
         $bulanMinSatu = Carbon::now()->subMonth()->format('F');
         $bulanMinDua = Carbon::now()->subMonths(2)->format('F');
 
-    // return 'Pasien bulan ini: --'. $jumlahRmBulanSekarang.',Bulan lalu:--'.$jumlahRmBulanMinSatu. ', Dua Bulan Lalu :--'. $jumlahRmBulanMinDua. 'bulan-buluan : '. $bulanSekarang. $bulanMinSatu.$bulanMinDua;
+    // return 'Pasien bulan ini: --'. $bulanSekarang. $jumlahRmBulanSekarang.',Bulan lalu:--'. $bulanMinSatu.$jumlahRmBulanMinSatu. ', Dua Bulan Lalu :--'.$bulanMinDua. $jumlahRmBulanMinDua. 'bulan-buluan : ';
 
 
+    // return $jumlahPasienBulanIni;
 
 
     return view('layouts.welcome', compact(

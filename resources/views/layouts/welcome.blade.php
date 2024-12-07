@@ -132,7 +132,12 @@
 
 
                 <div class="container">
-                    <h1>To-Do List</h1>
+                    <div class="row d-flex justify-content-between px-4">
+                        <h1 class="bg-info mt-2 p-2" style="border-radius: 15px;">Dev To-Do List</h1>
+                        <a href="/todos" class="btn align-self-center btn-success mr-3" style="width: 130px;">Go</a>
+
+                    </div>
+
                     <!-- Task List -->
                     <div class="card-body">
 
@@ -178,7 +183,7 @@
 
         </div>
         {{-- <h2>{{ $bmhp }}</h2> --}}
-
+        {{ $jumlahPasienBulanIni }}, {{ $jumlahRmBulanMinSatu }}, {{$jumlahRmBulanMinDua}}
     </body>
 
 </html>
@@ -200,7 +205,8 @@ new Chart(pasienChart, {
         labels: ['{{ $bulanSekarang }}', '{{ $bulanMinSatu }}', '{{ $bulanMinDua }}'],
         datasets: [{
             label: 'Pasien',
-            data: [ {{ $jumlahRmBulanSekarang }}, {{ $jumlahRmBulanMinSatu }}, {{$jumlahRmBulanMinDua}}],
+            data: [  {{ $jumlahRmBulanSekarang }}, {{ $jumlahRmBulanMinSatu }}, {{$jumlahRmBulanMinDua}}],
+            /*data: [ 2, 4, 9],*/
             borderWidth: 1,
                 backgroundColor: [
                 'rgba(75, 192, 192, 0.2)',
