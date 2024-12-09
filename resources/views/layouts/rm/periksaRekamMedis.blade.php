@@ -50,8 +50,23 @@
             <div class="col-md-6"> <!-- Menggunakan setengah lebar -->
                 <!-- Konten kolom kiri -->
                 <h2>Tindakan</h2>
-                <div class="mt-4">
+                {{-- <div class="mt-4">
                     <a href="{{route('logistik.tx', $rekamMedis->id )}}" class="text-decoration-none text-dark">
+                        <div class="card bg-primary text-white">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <img src="{{asset('Icons/round-arrow.svg')}}" alt="round-arrow" width="28" height="24">
+                                    TX Logistik
+                                </h5>
+                                <p class="card-text">Transaksi</p>
+                            </div>
+                        </div>
+                    </a>
+                </div> --}}
+
+
+                <div class="mt-4">
+                    <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal" class="text-decoration-none text-dark">
                         <div class="card bg-primary text-white">
                             <div class="card-body">
                                 <h5 class="card-title">
@@ -176,9 +191,9 @@
 
                 {{-- modal --}}
                 <!-- Trigger Button -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+{{-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
     Launch Modal
-</button>
+</button> --}}
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -222,7 +237,7 @@
                                                 <td>{{ $logistik->jumlah }}</td>
                                                 <td>
 
-                                                <button type="button" class="btn btn-success pilih-logistik"
+                                                <button type="button" class="btn btn-primary pilih-logistik"
                                                 data-id="{{ $logistik->id }}"
                                                 data-nama="{{ $logistik->nama }}"
                                                 data-jumlah="{{ $logistik->jumlah }}">Pilih</button>
@@ -236,8 +251,8 @@
                         </div>
                     </div>
 
-                    <button class="btn btn-success tambah-btn" id="tambah-btn">Print <></button>
-                    <button id="submitButton" class="btn btn-success tambah-btn">Tambah</button>
+                    {{-- <button class="btn btn-success tambah-btn" id="tambah-btn">Print <></button> --}}
+                    {{-- <button  class="btn btn-success tambah-btn">Tambah</button> --}}
                 </div>
             </div>
 
@@ -259,7 +274,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button id="submitButton" type="button" class="btn  btn-success">Save changes</button>
       </div>
     </div>
   </div>

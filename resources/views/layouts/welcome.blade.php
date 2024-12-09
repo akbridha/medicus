@@ -1,6 +1,16 @@
 @extends('header')
 
 @section('content')
+
+
+<style>
+    .scrollable-container {
+        max-height: 300px; /* Tinggi maksimal */
+        overflow-y: auto; /* Scroll secara vertikal */
+        border: 1px solid #ccc; /* Opsional: untuk visual */
+        padding: 10px;
+    }
+</style>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
@@ -128,40 +138,45 @@
                 {{-- </div> --}}
             </div>
 
-            <div class="card mt-5" style="height: 250px; width: 1100px;">
+            <div class="card mt-5" style="height: 400px; width: 1100px;">
 
 
                 <div class="container">
                     <div class="row d-flex justify-content-between px-4">
                         <h1 class="bg-info mt-2 p-2" style="border-radius: 15px;">Dev To-Do List</h1>
-                        <a href="/todos" class="btn align-self-center btn-success mr-3" style="width: 130px;">Go</a>
+                        <a href="/todos" class="btn align-self-center btn-primary mr-3" style="width: 130px;">Go</a>
 
                     </div>
 
                     <!-- Task List -->
                     <div class="card-body">
+                        <div class="container" style="height: 280px; overflow-y: scroll;">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Task</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
 
-                        <table class="table table-bordered">
-                            <thead>
-                                <tr>
-                                    <th>Task</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse ($todos as $todo)
-                                <tr>
-                                    <td>{{ $todo->title }}</td>
-                                    <td>{{ $todo->is_completed ? 'Completed' : 'Pending' }}</td>
-
-                                </tr>
-                                @empty
-                                <tr>
-                                    <td colspan="3" class="text-center">No tasks found.</td>
-                                </tr>
-                                @endforelse
-                            </tbody>
-                        </table>
+                                    @forelse ($todos as $todo)
+                                        <tr>
+                                            <td>{{ $todo->title }}</td>
+                                            <td>                        <button type="submit" class="btn btn-sm {{ $todo->is_completed ? 'btn-success' : 'btn-warning' }}">
+                                                {{ $todo->is_completed ? 'Complete' : 'Pending' }}
+                                            </button></td>
+                                            {{-- <td>{{ $todo->is_completed ? 'Completed' : 'Pending' }}</td> --}}
+                                        </tr>
+                                    </div>
+                                    @empty
+                                        <tr>
+                                            <td colspan="3" class="text-center">No tasks found.</td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -183,7 +198,6 @@
 
         </div>
         {{-- <h2>{{ $bmhp }}</h2> --}}
-        {{ $jumlahPasienBulanIni }}, {{ $jumlahRmBulanMinSatu }}, {{$jumlahRmBulanMinDua}}
     </body>
 
 </html>
