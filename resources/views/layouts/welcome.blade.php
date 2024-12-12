@@ -26,7 +26,7 @@
             <div class="row">
 
                 {{-- Auth::check()  untuk handle ketika nilai null --}}
-                @if (Auth::check() && Auth::user()->role === 'admin')
+                {{-- @if (Auth::check() && Auth::user()->role === 'admin') --}}
                 <div class="col-md-4 mt-4">
                     <a href="{{route('pasien.index')}}" class="text-decoration-none ">
                         <div class="card bg-success text-white">
@@ -41,7 +41,7 @@
                         </div>
                     </a>
                 </div>
-                @endif
+                {{-- @endif --}}
                 {{-- Auth::check()  untuk handle ketika nilai null --}}
                 @if (Auth::check() && Auth::user()->role === 'admin')
                 <div class="col-md-4 mt-4">

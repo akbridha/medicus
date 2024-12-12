@@ -6,21 +6,26 @@
         <table class="table table-bordered table-hover">
             <thead class="thead-dark">
                 <tr>
-                    <th>ID RM</th>
+                    {{-- <th>ID RM</th>
                     <th>Nama</th>
                     <th>Pemeriksaan</th>
                     <th>Keluhan</th>
-                    <th>Aksi</th>
+                    <th>Aksi</th> --}}
+                    <th style="width: 10px;">ID</th>
+                    <th style="width: 230px;">Nama</th>
+                    <th style="width: 250px;">Pemeriksaan</th>
+                    <th style="width: 500px;">Keluhan</th>
+                    <th style="width: 100px; text-align: center; vertical-align: middle;">Aksi</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($rekamMedises as $rekamMedis)
                     <tr>
-                        <td style="width: 130px;">{{ $rekamMedis->id }}</td>
-                        <td style="width: 130px;">{{ optional($rekamMedis->pasien)->Nama }}</td>
-                        <td>Belum diperiksa</td>
+                        <td >{{ $rekamMedis->id }}</td>
+                        <td >{{ optional($rekamMedis->pasien)->Nama }}</td>
+                        <td>{{ $rekamMedis->pemeriksaan }}</td>
                         <td>{{ $rekamMedis->keluhan }}</td>
-                        <td style="width: 250px;">
+                        <td >
                             <div class="action-buttons d-inline-block">
                                 <!-- tombol untuk ke halaman periksa -->
                                 @if (isset($rekamMedis->pasien->id))

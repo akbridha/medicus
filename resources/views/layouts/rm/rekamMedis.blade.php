@@ -8,11 +8,11 @@
         <table class="table table-bordered">
             <thead class="thead-light">
                 <tr>
-                    <th>Tanggal</th>
-                    <th>Nama Pasien</th>
-                    <th>Pemeriksaan</th>
-                    <th>Diagnosa</th>
-                    <th>Aksi</th>
+                    <th style="width: 50px;">Tanggal</th>
+                    <th style="width: 200px;">Nama Pasien</th>
+                    <th style="width: 250px;">Pemeriksaan</th>
+                    <th style="width: 300px;">Diagnosa</th>
+                    <th style="width: 100px;">Aksi</th>
                 </tr>
             </thead>
             <tbody>
