@@ -10,6 +10,20 @@
         border: 1px solid #ccc; /* Opsional: untuk visual */
         padding: 10px;
     }
+
+
+    .button-main {
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    }
+
+    .button-main:hover {
+    transform: scale(1.05); /* Memperbesar 10% */
+    }
+
 </style>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -28,66 +42,76 @@
                 {{-- Auth::check()  untuk handle ketika nilai null --}}
                 {{-- @if (Auth::check() && Auth::user()->role === 'admin') --}}
                 <div class="col-md-4 mt-4">
-                    <a href="{{route('pasien.index')}}" class="text-decoration-none ">
-                        <div class="card bg-success text-white">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    {{-- <i class="bi bi-folder-plus"></i> --}}
-                                    <img src="{{asset('Icons/folder-plus.svg')}}" alt="folder-plus" widht="28" height="24">
-                                    Rekam Medis
-                                </h5>
-                                <p class="card-text">Kunjungan Berobat</p>
+                    <div class="button-main">
+                        <a href="{{route('pasien.index')}}" class="text-decoration-none ">
+                            <div class="card bg-success text-white">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        {{-- <i class="bi bi-folder-plus"></i> --}}
+                                        <img src="{{asset('Icons/folder-plus.svg')}}" alt="folder-plus" widht="28" height="24">
+                                        Rekam Medis
+                                    </h5>
+                                    <p class="card-text">Kunjungan Berobat</p>
+                                </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    </div>
                 </div>
                 {{-- @endif --}}
                 {{-- Auth::check()  untuk handle ketika nilai null --}}
                 @if (Auth::check() && Auth::user()->role === 'admin')
                 <div class="col-md-4 mt-4">
-                    <a href="{{route('pasien.create')}}" >
-                    <div class="card bg-primary text-white">
-                            <div class="card-body">
-                                <h5 class="card-title">
-                                    <img src="{{asset("Icons/person-fill-add.svg")}}" alt="person-fill-add" width="28" height="24" >
-                                    Peserta Baru
-                                </h5>
-                                <p class="card-text">Pendaftaran Pasien</p>
+                    <div class="button-main">
+                        <a href="{{route('pasien.create')}}" >
+                            <div class="card bg-primary text-white">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <img src="{{asset("Icons/person-fill-add.svg")}}" alt="person-fill-add" width="28" height="24" >
+                                        Peserta Baru
+                                    </h5>
+                                    <p class="card-text">Pendaftaran Pasien</p>
+                                </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    </div>
                 </div>
                 @endif
                 {{-- Auth::check()  untuk handle ketika nilai null --}}
                 @if (Auth::check() && Auth::user()->role === 'docter')
                 <div class="col-md-4 mt-4">
-                    <a href="{{route('rm.antrian')}} " class="text-dark" >
-                        <div class="card bg-danger">
-                            <div class="card-body  mt-3">
-                                <h5 class="card-title">
-                                    <img src="{{ asset('Icons/person-lines-fill.svg') }}" alt="person list" widht="28" height="24">
-                                    Pasien on Queue
-                                </h5>
-                                <p class="card-text">
-                                    <img src="{{ asset('Icons/person-bulat.svg') }}" alt="person bulat">
-                                    {{ $antrian }} Orang
-                                </p>
+                    <div class="button-main">
+
+                        <a href="{{route('rm.antrian')}} " class="text-dark" >
+                            <div class="card bg-danger">
+                                <div class="card-body ">
+                                    <h5 class="card-title">
+                                        <img src="{{ asset('Icons/person-lines-fill.svg') }}" alt="person list" widht="28" height="24">
+                                        Pasien on Queue
+                                    </h5>
+                                    <p class="card-text">
+                                        <img src="{{ asset('Icons/person-bulat.svg') }}" alt="person bulat">
+                                        {{ $antrian }} Orang
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    </div>
                 </div>
                 @endif
                 <div class="col-md-4 mt-4">
-                    <a href="{{route('logistik.index')}}" class="text-decoration-none text-dark" >
-                        <div class="card bg-warning text-white">
-                            <div class="card-body">
+                    <div class="button-main">
 
-                                <h5 class="card-title">
-                                    <img src="{{asset('Icons/round-arrow.svg')}}" alt="round-arrow" width="28" height="24">
-                                    Logistik
+                        <a  href="{{route('logistik.index')}}" class="text-decoration-none text-dark" >
+                            <div class="card bg-warning text-white">
+                                <div class="card-body">
 
-                                </h5>
-                                <p class="card-text">Manajemen Stok</p>
+                                    <h5 class="card-title">
+                                        <img src="{{asset('Icons/round-arrow.svg')}}" alt="round-arrow" width="28" height="24">
+                                        Logistik
+
+                                    </h5>
+                                    <p class="card-text">Manajemen Stok</p>
+                                </div>
                             </div>
                         </a>
                     </div>
@@ -213,6 +237,12 @@ const bmhp = @json($bmhp);
 const NamaLabels = bmhp.map(item => item.nama);
 const JumlahData = bmhp.map(item => item.jumlah);
 
+const bodyMenu = document.querySelector('body');
+
+bodyMenu.addEventListener('click', function(e){
+    console.log('Body Presed');
+})
+
 new Chart(pasienChart, {
     type: 'bar',
     data: {
@@ -265,6 +295,8 @@ new Chart(bmhpChart, {
         }
     }
 });
+
+
 </script>
 
 @endsection
