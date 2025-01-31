@@ -162,6 +162,49 @@
                 {{-- </div> --}}
             </div>
 
+
+
+            {{-- untuk warning expired BMHP --}}
+            <div class="card mt-5" style="height: 400px; width: 1100px;">
+
+
+                <div class="container">
+                    <div class="row d-flex justify-content-between px-4">
+                        <h1 class="bg-warning mt-2 p-2" style="border-radius: 15px;">BMHP Menjelang Expired</h1>
+                        <a href="/todos" class="btn align-self-center btn-primary mr-3" style="width: 130px;">Go</a>
+
+                    </div>
+
+                    <!-- Task List -->
+                    <div class="card-body">
+                        <div class="container" style="height: 280px; overflow-y: scroll;">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Nama</th>
+                                        <th>Expired Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+{{--
+                                    @forelse ($data_bmhp as $bmhp)
+                                        <tr>
+                                            <td>{{ $bmhp->nama }}</td>
+                                            <td>{{ $bmhp->expired_date  }}
+                                            </button></td>
+                                        </tr>
+                                    </div>
+                                    @empty
+                                        <tr>
+                                            <td colspan="3" class="text-center">No BMHP found.</td>
+                                        </tr>
+                                    @endforelse --}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="card mt-5" style="height: 400px; width: 1100px;">
 
 

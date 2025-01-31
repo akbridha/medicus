@@ -14,6 +14,10 @@ class SessionController extends Controller
         $currentUser  = Auth::user();
         return view('layouts.sesi.index', compact('currentUser')); }
     //crc login
+
+
+
+
     function login(Request $request){
 
         //pengecekan apakah sudah login atau belum [ iterasi 1]
@@ -34,18 +38,39 @@ class SessionController extends Controller
             $user = User::where('email', $request->email)->first();
             if ($user && $request->password == $user->password) {
                 Auth::login($user);
-                return redirect('/')->with('key', 'Berhasil');
+                // return redirect('/')->with('key', 'Berhasil');
+
+                return redirect()->intended('/')->with('key', 'Berhasil Login Sebagai : '.$user->name);   /* Redirect ke halaman yang diinginkan sebelum login atau ke default */
             } else {
                 return redirect('/sesi')->withErrors('Username/Password tidak valid');
             }
-        }   }
+
+
+
+            // perbaikan menggunakan intended########
+                    // Coba login dengan kredensial yang diberikan
+        // if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        //     // Regenerasi session untuk keamanan
+        //     $request->session()->regenerate();
+
+        //     // Redirect ke halaman yang diinginkan sebelum login atau ke default '/'
+        //     return redirect()->intended('/');
+        // }
+
+        // // Jika gagal, kembali ke halaman login dengan error
+        // return redirect('/sesi')->withErrors('Username/Passwokkrd tidak valid');
+
+        }
+    }
         // crc logout [ iterasi 1]
-        public function logout(){
-            $user = Auth::user();
-            if($user != null){
-                Auth::logout(); // Melakukan logout pengguna
-                return redirect('/')->with('key', 'Berhasil Logout dari akun : '.$user->name); // Mengarahkan kembali ke halaman login
-            }else{
-                return redirect('/sesi')->with('key', 'Belum Login');
-            }    }
+    public function logout(){
+        $user = Auth::user();
+        if($user != null){
+            Auth::logout(); // Melakukan logout pengguna
+            return redirect('/')->with('key', 'Berhasil Logout dari akun : '.$user->name); // Mengarahkan kembali ke halaman login
+        }else{
+            return redirect('/sesi')->with('key', 'Belum Login');
+        }
+    }
+
 }
