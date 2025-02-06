@@ -276,6 +276,7 @@
 <script>
 const pasienChart = document.getElementById('pasienChart');
 const bmhpChart = document.getElementById('bmhpChart');
+const pasien = @json($rekamMedisStats);
 const bmhp = @json($bmhp);
 const NamaLabels = bmhp.map(item => item.nama);
 const JumlahData = bmhp.map(item => item.jumlah);
@@ -289,10 +290,10 @@ bodyMenu.addEventListener('click', function(e){
 new Chart(pasienChart, {
     type: 'bar',
     data: {
-        labels: ['{{ $bulanSekarang }}', '{{ $bulanMinSatu }}', '{{ $bulanMinDua }}'],
+        labels: [ pasien.bulanSekarang ,  pasien.bulanMinSatu ,  pasien.bulanMinDua ],
         datasets: [{
             label: 'Pasien',
-            data: [  {{ $jumlahRmBulanSekarang }}, {{ $jumlahRmBulanMinSatu }}, {{$jumlahRmBulanMinDua}}],
+            data: [   pasien.jumlahRmBulanSekarang ,  pasien.jumlahRmBulanMinSatu , pasien.jumlahRmBulanMinDua],
             /*data: [ 2, 4, 9],*/
             borderWidth: 1,
                 backgroundColor: [
