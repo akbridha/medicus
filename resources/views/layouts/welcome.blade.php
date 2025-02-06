@@ -277,6 +277,7 @@
 const pasienChart = document.getElementById('pasienChart');
 const bmhpChart = document.getElementById('bmhpChart');
 const bmhp = @json($bmhp);
+const rekamMedisStats = @json($rekamMedisStats);
 const NamaLabels = bmhp.map(item => item.nama);
 const JumlahData = bmhp.map(item => item.jumlah);
 
@@ -286,13 +287,15 @@ bodyMenu.addEventListener('click', function(e){
     console.log('Body Presed');
 })
 
+
+console.log(rekamMedisStats.jumlahRmBulanSekarang , rekamMedisStats.jumlahRmBulanMinSatu , rekamMedisStats.jumlahRmBulanMinDua);
 new Chart(pasienChart, {
     type: 'bar',
     data: {
-        labels: ['{{ $bulanSekarang }}', '{{ $bulanMinSatu }}', '{{ $bulanMinDua }}'],
+        labels: [rekamMedisStats.bulanSekarang , rekamMedisStats.bulanMinSatu , rekamMedisStats.bulanMinDua ],
         datasets: [{
             label: 'Pasien',
-            data: [  {{ $jumlahRmBulanSekarang }}, {{ $jumlahRmBulanMinSatu }}, {{$jumlahRmBulanMinDua}}],
+            data: [  rekamMedisStats.jumlahRmBulanSekarang , rekamMedisStats.jumlahRmBulanMinSatu , rekamMedisStats.jumlahRmBulanMinDua],
             /*data: [ 2, 4, 9],*/
             borderWidth: 1,
                 backgroundColor: [
