@@ -8,12 +8,12 @@ use App\Models\RekamMedis;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Carbon\Carbon;
 
-class HomeControllerDateTest extends TestCase
+class HomeControllerTest extends TestCase
 {
     use RefreshDatabase; // Membersihkan database sebelum setiap test
 
     /** @test */
-    public function it_can_get_total_pasien()
+    public function test_it_can_get_total_pasien()
     {
         // Buat 5 pasien di database testing
         Pasien::factory()->count(5)->create();
@@ -26,7 +26,7 @@ class HomeControllerDateTest extends TestCase
     }
 
     /** @test */
-    public function it_can_get_pasien_bulan_ini()
+    public function test_it_can_get_pasien_bulan_ini()
     {
         // Set tanggal ke Februari 2024
         Carbon::setTestNow(Carbon::create(2024, 2, 1));
