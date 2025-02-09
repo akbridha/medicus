@@ -1,0 +1,41 @@
+version: '3.8'
+services:
+  app:
+    image: php:8.1-fpm
+    container_name: php_app
+    volumes:
+      - .:/var/www/html
+    networks:
+      - laravel
+
+  webserver:
+    image: nginx:latest
+    container_name: nginx_server
+    ports:
+      - "8080:80"
+    volumes:
+      - type: bind
+        source: C:/Users/Lenovo/Main/sync/medicus/nginx.conf
+        target: /etc/nginx/nginx.conf
+        consistency: delegated
+    depends_on:
+      - app  # <-- Ubah dari "php_app" ke "app"
+    networks:
+      - laravel
+
+  db:
+    image: mysql:8
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: laravel_db
+      MYSQL_USER: laravel_user
+      MYSQL_PASSWORD: secret
+    ports:
+      - "3306:3306"
+    networks:
+      - laravel
+
+networks:
+  laravel:
