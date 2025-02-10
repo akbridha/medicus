@@ -1,7 +1,8 @@
-version: '3.8'
 services:
   app:
-    image: php:8.1-fpm
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: php_app
     volumes:
       - .:/var/www/html
@@ -12,14 +13,14 @@ services:
     image: nginx:latest
     container_name: nginx_server
     ports:
-      - "8080:80"
+      - "8082:80"
     volumes:
       - type: bind
         source: C:/Users/Lenovo/Main/sync/medicus/nginx.conf
         target: /etc/nginx/nginx.conf
         consistency: delegated
     depends_on:
-      - app  # <-- Ubah dari "php_app" ke "app"
+      - app
     networks:
       - laravel
 
@@ -28,10 +29,10 @@ services:
     container_name: mysql_db
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: laravel_db
-      MYSQL_USER: laravel_user
-      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: medicus
+      MYSQL_DATABASE: medicus
+      MYSQL_USER:
+      MYSQL_PASSWORD:
     ports:
       - "3306:3306"
     networks:
