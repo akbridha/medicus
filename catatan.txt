@@ -1,0 +1,13 @@
+Tambahkan kode ini untuk setting laravel di apache. Supaya pwd masuk ke  folder public
+
+/etc/apache2/sites-available/000-default.conf
+///////
+
+    DocumentRoot /var/www/html/public
+
+    <Directory /var/www/html/public>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+///////
